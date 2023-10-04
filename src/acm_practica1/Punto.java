@@ -9,7 +9,8 @@ package acm_practica1;
  * @author Maria S
  */
 public class Punto {
-     private double x;
+
+    private double x;
     private double y;
 
     public Punto() {
