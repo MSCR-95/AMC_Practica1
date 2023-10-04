@@ -14,16 +14,6 @@ public class ACM_Practica1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-<<<<<<< HEAD
-        Punto P1 = new Punto();
-        Punto P2 = new Punto();
-        P1.setX(5);
-        P1.setY(10);
-        P2.setX(2);
-        P2.setY(4);
-       ParDePuntos PdP = new ParDePuntos(P1, P2);
-        System.out.println("Distancia "+ PdP.distancia());
-=======
         
         //Declaramos los puntos
         Punto p1 = new Punto(1, 1);
@@ -44,7 +34,6 @@ public class ACM_Practica1 {
         System.out.println(distancia1);
         System.out.println(distancia2);
         
->>>>>>> 12ef7d26623afb963d63e49cc07c6001c93e347d
     }
     
 }
