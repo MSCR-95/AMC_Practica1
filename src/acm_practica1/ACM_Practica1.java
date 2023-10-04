@@ -14,8 +14,14 @@ public class ACM_Practica1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Holi");
-        System.out.println("HOLAAAAAA");
+        Punto P1 = new Punto();
+        Punto P2 = new Punto();
+        P1.setX(5);
+        P1.setY(10);
+        P2.setX(2);
+        P2.setY(4);
+       ParDePuntos PdP = new ParDePuntos(P1, P2);
+        System.out.println("Distancia "+ PdP.distancia());
     }
     
 }
