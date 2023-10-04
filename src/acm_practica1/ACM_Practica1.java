@@ -15,6 +15,7 @@ public class ACM_Practica1 {
      */
     public static void main(String[] args) {
         System.out.println("Holi");
+        System.out.println("HOLAAAAAA");
     }
     
 }
