@@ -15,6 +15,7 @@ public class ACM_Practica1 {
      */
     public static void main(String[] args) {
         
+        /*
         //Declaramos los puntos
         Punto p1 = new Punto(1, 1);
         Punto p2 = new Punto(5, 5);
@@ -33,6 +34,12 @@ public class ACM_Practica1 {
         //Comprobamos que distancia es mayor
         System.out.println(distancia1);
         System.out.println(distancia2);
+        */
+        
+        GeneraPuntos GP = new GeneraPuntos();
+        
+        GP.crearPuntosAleatorios(10, 5, 20);
+        GP.verPuntos();
         
     }
     
