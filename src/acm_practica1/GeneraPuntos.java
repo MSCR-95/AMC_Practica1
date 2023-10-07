@@ -8,6 +8,8 @@ public class GeneraPuntos {
 
     public List<Punto> puntos = new ArrayList<>();
     
+    //Añadir cargarPuntos() para cargar los puntos desde un fichero con extension: .tsp
+    
     public void crearPuntosAleatorios(int cantidadPuntos, int minimo, int maximo) {
 
         Random rand = new Random();
@@ -27,7 +29,7 @@ public class GeneraPuntos {
 
     public void verPuntos() {
         
-        System.out.println("-----------MOSTRAR LOS PUNTOS-----------");
+        System.out.println("------------MOSTRAR LOS PUNTOS-----------");
         for (int i = 0; i < puntos.size(); i++) {
             System.out.println(" " + puntos.get(i));
         }
