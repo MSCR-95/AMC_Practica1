@@ -1,14 +1,35 @@
 package acm_practica1;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class GeneraPuntos {
-    Punto p1 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p2 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p3 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p4 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p5 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p6 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p7 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p8 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p9 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
-    Punto p10 = new Punto((int)Math.floor(Math.random()*10+1), (int)Math.floor(Math.random()*10+1));
+
+    public List<Punto> puntos = new ArrayList<>();
+    
+    public void crearPuntosAleatorios(int cantidadPuntos, int minimo, int maximo) {
+
+        Random rand = new Random();
+        int ramdomX, ramdomY;
+
+        for (int i = 0; i < cantidadPuntos; i++) {
+
+            ramdomX = minimo + rand.nextInt((maximo - minimo) + 1);
+            ramdomY = minimo + rand.nextInt((maximo - minimo) + 1);
+
+            Punto p1 = new Punto(ramdomX, ramdomY);
+
+            puntos.add(p1);
+            //System.out.println(" " + p1);
+        }
+    }
+
+    public void verPuntos() {
+        
+        System.out.println("-----------MOSTRAR LOS PUNTOS-----------");
+        for (int i = 0; i < puntos.size(); i++) {
+            System.out.println(" " + puntos.get(i));
+        }
+    }
 }
