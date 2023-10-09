@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
 public class GeneraPuntos {
 
     public List<Punto> puntos = new ArrayList<>();
@@ -34,4 +39,17 @@ public class GeneraPuntos {
             System.out.println(" " + puntos.get(i));
         }
     }
+    public void LeePuntos() {
+        try {
+			List<String> allLines = Files.readAllLines(Paths.get("data\berlin52.tsp\berlin52.tsp"));
+
+			for (String line : allLines) {
+				System.out.println(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }
+
+
