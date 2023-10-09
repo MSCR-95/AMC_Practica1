@@ -34,4 +34,9 @@ public class GeneraPuntos {
             System.out.println(" " + puntos.get(i));
         }
     }
+
+    public List<Punto> getListaPuntos() {
+        return puntos;
+    }
+    
 }

@@ -38,8 +38,12 @@ public class ACM_Practica1 {
         
         GeneraPuntos GP = new GeneraPuntos();
         
-        GP.crearPuntosAleatorios(10, 5, 20);
+        GP.crearPuntosAleatorios(5, 5, 20);
         GP.verPuntos();
+        
+        Algoritmos algoritmos = new Algoritmos();
+        
+        algoritmos.busquedaExaustiva(GP.getListaPuntos());
         
     }
     
