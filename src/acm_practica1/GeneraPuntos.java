@@ -39,7 +39,7 @@ public class GeneraPuntos {
             System.out.println(" " + puntos.get(i));
         }
     }
-    public void LeePuntos() {
+ /**public void LeePuntos() {
         try {
 			List<String> allLines = Files.readAllLines(Paths.get("data\berlin52.tsp\berlin52.tsp"));
 
@@ -49,7 +49,7 @@ public class GeneraPuntos {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+    }/* */
 }
 
 
