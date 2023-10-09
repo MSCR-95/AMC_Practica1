@@ -17,18 +17,27 @@ public class Algoritmos {
 
     public double busquedaExaustiva(List<Punto> punto) {
 
-        double distancia = 0;
+        double distancia = -1;
 
         //ParDePuntos dosPuntos = new ParDePuntos();
         for (int i = 0; i < punto.size(); i++) {
             for (int j = 0; j < punto.size(); j++) {
-                if (punto.get(i) != punto.get(j)) { //Controlamos que un punto no calcule la distancia con el mismo
+                //Controlamos que un punto no calcule la distancia con el mismo
+                if (punto.get(i) != punto.get(j)) {
                     ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
-                    //dosPuntos(punto.get(i), punto.get(j));
+                    
                     distancia = dosPuntos.distancia();
+                    
+                    //FALTA FILTRAR Y MOSTRAR SOLO LA MENOR DISTANCIA DE UN PUNTO
+                    /*
+                    if (distancia == -1 || distancia > dosPuntos.distancia()) {
+                        distancia = dosPuntos.distancia();
+                        
+                    }
+                    */
+                    //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
                     System.out.println("Punto 1: " + punto.get(i) + " Punto 2: " + punto.get(j) + " " + distancia);
                 }
-
             }
         }
         return distancia;

@@ -42,6 +42,7 @@ public class GeneraPuntos {
     public List<Punto> getListaPuntos() {
         return puntos;
     }
+    
     /**
      * public void LeePuntos() { try { List<String> allLines =
      * Files.readAllLines(Paths.get("data\berlin52.tsp\berlin52.tsp"));
