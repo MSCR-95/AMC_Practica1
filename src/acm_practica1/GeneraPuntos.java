@@ -60,17 +60,18 @@ public class GeneraPuntos {
 
     /**
      * public void LeePuntos() { 
-     * try { 
-     * List<String> allLines = Files.readAllLines(Paths.get("src/data/berlin52.tsp/berlin52.tsp"));
-     * for (String line : allLines) { 
-     * System.out.println(line); 
-     * } 
-     * } 
-     * catch
-     * (IOException e) { 
-     * e.printStackTrace(); 
-     * } 
-     * }
+     *      try { 
+     *          List<String> allLines = Files.readAllLines(Paths.get("src/data/berlin52.tsp/berlin52.tsp"));
+     *          for (String line : allLines) { 
+     *              System.out.println(line); 
+     *              } 
+     *          } 
+     *      catch {
+     *          (IOException e) { 
+     *              e.printStackTrace(); 
+     *              } 
+     *          }
+     *      }
      */
 
 
