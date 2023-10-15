@@ -3,11 +3,12 @@ package acm_practica1;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
+
 
 public class GeneraPuntos {
 
@@ -43,68 +44,26 @@ public class GeneraPuntos {
         return puntos;
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * public void LeePuntos() { 
-     *      try { 
-     *          List<String> allLines = Files.readAllLines(Paths.get("src/data/berlin52.tsp/berlin52.tsp"));
-     *          for (String line : allLines) { 
-     *              System.out.println(line); 
-     *              } 
-     *          } 
-     *      catch {
-     *          (IOException e) { 
-     *              e.printStackTrace(); 
-     *              } 
-     *          }
-     *      }
-     */
-
-
-    /*  Path filePath = Paths.get("demo.txt");
-        Charset charset = StandardCharsets.UTF_8;
-     * try {
-            Files.lines(filePath, charset)
-                    .forEach(System.out::println);
-        } 
-
-        catch (IOException ex) {
-            System.out.format("I/O error: %s%n", ex);
-        }
-     * 
-     */
-    /*
-     * public class LineNumberReaderExample {
-    public static void main(String[] args) {
-        Path filePath = Paths.get("demo.txt");
-        Charset charset = StandardCharsets.UTF_8;
-
-        try(BufferedReader bufferedReader = Files.newBufferedReader(filePath, charset);
-            LineNumberReader lineNumberReader = new LineNumberReader(bufferedReader)) {
-
-            String line;
-            while ((line = lineNumberReader.readLine()) != null) {
-                System.out.format("Line %d: %s%n", lineNumberReader.getLineNumber(), line);
-            }
-        } catch (IOException ex) {
-            System.out.format("I/O error: %s%n", ex);
-        }
-    }
-}
-     */
-
+    public void LeePuntos(String path) { 
+        int DIM;
+        int ENT;
+        double D1;
+        double D2;
+           try { 
+               List<String> allLines = Files.readAllLines(Paths.get(path));
+               StringTokenizer Token = new StringTokenizer(allLines.get(3), "DIMENSION: ", false);
+                DIM = Integer.parseInt(Token.nextToken());
+                for (int i = 6; i < DIM+6; i++) {
+                    Token = new StringTokenizer(allLines.get(i)," ", false);
+                    ENT = Integer.parseInt(Token.nextToken());
+                    D1 = Double.parseDouble(Token.nextToken());
+                    D2 = Double.parseDouble(Token.nextToken());
+                    puntos.add(new Punto(D1, D2));
+                }
+               }
+           catch (IOException e) { 
+                   e.printStackTrace(); 
+                } 
+           }
+           
 }
