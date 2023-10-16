@@ -44,12 +44,17 @@ public class ACM_Practica1 {
         Algoritmos algoritmos = new Algoritmos();
         
         algoritmos.busquedaExaustiva(GP.getListaPuntos());
-        */
         
+        
+
+        GeneraPuntos GP = new GeneraPuntos();
+        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
+        GP.CreaTSP("Try1");
+        GP.EscribeTSP("Try1");
+        */
         GeneraPuntos GP = new GeneraPuntos();
         GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
         GP.verPuntos();
-        
     }
     
 }

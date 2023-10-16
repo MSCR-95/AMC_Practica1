@@ -6,6 +6,10 @@ import java.util.Random;
 import java.util.StringTokenizer;
 
 import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -65,5 +69,34 @@ public class GeneraPuntos {
                    e.printStackTrace(); 
                 } 
            }
-           
+    
+/*  public void CreaTSP(String NombreFile){
+        try {
+            File myObj = new File(Paths.get("AMC_Practica1/src/data/intentos/"+NombreFile+".tsp");
+            if (myObj.createNewFile()) {
+                System.out.println("Archivo creado: " + NombreFile + ".tsp");
+            } 
+            else {
+                System.out.println("Ya existe un archivo con ese nombre.");
+            }
+        } 
+    catch (IOException e) {
+        System.out.println("Error creando.");
+        e.printStackTrace();
+        }
+    }  
+
+    public void EscribeTSP(String NombreFile){
+        try {
+            FileWriter myWriter = new FileWriter("AMC_Practica1\\src\\data\\intentos\\"+NombreFile+".tsp");
+            myWriter.write("Puntos de "+NombreFile + ":\n" + puntos);
+            myWriter.close();
+            System.out.println("Archivo escrito con exito.");
+        } 
+        catch (IOException e) {
+            System.out.println("Error escribiendo.");
+            e.printStackTrace();
+        }
+    }
+*/    
 }
