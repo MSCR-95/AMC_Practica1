@@ -63,16 +63,16 @@ public class GeneraPuntos {
                     D1 = Double.parseDouble(Token.nextToken());
                     D2 = Double.parseDouble(Token.nextToken());
                     puntos.add(new Punto(D1, D2));
-                }
+                    }           
                }
            catch (IOException e) { 
                    e.printStackTrace(); 
                 } 
            }
     
-/*  public void CreaTSP(String NombreFile){
+    public void CreaTSP(String NombreFile){
         try {
-            File myObj = new File(Paths.get("AMC_Practica1/src/data/intentos/"+NombreFile+".tsp");
+            File myObj = new File("src/data/intentos/" + NombreFile + ".tsp");
             if (myObj.createNewFile()) {
                 System.out.println("Archivo creado: " + NombreFile + ".tsp");
             } 
@@ -80,16 +80,16 @@ public class GeneraPuntos {
                 System.out.println("Ya existe un archivo con ese nombre.");
             }
         } 
-    catch (IOException e) {
-        System.out.println("Error creando.");
-        e.printStackTrace();
-        }
+        catch (IOException e) {
+            System.out.println("Error creando.");
+            e.printStackTrace();
+            }
     }  
 
     public void EscribeTSP(String NombreFile){
         try {
-            FileWriter myWriter = new FileWriter("AMC_Practica1\\src\\data\\intentos\\"+NombreFile+".tsp");
-            myWriter.write("Puntos de "+NombreFile + ":\n" + puntos);
+            FileWriter myWriter = new FileWriter("src/data/intentos/" + NombreFile + ".tsp");
+            myWriter.write("Puntos de " + NombreFile + String.format("%n") + puntos);
             myWriter.close();
             System.out.println("Archivo escrito con exito.");
         } 
@@ -97,6 +97,5 @@ public class GeneraPuntos {
             System.out.println("Error escribiendo.");
             e.printStackTrace();
         }
-    }
-*/    
+    }   
 }
