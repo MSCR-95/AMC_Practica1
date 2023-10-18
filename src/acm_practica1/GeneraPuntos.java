@@ -32,7 +32,7 @@ public class GeneraPuntos {
                 num = rand.nextInt(3);
                 y += ((i % 500) - num * (rand.nextInt(100)));
                 x = 1;
-                Punto p = new Punto(i++, x, y);
+                Punto p = new Punto( x, y);
                 puntos.add(p);
             }
         } else { // CASO MEDIO - FALSE
@@ -41,7 +41,7 @@ public class GeneraPuntos {
                 den = rand.nextInt(11) + 7;     // genera un aleatorio entre 7 y 17
                 x = num / ((double) den + 0.37);    // división con decimales
                 y = (rand.nextInt(4000) + 1) / ((double) (rand.nextInt(11) + 7) + 0.37);
-                Punto p = new Punto(i++, x, y);
+                Punto p = new Punto( x, y);
                 puntos.add(p);
             }
         }
@@ -93,7 +93,7 @@ public class GeneraPuntos {
                             if (lineasLeidas > 6 && !(lineaActual.equals("") || lineaActual.equals("EOF"))) {
                                 if (!linea[0].equals("EOF")) {
                                     //añadido el id
-                                    puntos.add(new Punto(lineasLeidas,Double.parseDouble(linea[1]), Double.parseDouble(linea[2])));
+                                    puntos.add(new Punto(Double.parseDouble(linea[1]), Double.parseDouble(linea[2])));
                                 }
                             }
                         }
