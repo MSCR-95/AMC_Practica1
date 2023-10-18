@@ -13,11 +13,12 @@ public class Punto {
     private double x;
     private double y;
 
+
     public Punto() {
         super();
     }
 
-    public Punto(double x, double y) {
+    public Punto( double x, double y) {
         super();
         this.x = x;
         this.y = y;
