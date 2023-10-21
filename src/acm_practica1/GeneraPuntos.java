@@ -1,22 +1,19 @@
 package acm_practica1;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GeneraPuntos {
-
-    private static final JFileChooser filechooser = new JFileChooser();
 
     public List<Punto> puntos = new ArrayList<>();
     
@@ -58,7 +55,55 @@ public class GeneraPuntos {
     public List<Punto> getListaPuntos() {
         return puntos;
     }
+    
+    public void LeePuntos(String path) { 
+        int DIM;
+        int ENT;
+        double D1;
+        double D2;
+           try { 
+               List<String> allLines = Files.readAllLines(Paths.get(path));
+               StringTokenizer Token = new StringTokenizer(allLines.get(3), "DIMENSION: ", false);
+                DIM = Integer.parseInt(Token.nextToken());
+                for (int i = 6; i < DIM+6; i++) {
+                    Token = new StringTokenizer(allLines.get(i)," ", false);
+                    ENT = Integer.parseInt(Token.nextToken());
+                    D1 = Double.parseDouble(Token.nextToken());
+                    D2 = Double.parseDouble(Token.nextToken());
+                    puntos.add(new Punto(D1, D2));
+                    }           
+               }
+           catch (IOException e) { 
+                   e.printStackTrace(); 
+                } 
+           }
+    
+    public void CreaTSP(String NombreFile){
+        try {
+            File myObj = new File("src/data/intentos/" + NombreFile + ".tsp");
+            if (myObj.createNewFile()) {
+                System.out.println("Archivo creado: " + NombreFile + ".tsp");
+            } 
+            else {
+                System.out.println("Ya existe un archivo con ese nombre.");
+            }
+        } 
+        catch (IOException e) {
+            System.out.println("Error creando.");
+            e.printStackTrace();
+            }
+    }  
 
-
-
+    public void EscribeTSP(String NombreFile){
+        try {
+            FileWriter myWriter = new FileWriter("src/data/intentos/" + NombreFile + ".tsp");
+            myWriter.write("Puntos de " + NombreFile + String.format("%n") + puntos);
+            myWriter.close();
+            System.out.println("Archivo escrito con exito.");
+        } 
+        catch (IOException e) {
+            System.out.println("Error escribiendo.");
+            e.printStackTrace();
+        }
+    }   
 }

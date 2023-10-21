@@ -42,6 +42,6 @@ public class Punto {
 
     @Override
     public String toString() {
-        return "Punto{" + "x = " + x + ", y = " + y + '}';
+        return "Punto{" + "x = " + x + ", y = " + y + '}' + String.format("%n");
     }
 }
