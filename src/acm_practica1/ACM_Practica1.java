@@ -57,10 +57,23 @@ public class ACM_Practica1 {
         GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
         GP.verPuntos();
         */
+        /*
+        //rellenar puntos aleatorios
+        GP.rellenarPuntos(10, false);
+        GP.verPuntos();
+        
+        Algoritmos algoritmos = new Algoritmos();
+        
+        algoritmos.busquedaExaustiva(GP.getListaPuntos());
+        */
+        
         GeneraPuntos GP = new GeneraPuntos();
-        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
-        GP.CreaTSP("TryBerlin");
-        GP.EscribeTSP("TryBerlin");
+        GP.rellenarPuntos(10, false);
+        GP.verPuntos();
+        //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
+        
+        GP.CreaTSP("Hola");
+        GP.EscribeTSP("Hola");
     }
 
 }

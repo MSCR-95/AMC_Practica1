@@ -95,13 +95,17 @@ public class GeneraPuntos {
     }  
 
     public void EscribeTSP(String NombreFile){
-        try {
+         try {
             FileWriter myWriter = new FileWriter("src/data/intentos/" + NombreFile + ".tsp");
-            myWriter.write("Puntos de " + NombreFile + String.format("%n") + puntos);
+            myWriter.write("Puntos de " + NombreFile + String.format("%n"));
+            
+            for (int i = 0; i < puntos.size(); i++) {
+                myWriter.write("\n" + (i+1) + " "+ puntos.get(i).getX() + " " + puntos.get(i).getY());
+            }
+            
             myWriter.close();
             System.out.println("Archivo escrito con exito.");
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error escribiendo.");
             e.printStackTrace();
         }
