@@ -12,9 +12,11 @@ import java.io.IOException;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 
 public class GeneraPuntos {
-
+    
+    private DecimalFormat df = new DecimalFormat("#.##########");
     public List<Punto> puntos = new ArrayList<>();
     
     public void rellenarPuntos(int n, boolean mismaX) { 
@@ -46,9 +48,9 @@ public class GeneraPuntos {
 
     public void verPuntos() {
 
-        System.out.println("------------MOSTRAR LOS PUNTOS-----------");
+        System.out.println("------------MOSTRAR LOS PUNTOS-----------\n");
         for (int i = 0; i < puntos.size(); i++) {
-            System.out.println(" " + puntos.get(i));
+            System.out.println( i+1 +" " + puntos.get(i));
         }
     }
 
@@ -100,7 +102,7 @@ public class GeneraPuntos {
             myWriter.write("Puntos de " + NombreFile + String.format("%n"));
             
             for (int i = 0; i < puntos.size(); i++) {
-                myWriter.write("\n" + (i+1) + " "+ puntos.get(i).getX() + " " + puntos.get(i).getY());
+                myWriter.write("\n" + (i+1) + " "+ df.format(puntos.get(i).getX()) + " " + df.format(puntos.get(i).getY()));
             }
             
             myWriter.close();

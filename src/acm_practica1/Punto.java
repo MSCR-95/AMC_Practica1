@@ -4,6 +4,8 @@
  */
 package acm_practica1;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Maria S
@@ -12,7 +14,8 @@ public class Punto {
 
     private double x;
     private double y;
-
+    
+    private DecimalFormat df = new DecimalFormat("#.##########");
 
     public Punto() {
         super();
@@ -42,6 +45,6 @@ public class Punto {
 
     @Override
     public String toString() {
-        return "Punto{" + "x = " + x + ", y = " + y + '}' + String.format("%n");
+        return df.format(x) + " " + df.format(y) + String.format("%n");
     }
 }
