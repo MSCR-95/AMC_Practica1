@@ -36,7 +36,7 @@ public class ACM_Practica1 {
         System.out.println(distancia2);
         */
         
-        /*GeneraPuntos GP = new GeneraPuntos();
+        GeneraPuntos GP = new GeneraPuntos();
         
         //GP.crearPuntosAleatorios(5, 0, 100);
         GP.rellenarPuntos(10, false);
@@ -46,7 +46,7 @@ public class ACM_Practica1 {
         
         algoritmos.busquedaExaustiva(GP.getListaPuntos());
         
-        
+        /*
 
         GeneraPuntos GP = new GeneraPuntos();
         GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
@@ -66,7 +66,7 @@ public class ACM_Practica1 {
         
         algoritmos.busquedaExaustiva(GP.getListaPuntos());
         */
-        
+        /*
         GeneraPuntos GP = new GeneraPuntos();
         GP.rellenarPuntos(10, false);
         GP.verPuntos();
@@ -74,6 +74,7 @@ public class ACM_Practica1 {
         
         GP.CreaTSP("Hola");
         GP.EscribeTSP("Hola");
+    */
     }
 
 }

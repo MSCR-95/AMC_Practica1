@@ -18,6 +18,7 @@ public class Algoritmos {
     public double busquedaExaustiva(List<Punto> punto) {
 
         double distancia = -1;
+        double distanciaMin = Double.POSITIVE_INFINITY;
 
         //ParDePuntos dosPuntos = new ParDePuntos();
         for (int i = 0; i < punto.size(); i++) {
@@ -25,22 +26,23 @@ public class Algoritmos {
                 //Controlamos que un punto no calcule la distancia con el mismo
                 if (punto.get(i) != punto.get(j)) {
                     ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
-                    
+
                     distancia = dosPuntos.distancia();
                     
-                    //FALTA FILTRAR Y MOSTRAR SOLO LA MENOR DISTANCIA DE UN PUNTO
-                    /*
-                    if (distancia == -1 || distancia > dosPuntos.distancia()) {
-                        distancia = dosPuntos.distancia();
-                        
+                    //FILTRAMOS Y MOSTRAR¡MOS SOLO LA MENOR DISTANCIA DE UN PUNTO
+                    if (distancia < distanciaMin) {
+
+                        distanciaMin = distancia;
+                        System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distanciaMin + "\n");;
                     }
-                    */
                     //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
-                    System.out.println("Punto 1: " + punto.get(i) + " Punto 2: " + punto.get(j) + " " + distancia);
+                    //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
                 }
             }
         }
-        return distancia;
+        System.out.println("" );
+        System.out.println("Distancia Minima: " + distanciaMin);
+        return distanciaMin;
     }
 
 }

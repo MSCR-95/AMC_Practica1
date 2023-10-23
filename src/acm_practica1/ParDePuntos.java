@@ -34,10 +34,18 @@ public class ParDePuntos {
     public void setP2(Punto p2) {
         this.p2 = p2;
     }
-
+    
     public double distancia() {
         double diferenciaX = this.getP2().getX() - this.getP1().getX();
-        double diferenciaY = this.getP2().getY() - this.getP2().getY();
+        double diferenciaY = this.getP2().getY() - this.getP1().getY();
         return Math.sqrt(Math.pow(diferenciaX, 2) + Math.pow(diferenciaY, 2));
     }
+    
+    /*
+    public double distancia(Punto p1, Punto p2) {
+        double diferenciaX = p2.getX() - p1.getX();
+        double diferenciaY = p2.getY() - p1.getY();
+        return Math.sqrt(Math.pow(diferenciaX, 2) + Math.pow(diferenciaY, 2));
+    }
+    */
 }
