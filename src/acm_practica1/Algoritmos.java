@@ -15,7 +15,7 @@ import java.util.List;
 public class Algoritmos {
 
     public List<Punto> puntos = new ArrayList<>();
-     private DecimalFormat df = new DecimalFormat("#.########");
+    private DecimalFormat df = new DecimalFormat("#.########");
 
     public double busquedaExaustiva(List<Punto> punto) {
 
@@ -29,7 +29,7 @@ public class Algoritmos {
             for (int j = 0; j < punto.size(); j++) {
                 //Controlamos que un punto no calcule la distancia con el mismo
                 if (punto.get(i) != punto.get(j)) {
-                    
+
                     nComparaciones++;
                     ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                     distancia = dosPuntos.distancia();
@@ -47,10 +47,24 @@ public class Algoritmos {
                 }
             }
         }
-        //Mostramos los puntos y la distancia minima entre ellos
+        //Mostramos los puntos, la distancia minima entre ellos y el numero de comparaciones realizadas
         System.out.println("X: " + x + "Y: " + y + "Distancia: " + df.format(distanciaMin));
         System.out.println("Numero de comparaciones: " + nComparaciones);
         return distanciaMin;
+    }
+
+    public void ordenarPuntosPorX(List<Punto> punto) {
+
+        for (int j = 1; j < punto.size(); j++) {
+            Punto x = punto.get(j);
+            int i = j - 1;
+            while ((i > -1) && (punto.get(i).getX() > x.getX())) {
+                punto.set(i + 1, punto.get(i));
+                i--;
+            }
+            punto.set(i + 1, x);
+        }
+
     }
 
 }
