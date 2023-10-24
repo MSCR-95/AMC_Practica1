@@ -31,11 +31,11 @@ public class Algoritmos {
             for (int j = 0; j < punto.size(); j++) {
                 //Controlamos que un punto no calcule la distancia con el mismo
                 if (punto.get(i) != punto.get(j)) {
-                    nComparaciones++;
                     ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                     distancia = dosPuntos.distancia();
                     //FILTRAMOS
                     if (distancia < distanciaMin) {
+                        nComparaciones++;
                         distanciaMin = distancia;
                         x = punto.get(i);
                         y = punto.get(j);
@@ -65,8 +65,8 @@ public class Algoritmos {
             punto.set(i + 1, x);
         }
     }
-    */
-    public void ordenarPuntosPorXQuickSort(List<Punto> punto) {
+     */
+    private void ordenarPuntosPorXQuickSort(List<Punto> punto) {
 
         //Comprobamos la lista antes de ordenar
         /*
@@ -74,7 +74,7 @@ public class Algoritmos {
         for (int i = 0; i < punto.size(); i++) {
             System.out.println(i + 1 + " " + punto.get(i));
         }
-        */
+         */
         //Ordenar ArrayList de punto por X en orden ascendente usando un comparador personalizado
         Collections.sort(punto, new Comparator<Punto>() {
             @Override
@@ -88,7 +88,7 @@ public class Algoritmos {
         for (int i = 0; i < punto.size(); i++) {
             System.out.println(i + 1 + " " + punto.get(i));
         }
-*/
+         */
     }
 
     public double busquedaConPoda(List<Punto> punto) {
@@ -104,12 +104,12 @@ public class Algoritmos {
         for (int i = 0; i < punto.size(); i++) {
             for (int j = 0; j < punto.size(); j++) {
                 //Controlamos que un punto no calcule la distancia con el mismo
-                if (punto.get(i) != punto.get(j)) {
-                    nComparaciones++;
+                if (punto.get(i) != punto.get(j)) { 
                     ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                     distancia = dosPuntos.distancia();
-                    //FILTRAMOS
-                    if (distancia < distanciaMin) {
+                    //Descartamos los puntos lejanos
+                    while (distancia < distanciaMin) {
+                        nComparaciones++;
                         distanciaMin = distancia;
                         x = punto.get(i);
                         y = punto.get(j);

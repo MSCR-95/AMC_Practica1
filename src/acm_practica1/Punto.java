@@ -45,6 +45,7 @@ public class Punto {
 
     @Override
     public String toString() {
-        return df.format(x) + " " + df.format(y) + String.format("%n");
+       //return df.format(x) + " " + df.format(y) + String.format("%n");
+       return x +" " + y  + String.format("%n");
     }
 }

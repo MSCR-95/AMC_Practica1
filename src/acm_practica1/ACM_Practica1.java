@@ -16,48 +16,19 @@ public class ACM_Practica1 {
     public static void main(String[] args) {
         
         GeneraPuntos GP = new GeneraPuntos();
-        
-        GP.rellenarPuntos(10, false);
-        GP.verPuntos();
-        
-        Algoritmos algoritmos = new Algoritmos();
-        
-        //algoritmos.busquedaExaustiva(GP.getListaPuntos());
-        //algoritmos.busquedaConPoda(GP.getListaPuntos());
-        /*
-        //PARA COMPROBAR QUE LA LISTA SE ORDENA POR LA X;
-        algoritmos.ordenarPuntosPorX(GP.getListaPuntos());
-        GP.verPuntos();
-        */
-        algoritmos.ordenarPuntosPorXQuickSort(GP.getListaPuntos());
-        /*
-        GeneraPuntos GP = new GeneraPuntos();
-        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
-        GP.CreaTSP("Try1");
-        GP.EscribeTSP("Try1");
-        
-        GeneraPuntos GP = new GeneraPuntos();
-        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
-        GP.verPuntos();
-        */
-        /*
-        //rellenar puntos aleatorios
-        GP.rellenarPuntos(10, false);
-        GP.verPuntos();
-        
-        Algoritmos algoritmos = new Algoritmos();
-        
-        algoritmos.busquedaExaustiva(GP.getListaPuntos());
-        */
-        /*
-        GeneraPuntos GP = new GeneraPuntos();
-        GP.rellenarPuntos(10, false);
-        GP.verPuntos();
+        GP.rellenarPuntos(5000, false);
         //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
-        
+
         GP.CreaTSP("Hola");
         GP.EscribeTSP("Hola");
-    */
+       
+        GP.verPuntos();
+        
+        Algoritmos algoritmos = new Algoritmos();
+        
+        
+        algoritmos.busquedaExaustiva(GP.getListaPuntos());
+        algoritmos.busquedaConPoda(GP.getListaPuntos());
     }
 
 }
