@@ -23,9 +23,13 @@ public class ACM_Practica1 {
         Algoritmos algoritmos = new Algoritmos();
         
         //algoritmos.busquedaExaustiva(GP.getListaPuntos());
+        //algoritmos.busquedaConPoda(GP.getListaPuntos());
+        /*
         //PARA COMPROBAR QUE LA LISTA SE ORDENA POR LA X;
         algoritmos.ordenarPuntosPorX(GP.getListaPuntos());
         GP.verPuntos();
+        */
+        algoritmos.ordenarPuntosPorXQuickSort(GP.getListaPuntos());
         /*
         GeneraPuntos GP = new GeneraPuntos();
         GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
