@@ -16,8 +16,8 @@ public class ACM_Practica1 {
     public static void main(String[] args) {
         
         GeneraPuntos GP = new GeneraPuntos();
-        GP.rellenarPuntos(5000, false);
-        //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
+        //GP.rellenarPuntos(50, false);
+        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
 
         GP.CreaTSP("Hola");
         GP.EscribeTSP("Hola");
