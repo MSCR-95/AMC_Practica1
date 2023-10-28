@@ -30,18 +30,17 @@ public class Algoritmos {
         for (int i = 0; i < punto.size(); i++) {
             for (int j = i + 1; j < punto.size(); j++) {
                 //Controlamos que un punto no calcule la distancia con el mismo
-                    ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
-                    distancia = dosPuntos.distancia();
-                    nComparaciones++;
-                    //FILTRAMOS
-                    if (distancia < distanciaMin) { 
-                        distanciaMin = distancia;
-                        x = punto.get(i);
-                        y = punto.get(j);
-                        //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distanciaMin + "\n");;
-                    }
-                    //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
-                    //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
+                ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
+                distancia = dosPuntos.distancia();
+                nComparaciones++;
+                //FILTRAMOS
+                if (distancia < distanciaMin) {
+                    distanciaMin = distancia;
+                    x = punto.get(i);
+                    y = punto.get(j);
+                }
+                //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
+                //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
             }
         }
         //Mostramos los puntos, la distancia minima entre ellos y el numero de comparaciones realizadas
@@ -49,9 +48,9 @@ public class Algoritmos {
         System.out.println("Numero de comparaciones: " + nComparaciones);
         return distanciaMin;
     }
-    
-    private void ordenarPuntosPorXQuickSort(List<Punto> punto) {
 
+    //No sirve, tenemos que implementar quickSort
+    private void ordenarPuntosPorXQuickSort(List<Punto> punto) {
         //Ordenar ArrayList de punto por X en orden ascendente usando un comparador personalizado
         Collections.sort(punto, new Comparator<Punto>() {
             @Override
@@ -65,6 +64,7 @@ public class Algoritmos {
 
         double distancia = -1;
         double distanciaMin = Double.POSITIVE_INFINITY;
+        double distanciaX = 0;
         Punto x = null;
         Punto y = null;
         int nComparaciones = 0;
@@ -73,49 +73,29 @@ public class Algoritmos {
 
         for (int i = 0; i < punto.size(); i++) {
             for (int j = i + 1; j < punto.size(); j++) {
-                //Controlamos que un punto no calcule la distancia con el mismo
-                    ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
-                    distancia = dosPuntos.distancia();
-                    //Descartamos los puntos lejanos
-                    nComparaciones++;
-                    while (distancia < distanciaMin) {
-                        distanciaMin = distancia;
-                        x = punto.get(i);
-                        y = punto.get(j);
-                        //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distanciaMin + "\n");;
-                    }
-                    //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
-                    //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
+
+                distanciaX = punto.get(j).getX() - punto.get(i).getX();
+                //System.out.println("PuntoJ.X: " + punto.get(j).getX() + " PuntoI.X: " + punto.get(i).getX() + " DistanciaX: " + distanciaX);
+                // Poda: no es necesario seguir con puntos más lejos en la coordenada x.
+                if (distanciaX >= distanciaMin) {
+                    System.out.println("entra en la poda");
+                    //Mostramos los puntos, la distancia minima entre ellos y el numero de comparaciones realizadas
+                    System.out.println("X: " + x + "Y: " + y + "Distancia: " + df.format(distanciaMin));
+                    System.out.println("Numero de comparaciones: " + nComparaciones);
+                    return distanciaMin;  
                 }
+                ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
+                distancia = dosPuntos.distancia();
+                if (distancia < distanciaMin) {
+                    x = punto.get(i);
+                    y = punto.get(j);
+                    distanciaMin = distancia;
+                    nComparaciones++;
+                }
+                //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
+                //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
             }
-        //Mostramos los puntos, la distancia minima entre ellos y el numero de comparaciones realizadas
-        System.out.println("X: " + x + "Y: " + y + "Distancia: " + df.format(distanciaMin));
-        System.out.println("Numero de comparaciones: " + nComparaciones);
+        }
         return distanciaMin;
     }
 }
-/*
-CHAT GP
-public static double encontrarDistanciaMinima(List<Punto> puntos) {
-        // Ordenar los puntos por la coordenada x
-        puntos.sort(Comparator.comparingDouble(punto -> punto.x));
-
-        int n = puntos.size();
-        double distanciaMinima = Double.MAX_VALUE;
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
-                double distanciaX = puntos.get(j).x - puntos.get(i).x;
-                if (distanciaX >= distanciaMinima) {
-                    break; // Poda: no es necesario seguir con puntos más lejos en la coordenada x.
-                }
-                double distancia = calcularDistancia(puntos.get(i), puntos.get(j));
-                if (distancia < distanciaMinima) {
-                    distanciaMinima = distancia;
-                }
-            }
-        }
-
-        return distanciaMinima;
-    }
-*/
