@@ -16,8 +16,8 @@ public class ACM_Practica1 {
     public static void main(String[] args) {
         
         GeneraPuntos GP = new GeneraPuntos();
-        GP.rellenarPuntos(10, false);
-        //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
+        //GP.rellenarPuntos(10, false);
+        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
 
         //GP.CreaTSP("Hola");
         //GP.EscribeTSP("Hola");
@@ -26,10 +26,10 @@ public class ACM_Practica1 {
         
         Algoritmos algoritmos = new Algoritmos();
         
-        System.out.println("EXAUSTIVO");
+        System.out.println("EXHAUSTIVO");
         algoritmos.busquedaExaustiva(GP.getListaPuntos());
-        System.out.println("EXAUSTIVO CON PODA");
-        algoritmos.busquedaConPoda(GP.getListaPuntos());
+        System.out.println("EXHAUSTIVO CON PODA");
+        algoritmos.busquedaConPodaWhile(GP.getListaPuntos());
     }
 
 }
