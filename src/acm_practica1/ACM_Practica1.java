@@ -27,11 +27,17 @@ public class ACM_Practica1 {
         Algoritmos algoritmos = new Algoritmos();
         
         System.out.println("EXHAUSTIVO");
-        algoritmos.busquedaExaustiva(GP.getListaPuntos());
-        System.out.println("EXHAUSTIVO CON PODA");
+        algoritmos.busquedaExaustiva(GP.getListaPuntos(),0,GP.getListaPuntos().size());
+        
+        System.out.println("\nEXHAUSTIVO CON PODA");
         algoritmos.busquedaConPoda(GP.getListaPuntos());
-        System.out.println("DIVIDE Y VENCERAS");
-        algoritmos.busquedaConDyV(GP.getListaPuntos());
+        System.out.println("\nDIVIDE Y VENCERAS");
+        //algoritmos.busquedaConDyV(GP.getListaPuntos());
+        double distancia = 0;
+        distancia = algoritmos.busquedaDivideYVenceras(GP.getListaPuntos());
+        //System.out.println("Comparaciones: " + algoritmos.nComparacionesDyV);
+        //System.out.println(distancia);
+        
     }
 
 }
