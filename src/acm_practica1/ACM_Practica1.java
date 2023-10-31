@@ -29,7 +29,9 @@ public class ACM_Practica1 {
         System.out.println("EXHAUSTIVO");
         algoritmos.busquedaExaustiva(GP.getListaPuntos());
         System.out.println("EXHAUSTIVO CON PODA");
-        algoritmos.busquedaConPodaWhile(GP.getListaPuntos());
+        algoritmos.busquedaConPoda(GP.getListaPuntos());
+        System.out.println("DIVIDE Y VENCERAS");
+        algoritmos.busquedaConDyV(GP.getListaPuntos());
     }
 
 }

@@ -60,56 +60,7 @@ public class Algoritmos {
         });
     }
 
-    private void ordenarPuntosPorXVarQuickSort(List<Punto> punto) {
-        //Ordenar ArrayList de punto por X en orden ascendente usando un comparador personalizado
-        Collections.sort(punto, new Comparator<Punto>() {
-            @Override
-            public int compare(Punto p1, Punto p2) {
-                return Double.compare(p1.getX(), p2.getX());
-            }
-        });
-    }
-
     public double busquedaConPoda(List<Punto> punto) {
-        double distancia = -1;
-        double distanciaMin = Double.POSITIVE_INFINITY;
-        double distanciaX = 0;
-        Punto x = null;
-        Punto y = null;
-        int nComparaciones = 0;
-        //Ordenamos la lista por la x
-        ordenarPuntosPorXQuickSort(punto);
-
-        for (int i = 0; i < punto.size(); i++) {
-            for (int j = i + 1; j < punto.size(); j++) {
-
-                distanciaX = Math.abs(punto.get(j).getX() - punto.get(i).getX());
-                //System.out.println("PuntoJ.X: " + punto.get(j).getX() + " PuntoI.X: " + punto.get(i).getX() + " DistanciaX: " + distanciaX);
-                // Poda: no es necesario seguir con puntos más lejos en la coordenada x.
-                if (distanciaX >= distanciaMin) {
-                    System.out.println("entra en la poda");
-                    //Mostramos los puntos, la distancia minima entre ellos y el numero de comparaciones realizadas
-                    System.out.println("X: " + x + "Y: " + y + "Distancia: " + df.format(distanciaMin));
-                    System.out.println("Numero de comparaciones: " + nComparaciones);
-                    return distanciaMin;  
-                }
-                nComparaciones++;
-                ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
-                distancia = dosPuntos.distancia();
-                if (distancia < distanciaMin) {
-                    x = punto.get(i);
-                    y = punto.get(j);
-                    distanciaMin = distancia;
-                }
-                //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
-                //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
-            }
-        }
-        return distanciaMin;
-    }
-
-
-    public double busquedaConPodaWhile(List<Punto> punto) {
         double distancia = -1;
         double distanciaMin = Double.POSITIVE_INFINITY;
         double distanciaX = 0;
@@ -124,7 +75,6 @@ public class Algoritmos {
             Boolean alarma = false;
             while (j < punto.size() && !alarma) {
                 distanciaX = Math.abs(punto.get(j).getX() - punto.get(i).getX());
-                //System.out.println("PuntoJ.X: " + punto.get(j).getX() + " PuntoI.X: " + punto.get(i).getX() + " DistanciaX: " + distanciaX);
                 // Poda: no es necesario seguir con puntos más lejos en la coordenada x.
                 if (distanciaX >= distanciaMin) {
                     alarma = true;
@@ -139,8 +89,6 @@ public class Algoritmos {
                         distanciaMin = distancia;
                   }
                 }
-
-                //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
                 //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
             j++;
             }
@@ -151,4 +99,37 @@ public class Algoritmos {
         System.out.println("Numero de comparaciones: " + nComparaciones);
         return distanciaMin;
     }
+
+    public double busquedaConDyV(List<Punto> punto) {
+        double distancia = -1;
+        double distanciaMin = Double.POSITIVE_INFINITY;
+        Punto x = null;
+        Punto y = null;
+        int nComparaciones = 0;
+        int mitad = punto.size() / 2;
+        int j = 0;
+        List<Punto> PuntosMitad1= new ArrayList<>();
+        List<Punto> PuntosMitad2= new ArrayList<>();
+
+        ordenarPuntosPorXQuickSort(punto);
+        
+        for (int i = 0; i < punto.size(); i++) {
+            if(i<mitad){
+                PuntosMitad1.add(punto.get(i));
+                    System.out.println("Punto " + (i+1) + ": " + String.format("%n") + "X: " + PuntosMitad1.get(i).getX() + "Y: " + PuntosMitad1.get(i).getY());
+            }
+            else{
+                PuntosMitad2.add(punto.get(i));
+                    System.out.println("Punto " + (i+1) + ": " + String.format("%n") + "X: " + PuntosMitad2.get(j).getX() + "Y: " + PuntosMitad2.get(j).getY());
+                    j++;
+            }
+        }
+        
+
+
+
+
+        return distanciaMin;
+    }
+
 }
