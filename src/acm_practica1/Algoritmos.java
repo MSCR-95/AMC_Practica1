@@ -19,18 +19,30 @@ public class Algoritmos {
     public List<Punto> puntos = new ArrayList<>();
     private DecimalFormat df = new DecimalFormat("#.########");
 
-    private int nComparacionesDyV = 0;
-    private Punto Px = null;
-    private Punto Py = null;
+    private int nComparacionesDyV, nComparaciones = 0;
+    private int indiceP1, indiceP2 = -1;
+
+    public int getIndiceP1() {
+        return indiceP1;
+    }
+
+    public int getIndiceP2() {
+        return indiceP2;
+    }
+
+    public int getNComparaciones() {
+        return nComparaciones;
+    }
+
+    public int getNComparacionesDyV() {
+        return nComparacionesDyV;
+    }
 
     //AÑADIDO IZQUIERDA Y DERECHA PARA USAR ESTE ALGORITMO EN EL DIVIDE Y VENCERAS
     public double busquedaExaustiva(List<Punto> punto, int izquierda, int derecha) {
 
         double distancia = -1;
         double distanciaMin = Double.POSITIVE_INFINITY;
-        Punto x = null;
-        Punto y = null;
-        int nComparaciones = 0;
 
         for (int i = izquierda; i < derecha; i++) {
             for (int j = i + 1; j < derecha; j++) {
@@ -38,11 +50,20 @@ public class Algoritmos {
                 ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                 distancia = dosPuntos.distancia();
                 nComparaciones++;
+                nComparacionesDyV++;
+                //System.out.println("Entra en exahustivo");
                 //FILTRAMOS
                 if (distancia < distanciaMin) {
                     distanciaMin = distancia;
-                    x = punto.get(i);
-                    y = punto.get(j);
+
+                    //indiceP1 = i;
+                    //indiceP2 = j;
+
+                    indiceP1 = dosPuntos.getP1().getIndice()-1;
+                    indiceP2 = dosPuntos.getP2().getIndice()-1;
+                    //indiceP1 = punto.get(i).getIndice();
+                    //indiceP1 = punto.get(j).getIndice();
+                    //System.out.println("x: " + indiceP1 + " P1: " + dosPuntos.getP1() + "y: " + indiceP2 + " P2: " + dosPuntos.getP2());
                 }
                 //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
                 //System.out.println("Punto " + i + ": " + punto.get(i) + "Punto " + j + ": " + punto.get(j) + "Distancia: " + distancia + "\n");
@@ -152,35 +173,51 @@ public class Algoritmos {
      */
     //CALCULA BIEN LA DISTANCIA
     //HAY QUE COMPROBRAR SI ESTAMOS SUMANDO BIEN EL NUMERO DE COMPARACIONES
-    //ENCONTRAR LA MANERA DE QUE MUESTRE LOS PUNTOS
+    //ENCONTRAR LA MANERA DE QUE MUESTRE LOS PUNTOS *Estaba accediendo al indx de punto, cuando despues la lista punto cambia sun indx al ordenarla
     public double busquedaDivideYVenceras(List<Punto> punto) {
+        //La copiamos para tener la lista original sin ordenar
+        puntos = punto;
+        //System.out.println(punto);
         //Primero, ordena la lista de puntos por la coordenada x.
         ordenarPuntosPorXQuickSort(punto);
-        //nComparacionesDyV++;
+        //System.out.println(punto);
+
+        nComparacionesDyV = 0;
+        indiceP1 = -1;
+        indiceP2 = -1;
+
         return buscarPuntosMasCercanos(punto, 0, punto.size() - 1);
     }
 
     private double buscarPuntosMasCercanos(List<Punto> punto, int izquierda, int derecha) {
-        int x = 0;
-        int y = 0;
+        Punto x = null;
+        Punto y = null;
+
         if (derecha - izquierda <= 2) {
+
+            nComparacionesDyV++;
             //Cuando hay pocos puntos, realiza una búsqueda exhaustiva.
-            //nComparacionesDyV++;
             return busquedaExaustiva(punto, izquierda, derecha);
         }
-
+        //Calculamos la mitad
         int mitad = (izquierda + derecha) / 2;
         Punto puntoMitad = punto.get(mitad);
 
+        //Calcula la distancia minima por la izquierda
         double distanciaIzquierda = buscarPuntosMasCercanos(punto, izquierda, mitad);
+        System.out.println("distancia Izquierda: "+ distanciaIzquierda);
+        //calcula la distancia minima por la derecha
         double distanciaDerecha = buscarPuntosMasCercanos(punto, mitad + 1, derecha);
+        System.out.println("distancia Derecha: "+ distanciaDerecha);
+        //Nos quedamos con la distancia mas pequeña de las dos
         double distanciaMinima = Math.min(distanciaIzquierda, distanciaDerecha);
 
         // Encuentra puntos dentro de la franja central.
         List<Punto> franja = new ArrayList<>();
         for (int i = izquierda; i <= derecha; i++) {
-            
+
             if (Math.abs(punto.get(i).getX() - puntoMitad.getX()) < distanciaMinima) {
+
                 nComparacionesDyV++;
                 franja.add(punto.get(i));
             }
@@ -188,44 +225,122 @@ public class Algoritmos {
 
         // Ordena los puntos de la franja por coordenada y.
         ordenarPuntosPorYQuickSort(franja);
-
         // Comprueba si hay puntos más cercanos en la franja.
         for (int i = 0; i < franja.size(); i++) {
             for (int j = i + 1; j < franja.size() && franja.get(j).getY() - franja.get(i).getY() < distanciaMinima; j++) {
                 ParDePuntos dosPuntos = new ParDePuntos(franja.get(i), franja.get(j));
                 double distancia = dosPuntos.distancia();
-                 nComparacionesDyV++;
-                if (distancia < distanciaMinima) {
-                   
 
+                if (distancia < distanciaMinima) {
                     distanciaMinima = distancia;
+                    nComparacionesDyV++;
                     //Px = punto.get(i);
                     //Py = punto.get(j);
-                    x = i;
-                    y = j;
+
+                    System.out.println("x: " + franja.get(i) + "y: " + franja.get(j));
+                    //indiceP1 = punto.indexOf(franja.get(i));
+                    //indiceP2 = punto.indexOf(franja.get(j));
+                    x = punto.get(i);
+                    y = punto.get(j);
+
+                    indiceP1 = franja.get(i).getIndice();
+                    indiceP1 = franja.get(j).getIndice();
+                    //System.out.println("" + dosPuntos.getP1() + dosPuntos.getP2());
+
+                    //System.out.println("indicePX: " +indicePx+" -> " + punto.get(indicePx));
+                    //System.out.println("indicePY: " +indicePy+" -> " + punto.get(indicePy));
+                    //System.out.println("x: " + indicePx + " y: " + indicePy);
                 }
             }
         }
-        System.out.println(punto.get(x) + " " + punto.get(y) + "Distancia: " + distanciaMinima);
-        System.out.println("Numero de comparaciones: " + nComparacionesDyV);
+        //System.out.println("Indice p1:" + indiceP1 + " indice p2: " + indiceP2);
+        //System.out.println("X: " + x + "Y: " + y + "Distancia: " + df.format(distanciaMinima));
+        //System.out.println("Numero de comparaciones: " + nComparaciones);
         return distanciaMinima;
     }
 
     /*
-    private double busquedaExaustiva(List<Punto> punto, int izquierda, int derecha) {
-        // Implementa la búsqueda exhaustiva en un subconjunto de puntos.
-        // Puedes utilizar el mismo código que tenías para la búsqueda exhaustiva.
-        // Asegúrate de ajustar los índices izquierda y derecha.
+    public double buscarPuntosMasCercanos(List<Punto> punto) {
+        ordenarPuntosPorXQuickSort(punto);
+        indicePx = -1;
+        indicePy = -1;
+        //private int indicePx, indicePy = -1;
+        double distanciaMinima = dyv(punto, 0, punto.size() - 1, indicePx, indicePy);
+        return distanciaMinima;
     }
 
-    private void ordenarPuntosPorXQuickSort(List<Punto> punto) {
-        // Ordena ArrayList de punto por X en orden ascendente usando un comparador personalizado
-        // Asegúrate de ajustar los índices en el método Collections.sort.
-    }
+    private double dyv(List<Punto> punto, int izquierda, int derecha, int indicePx, int indicePy) {
 
-    private void ordenarPuntosPorYQuickSort(List<Punto> punto) {
-        // Ordena ArrayList de punto por Y en orden ascendente usando un comparador personalizado
-        // Asegúrate de ajustar los índices en el método Collections.sort.
+        if (derecha - izquierda + 1 >= 4) {
+            int mitad = (izquierda + derecha) / 2;
+            int puntoXIzquierda = -1;
+            int puntoYIzquierda = -1;
+            int puntoXDerecha = -1;
+            int puntoYDerecha = -1;
+
+            double distanciaIzquierda = dyv(punto, izquierda, mitad, puntoXIzquierda, puntoYIzquierda);
+            double distanciaDerecha = dyv(punto, mitad + 1, derecha, puntoXDerecha, puntoYDerecha);
+
+            double distanciaMinima = Math.min(distanciaIzquierda, distanciaDerecha);
+
+            if (distanciaMinima == distanciaIzquierda) {
+                indicePx = puntoXIzquierda;
+                indicePy = puntoYIzquierda;
+            } else {
+                indicePx = puntoXDerecha;
+                indicePy = puntoYDerecha;
+            }
+
+            int a1 = mitad;
+            boolean fin = false;
+            while (a1 >= izquierda && !fin) {
+                if ((punto.get(mitad + 1).getX() - punto.get(a1).getX()) > distanciaMinima) {
+                    fin = true;
+                } else {
+                    a1--;
+                }
+            }
+
+            int a2 = mitad + 1;
+            fin = false;
+            while (a2 <= derecha && !fin) {
+                if ((punto.get(a2).getX() - punto.get(mitad).getX()) > distanciaMinima) {
+                    fin = true;
+                } else {
+                    a2++;
+                }
+            }
+
+            for (int a3 = a1 + 1; a3 <= mitad; a3++) {
+                for (int a4 = mitad + 1; a4 <= a2 - 1; a4++) {
+                    ParDePuntos dosPuntos = new ParDePuntos(punto.get(a3), punto.get(a4));
+                    double distancia = dosPuntos.distancia();
+
+                    if (distancia < distanciaMinima) {
+                        distanciaMinima = distancia;
+                        indicePx = a3;
+                        indicePy = a4;
+                    }
+                }
+            }
+            System.out.println("Punto x:" + indicePx + " Punto y: " + indicePy);
+            return distanciaMinima;
+        } else {
+            indicePx = izquierda;
+            indicePy = izquierda + 1;
+
+            System.out.println("Punto X: " + indicePx + " Punto Y: " + indicePy);
+            return busquedaExaustiva(punto, izquierda, derecha);
+        }
     }
      */
+    public Punto getPuntoPorIndice(int ind, List<Punto> punto) {
+        Punto puntoIndice = null;
+        for (int i = 0; i < punto.size(); i++) {
+            if (punto.get(i).getIndice() == ind) {
+                puntoIndice = punto.get(i);
+            }
+        }
+        return puntoIndice;
+    }
 }
