@@ -4,6 +4,8 @@
  */
 package acm_practica1;
 
+import acm_practica1.Algoritmos.Solucion;
+
 /**
  *
  * @author Maria S
@@ -20,11 +22,11 @@ public class ACM_Practica1 {
         //GP.CreaTSP("Hola");
         //GP.EscribeTSP("Hola");
 
-        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
+        //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
         //GP.LeePuntos("src/data/ch130.tsp/ch130.tsp");
         //GP.LeePuntos("src/data/ch150.tsp/ch150.tsp");
         //GP.LeePuntos("src/data/d493.tsp/d493.tsp");
-        //GP.LeePuntos("src/data/d657.tsp/d657.tsp");
+        GP.LeePuntos("src/data/d657.tsp/d657.tsp");
 
         //GP.verPuntos();
         double distancia = 0;
@@ -70,6 +72,17 @@ public class ACM_Practica1 {
 
         System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanos());
         
+
+
+        System.out.println("\nEXHAUSTIVO SUCIO");
+        Solucion Y = algoritmos.busquedaExhaustivaSucia(GP.getListaPuntos(), 0, GP.getListaPuntos().size());
+        distancia = Y.dMin;
+        System.out.println("Puntos: ");
+        System.out.println(GP.puntos.get(Y.indiceP1) + "" + GP.puntos.get(Y.indiceP2));
+        System.out.println("Distancia: " + distancia);
+        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
+        System.out.println("Tiempo: "+ algoritmos.getTiempoBusquedaExhaustiva());
+
         /**
          * **********************************************
         */

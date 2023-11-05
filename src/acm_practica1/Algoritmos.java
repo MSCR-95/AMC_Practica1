@@ -108,6 +108,8 @@ public class Algoritmos {
         return distanciaMin;
     }
 
+
+
     //No sirve, tenemos que implementar quickSort
     private void ordenarPuntosPorXQuickSort(List<Punto> punto) {
         //Ordenar ArrayList de punto por X en orden ascendente usando un comparador personalizado
@@ -177,7 +179,6 @@ public class Algoritmos {
         return distanciaMin;
     }
 
-    /*
     public double busquedaConDyV(List<Punto> punto) {
         double distancia = -1;
         double distanciaMin = Double.POSITIVE_INFINITY;
@@ -207,10 +208,48 @@ public class Algoritmos {
        
         return distanciaMin;
     }
-     */
-    /**
-     * *******************************************
-     */
+
+
+
+
+    public class Solucion {
+        public double dMin;
+        public int indiceP1; 
+        public int indiceP2;
+
+        public Solucion (double dMin, int indiceP1, int indiceP2){
+            this.dMin = dMin;
+            this.indiceP1 = indiceP1;
+            this.indiceP2 = indiceP2;
+        }
+    }
+
+    public Solucion busquedaExhaustivaSucia(List<Punto> punto, int izquierda, int derecha) {
+        double startTime = System.nanoTime();
+
+        double distancia = -1;
+        double distanciaMin = Double.POSITIVE_INFINITY;
+
+        Solucion S = new Solucion(distanciaMin, -1, -1);
+        
+        for (int i = izquierda; i < derecha; i++) {
+            for (int j = i + 1; j < derecha; j++) {
+                ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
+                distancia = dosPuntos.distancia();
+                nComparaciones++;
+                nComparacionesDyV++;
+                if (distancia < S.dMin) {
+                    S.dMin = distancia;
+                    S.indiceP1 = i;
+                    S.indiceP2 = j;
+                }
+            }
+        }
+        double endTime = System.nanoTime();
+        tiempoBusquedaExhaustiva = (endTime - startTime) / 1e6; //Pasamos a mseg
+        return S;
+    }
+
     //CALCULA BIEN LA DISTANCIA
     //HAY QUE COMPROBRAR SI ESTAMOS SUMANDO BIEN EL NUMERO DE COMPARACIONES
     //ENCONTRAR LA MANERA DE QUE MUESTRE LOS PUNTOS *Estaba accediendo al indx de punto, cuando despues la lista punto cambia sun indx al ordenarla
@@ -230,35 +269,82 @@ public class Algoritmos {
         double endTime = System.nanoTime();
         tiempoDivideYVenceras = tiempoEncontrarPuntosMasCercanos;
 
-        return buscarPuntosMasCercanos(punto, 0, punto.size() - 1);
+        Solucion tal = buscarPuntosMasCercanos(punto, 0, punto.size() - 1);
+        indiceP1 = tal.indiceP1;
+        indiceP2 = tal.indiceP2;
+        return tal.dMin;
     }
 
-    private double buscarPuntosMasCercanos(List<Punto> punto, int izquierda, int derecha) {
+    private Solucion buscarPuntosMasCercanos(List<Punto> punto, int izquierda, int derecha) {
         double startTime = System.nanoTime();
 
         Punto x = null;
         Punto y = null;
 
         if (derecha - izquierda <= 2) {
-            nComparacionesDyV++;
+            //Por qué chota sumas 1
+            //nComparacionesDyV++;
+            
             //Cuando hay pocos puntos, realiza una búsqueda exhaustiva.
-            return busquedaExaustiva(punto, izquierda, derecha);
+            Solucion loq = busquedaExhaustivaSucia(punto, izquierda, derecha);
+            return loq;
         }
         //Calculamos la mitad
         int mitad = (izquierda + derecha) / 2;
         Punto puntoMitad = punto.get(mitad);
 
         //Calcula la distancia minima por la izquierda
-        double distanciaIzquierda = buscarPuntosMasCercanos(punto, izquierda, mitad);
+        Solucion distanciaIzquierda = buscarPuntosMasCercanos(punto, izquierda, mitad);
         //System.out.println("distancia Izquierda: " + distanciaIzquierda);
         //calcula la distancia minima por la derecha
-        double distanciaDerecha = buscarPuntosMasCercanos(punto, mitad + 1, derecha);
+        Solucion distanciaDerecha = buscarPuntosMasCercanos(punto, mitad + 1, derecha);
         //System.out.println("distancia Derecha: " + distanciaDerecha);
         //Nos quedamos con la distancia mas pequeña de las dos
-        double distanciaMinima = Math.min(distanciaIzquierda, distanciaDerecha);
+        double distanciaMinima = Math.min(distanciaIzquierda.dMin, distanciaDerecha.dMin);
+
+        Punto puntoMitadIzq = puntoMitad;
+        Punto puntoMitadDer = punto.get(mitad+1);
+        double MediaPuntos = (puntoMitadIzq.getX() + puntoMitadDer.getX())/2;
+        double franjaIzq = MediaPuntos - distanciaMinima;
+        double franjaDer = MediaPuntos + distanciaMinima;
+        List<Punto> franja = new ArrayList<>();
+        int aux1 = -1;
+        int aux2 = -1;
+        for (int i = izquierda; i < derecha+1; i++) {
+            if (punto.get(i).getX() >= franjaIzq && punto.get(i).getX() <= franjaDer){
+                franja.add(punto.get(i));
+                if(aux1 == -1){
+                    aux1 = i;
+                }
+                aux2 = i;
+            }
+        }
+
+        Solucion franjaSol = busquedaExhaustivaSucia (punto, aux1, aux2);
+        Solucion Legit;
+        if(distanciaIzquierda.dMin < distanciaDerecha.dMin && distanciaIzquierda.dMin < franjaSol.dMin){
+            Legit = distanciaIzquierda;
+        }
+        else if (distanciaDerecha.dMin < distanciaIzquierda.dMin && distanciaDerecha.dMin < franjaSol.dMin){
+            Legit = distanciaDerecha;
+        }
+        else if (franjaSol.dMin < distanciaIzquierda.dMin && franjaSol.dMin < distanciaDerecha.dMin){
+            Legit = franjaSol;
+        }
+        else{
+            Legit = distanciaIzquierda;
+        }
+
+            if(Legit.indiceP1 != -1 && Legit.indiceP2 != -1){
+                System.out.println("Cosas de loq: ");
+                System.out.println(Legit.indiceP1 + " " + Legit.indiceP2);
+                System.out.println(Legit.dMin);
+                ParDePuntos Pp = new ParDePuntos(punto.get(Legit.indiceP1), punto.get(Legit.indiceP2));
+                System.out.println(Pp.distancia());
+            }
 
         // Encuentra puntos dentro de la franja central.
-        List<Punto> franja = new ArrayList<>();
+/*        List<Punto> franja = new ArrayList<>();
         for (int i = izquierda; i <= derecha; i++) {
 
             if (Math.abs(punto.get(i).getX() - puntoMitad.getX()) < distanciaMinima) {
@@ -294,16 +380,16 @@ public class Algoritmos {
                     //System.out.println("x: " + indicePx + " y: " + indicePy);
                 }
             }
-        }
+        } */
         //System.out.println("Indice p1:" + indiceP1 + " indice p2: " + indiceP2);
         //System.out.println("X: " + x + "Y: " + y + "Distancia: " + df.format(distanciaMinima));
         //System.out.println("Numero de comparaciones: " + nComparaciones);
         double endTime = System.nanoTime();
         tiempoEncontrarPuntosMasCercanos = (endTime - startTime) / 1e6;
-        return distanciaMinima;
+        return Legit;
     }
 
-    //*****************************************************//
+/*
     public double divideYVencerasMejorado(List<Punto> puntos) {
         double startTime = System.nanoTime();
         // Si hay pocos puntos, utiliza la búsqueda exhaustiva.
@@ -346,7 +432,7 @@ public class Algoritmos {
         tiempoEncontrarPuntosMasCercanos = (endTime - startTime) / 1e6;
         return distanciaMin;
     }
-
+*/ 
     //Creada para buscar el punto por su indice en la tabla original sin ordenar
     public Punto getPuntoPorIndice(int ind) {
         Punto puntoIndice = null;
