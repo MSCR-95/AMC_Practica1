@@ -28,6 +28,7 @@ public class Algoritmos {
     private double tiempoEncontrarPuntosMasCercanos = 0.0;
     private double tiempoDivideYVencerasMejorado = 0.0;
     private double DistanciaBusquedaExhaustiva = 0.0;
+    private double dMinAnterior = 10000.0;
 
     
     //Guardamos una copia de la lista original
@@ -316,10 +317,11 @@ public class Algoritmos {
 
         if(Legit.indiceP1 != -1 && Legit.indiceP2 != -1){
              ParDePuntos Pp = new ParDePuntos(punto.get(Legit.indiceP1), punto.get(Legit.indiceP2));
-                if (Legit.dMin == DistanciaBusquedaExhaustiva){
-                    System.out.println("dMin: " + Legit.dMin + " Punto 1: " + Legit.indiceP1 + " " + Pp.getP1().getX() + " " + Pp.getP1().getY() +  " Punto 2: " + Legit.indiceP2 + " " + Pp.getP2().getX() + " " + Pp.getP2().getY());
-                    System.out.println("Distancia: " + Pp.distancia());
-        }
+                if (Legit.dMin < dMinAnterior){
+                    dMinAnterior = Legit.dMin;
+                    Legit.indiceP1 = Pp.getP1().getIndice();
+                    Legit.indiceP2 = Pp.getP2().getIndice();
+            }
         }
         
 
