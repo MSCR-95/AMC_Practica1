@@ -8,23 +8,23 @@ import java.util.List;
  * @author Maria S
  */
 public class Algoritmos1B {
-    
-    public List<Punto1B> TSPUnidireccional(List<Punto1B> ciudades) {
 
-        List<Punto1B> ruta = new ArrayList<>();
-        Punto1B ciudadActual = ciudades.get(0);
+    public List<Punto> TSPUnidireccional(List<Punto> ciudades) {
+
+        List<Punto> ruta = new ArrayList<>();
+        Punto ciudadActual = ciudades.get(0);
         ruta.add(ciudadActual);
 
         while (ruta.size() < ciudades.size()) {
-            Punto1B ciudadMasCercana = null;
+            Punto ciudadMasCercana = null;
             int distanciaMinima = (int) Double.MAX_VALUE;
-            
+
             //Comprobar el bucle
-            for (Punto1B ciudad : ciudades) {
+            for (Punto ciudad : ciudades) {
                 //Si esa ciudad no ha sido visitada antes
                 if (!ruta.contains(ciudad)) {
                     //Calculamos la distancia entre la ciudad actual y las demas(por el bucle)
-                    int distancia = (int) Punto1B.distancia(ciudadActual, ciudad);
+                    int distancia = (int) Punto.distancia(ciudadActual, ciudad);
                     if (distancia < distanciaMinima) {
                         distanciaMinima = distancia;
                         ciudadMasCercana = ciudad;
@@ -37,23 +37,23 @@ public class Algoritmos1B {
         return ruta;
     }
 
-    public List<Punto1B> TSPBidireccional(List<Punto1B> ciudades) {
+    public List<Punto> TSPBidireccional(List<Punto> ciudades) {
 
-        List<Punto1B> ruta = new ArrayList<>();
-        Punto1B ciudadActual = ciudades.get(0);
+        List<Punto> ruta = new ArrayList<>();
+        Punto ciudadActual = ciudades.get(0);
         ruta.add(ciudadActual);
 
         while (ruta.size() < ciudades.size()) {
-            Punto1B ciudadMasCercanaDesdeInicio = null; //Extremo inicial del camino
-            Punto1B ciudadMasCercanaDesdeFinal = null;  //Extremo final del camino
+            Punto ciudadMasCercanaDesdeInicio = null; //Extremo inicial del camino
+            Punto ciudadMasCercanaDesdeFinal = null;  //Extremo final del camino
             int distanciaMinimaInicio = (int) Double.MAX_VALUE;
             int distanciaMinimaFinal = (int) Double.MAX_VALUE;
 
-            for (Punto1B ciudad : ciudades) {
+            for (Punto ciudad : ciudades) {
                 if (!ruta.contains(ciudad)) {
-                    
-                    int distanciaInicio = (int) Punto1B.distancia(ciudadActual, ciudad);
-                    int distanciaFinal = (int) Punto1B.distancia(ciudad, ruta.get(0));
+
+                    int distanciaInicio = (int) Punto.distancia(ciudadActual, ciudad);
+                    int distanciaFinal = (int) Punto.distancia(ciudad, ruta.get(0));
                     //Calculamos la menor distancia entre el extremo del Inicio
                     if (distanciaInicio < distanciaMinimaInicio) {
                         distanciaMinimaInicio = distanciaInicio;
@@ -75,7 +75,39 @@ public class Algoritmos1B {
                 ciudadActual = ciudadMasCercanaDesdeFinal;
             }
         }
-
         return ruta;
+    }
+
+    public static void imprimirRuta(List<Punto> ruta) {
+        for (Punto ciudad : ruta) {
+            System.out.print(ciudad.getIndice() + ",");
+        }
+        System.out.println(ruta.get(0).getIndice()); // Regresa al inicio
+        int pesoArista;
+        for (int i = 0; i < ruta.size() - 1; i++) {
+            Punto ciudadActual = ruta.get(i);
+            Punto ciudadSiguiente = ruta.get(i + 1);
+            pesoArista = (int) Punto.distancia(ciudadActual, ciudadSiguiente);
+            System.out.println(pesoArista + " - " + ciudadActual.getIndice() + "," + ciudadSiguiente.getIndice());
+        }
+        //Mostra peso regreso a la ciudad de inicio
+        pesoArista = (int) Punto.distancia(ruta.get(ruta.size() - 1), ruta.get(0));
+        System.out.println(pesoArista + " - " + ruta.get(ruta.size() - 1).getIndice() + "," + ruta.get(0).getIndice());
+    }
+
+    //AÑADIR A ALGORITMO 1B
+    public static int calcularCostoTotal(List<Punto> ruta) {
+        int costoTotal = 0;
+        int numCiudades = ruta.size();
+
+        for (int i = 0; i < numCiudades - 1; i++) {
+            Punto ciudadActual = ruta.get(i);
+            Punto ciudadSiguiente = ruta.get(i + 1);
+            costoTotal += Punto.distancia(ciudadActual, ciudadSiguiente);
+        }
+        // Agregar el costo de regreso a la ciudad de inicio
+        costoTotal += Punto.distancia(ruta.get(numCiudades - 1), ruta.get(0));
+
+        return costoTotal;
     }
 }

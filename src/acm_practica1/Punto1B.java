@@ -1,7 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
+
 package acm_practica1;
 
 import static java.lang.Math.pow;
@@ -11,6 +9,7 @@ import static java.lang.Math.sqrt;
  *
  * @author Maria S
  */
+/*
 public class Punto1B implements Cloneable {
 
     int id;
@@ -60,16 +59,17 @@ public class Punto1B implements Cloneable {
         distancia = sqrt((pow(p.getx() - q.getx(), 2)) + (pow(p.gety() - q.gety(), 2)));
         return distancia;
     }
-    /*
-    public static int calcularPeso(Punto1B i, Punto1B j) {
-        return ((((int) (distancia(i, j) * 100)) % 100) + 1);
-    }
-    */
+
+    //public static int calcularPeso(Punto1B i, Punto1B j) {
+    //    return ((((int) (distancia(i, j) * 100)) % 100) + 1);
+    //}
+    
     @Override
     public String toString() {
-        String texto = Integer.toString(id);
-        //String texto = "\t X:" + df.format(this.getx()) + "\t Y: " + df.format(this.gety());
+        //String texto = Integer.toString(id);
+        String texto = "\t X:" + df.format(this.getx()) + "\t Y: " + df.format(this.gety());
         return texto;
 
     }
 }
+*/
