@@ -9,6 +9,41 @@ import java.util.List;
  */
 public class Algoritmos1B {
 
+    public void calcularRutas(List<Punto> ciudades) {
+
+        //Calculo de los costos de los caminos
+        System.out.println("\nRuta Unidireccional");
+        List<Punto> rutaUnidireccional = TSPUnidireccional(ciudades);
+        System.out.println("SOLUTION: " + calcularCostoTotal(rutaUnidireccional));
+        imprimirRuta(rutaUnidireccional);
+
+        System.out.println("\nRuta Bidireccional");
+        List<Punto> rutaBidireccional = TSPBidireccional(ciudades);
+        System.out.println("SOLUTION: " + calcularCostoTotal(rutaBidireccional));
+        imprimirRuta(rutaBidireccional);
+
+    }
+
+    public void comprobacionEmpirica() {
+        GeneraPuntos GP = new GeneraPuntos();
+        List<Punto> ciudades = new ArrayList<>();
+        
+        int mejorUni = 0;
+        int mejorBi = 0;
+        //talla 500
+        for (int i = 0; i < 5; i++) {
+            GP.rellenarPuntos(500, false);
+            ciudades = GP.getListaPuntos();
+            //Si el costo de unidireccional es mayo, el bidireccional es mejor
+            if(calcularCostoTotal(TSPUnidireccional(ciudades)) > calcularCostoTotal(TSPBidireccional(ciudades))){
+                mejorBi++;
+            }else
+                mejorUni++;
+        }
+        System.out.println("Talla 500, mejores, unidireccional: "+ mejorUni + " Bidirecional: "+mejorBi);
+
+    }
+
     public List<Punto> TSPUnidireccional(List<Punto> ciudades) {
 
         List<Punto> ruta = new ArrayList<>();
@@ -82,7 +117,9 @@ public class Algoritmos1B {
         for (Punto ciudad : ruta) {
             System.out.print(ciudad.getIndice() + ",");
         }
+
         System.out.println(ruta.get(0).getIndice()); // Regresa al inicio
+        /*
         int pesoArista;
         for (int i = 0; i < ruta.size() - 1; i++) {
             Punto ciudadActual = ruta.get(i);
@@ -93,6 +130,7 @@ public class Algoritmos1B {
         //Mostra peso regreso a la ciudad de inicio
         pesoArista = (int) Punto.distancia(ruta.get(ruta.size() - 1), ruta.get(0));
         System.out.println(pesoArista + " - " + ruta.get(ruta.size() - 1).getIndice() + "," + ruta.get(0).getIndice());
+         */
     }
 
     //AÑADIR A ALGORITMO 1B

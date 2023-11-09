@@ -1,5 +1,3 @@
-
-
 package acm_practica1;
 
 import static java.lang.Math.pow;
