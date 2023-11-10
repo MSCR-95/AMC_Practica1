@@ -1,7 +1,11 @@
 package acm_practica1;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -9,45 +13,67 @@ import java.util.List;
  */
 public class Algoritmos1B {
 
+    private int rand;
+
+    public int getRand() {
+        return this.rand;
+    }
+
     public void calcularRutas(List<Punto> ciudades) {
+
+        GeneraPuntos GP = new GeneraPuntos();
+        // Llamada a la función para generar un número aleatorio entre 1 y 100
+        this.rand = generarNumeroAleatorio(ciudades.size() - 1);
 
         //Calculo de los costos de los caminos
         System.out.println("\nRuta Unidireccional");
-        List<Punto> rutaUnidireccional = TSPUnidireccional(ciudades);
+        List<Punto> rutaUnidireccional = TSPUnidireccional(ciudades, rand);
         System.out.println("SOLUTION: " + calcularCostoTotal(rutaUnidireccional));
         imprimirRuta(rutaUnidireccional);
 
+        GP.CreaTSP("Unidireccional");
+        EscribeTSP_1B("Unidireccional", rutaUnidireccional);
+
         System.out.println("\nRuta Bidireccional");
-        List<Punto> rutaBidireccional = TSPBidireccional(ciudades);
+        List<Punto> rutaBidireccional = TSPBidireccional(ciudades, rand);
         System.out.println("SOLUTION: " + calcularCostoTotal(rutaBidireccional));
         imprimirRuta(rutaBidireccional);
+
+        GP.CreaTSP("Bidireccional");
+        EscribeTSP_1B("Bidireccional", rutaUnidireccional);
 
     }
 
     public void comprobacionEmpirica() {
+        
         GeneraPuntos GP = new GeneraPuntos();
         List<Punto> ciudades = new ArrayList<>();
-        
         int mejorUni = 0;
         int mejorBi = 0;
+        int iguales = 0;
+
         //talla 500
-        for (int i = 0; i < 5; i++) {
-            GP.rellenarPuntos(500, false);
+        GP.rellenarPuntos(500, false);
+        for (int i = 0; i < 30; i++) {
+            this.rand = generarNumeroAleatorio(GP.puntos.size()-1);
             ciudades = GP.getListaPuntos();
             //Si el costo de unidireccional es mayo, el bidireccional es mejor
-            if(calcularCostoTotal(TSPUnidireccional(ciudades)) > calcularCostoTotal(TSPBidireccional(ciudades))){
+            if (calcularCostoTotal(TSPUnidireccional(ciudades,rand)) > calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
                 mejorBi++;
-            }else
+            } else if(calcularCostoTotal(TSPUnidireccional(ciudades,rand)) < calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
                 mejorUni++;
+            } else
+                iguales++;
         }
-        System.out.println("Talla 500, mejores, unidireccional: "+ mejorUni + " Bidirecional: "+mejorBi);
-
+        System.out.println("Talla 500, mejores, unidireccional: " + mejorUni + " Bidirecional: " + mejorBi + " Iguales: " + iguales);
+         
     }
 
-    public List<Punto> TSPUnidireccional(List<Punto> ciudades) {
+    public List<Punto> TSPUnidireccional(List<Punto> ciudades, int primeraCiudad) {
 
         List<Punto> ruta = new ArrayList<>();
-        Punto ciudadActual = ciudades.get(0);
+
+        Punto ciudadActual = ciudades.get(primeraCiudad);
         ruta.add(ciudadActual);
 
         while (ruta.size() < ciudades.size()) {
@@ -72,10 +98,11 @@ public class Algoritmos1B {
         return ruta;
     }
 
-    public List<Punto> TSPBidireccional(List<Punto> ciudades) {
+    public List<Punto> TSPBidireccional(List<Punto> ciudades, int primeraCiudad) {
 
         List<Punto> ruta = new ArrayList<>();
-        Punto ciudadActual = ciudades.get(0);
+        //Punto ciudadActual = ciudades.get(0);
+        Punto ciudadActual = ciudades.get(primeraCiudad);
         ruta.add(ciudadActual);
 
         while (ruta.size() < ciudades.size()) {
@@ -147,5 +174,48 @@ public class Algoritmos1B {
         costoTotal += Punto.distancia(ruta.get(numCiudades - 1), ruta.get(0));
 
         return costoTotal;
+    }
+
+    //Guardar en un TSP
+    public void EscribeTSP_1B(String NombreFile, List<Punto> ruta) {
+        try {
+            FileWriter myWriter = new FileWriter("src/data/intentos/" + NombreFile + ".tsp");
+            myWriter.write("NAME: " + NombreFile + ".tsp\n");
+            myWriter.write("TYPE: TSP\n");
+            myWriter.write("DIMENSION: " + ruta.size() + "\n");
+            myWriter.write("SOLUTION: " + calcularCostoTotal(ruta) + "\n");
+            myWriter.write("TOUR_SECTION\n");
+
+            for (Punto ciudad : ruta) {
+                myWriter.write(ciudad.getIndice() + ",");
+            }
+
+            myWriter.write(ruta.get(0).getIndice() + "\n");
+
+            int pesoArista;
+            for (int i = 0; i < ruta.size() - 1; i++) {
+                Punto ciudadActual = ruta.get(i);
+                Punto ciudadSiguiente = ruta.get(i + 1);
+                pesoArista = (int) Punto.distancia(ciudadActual, ciudadSiguiente);
+                myWriter.write(pesoArista + " - " + ciudadActual.getIndice() + "," + ciudadSiguiente.getIndice() + "\n");
+            }
+            //Mostra peso regreso a la ciudad de inicio
+            pesoArista = (int) Punto.distancia(ruta.get(ruta.size() - 1), ruta.get(0));
+            myWriter.write(pesoArista + " - " + ruta.get(ruta.size() - 1).getIndice() + "," + ruta.get(0).getIndice() + "\n");
+
+            myWriter.write("EOF");
+
+            myWriter.close();
+            System.out.println("Archivo escrito con exito.");
+        } catch (IOException e) {
+            System.out.println("Error escribiendo.");
+            e.printStackTrace();
+        }
+    }
+
+    // Función para generar un número aleatorio entre 1 y el número pasado por parámetro
+    private static int generarNumeroAleatorio(int maximo) {
+        Random rand = new Random();
+        return rand.nextInt(maximo) + 1; // La expresión rand.nextInt(maximo) genera un número entre 0 y maximo - 1
     }
 }
