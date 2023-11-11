@@ -77,15 +77,6 @@ public class ACM_Practica1a {
 
         System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanos());
 
-       /*  System.out.println("\nEXHAUSTIVO SUCIO");
-        Solucion Y = algoritmos.busquedaExhaustivaSucia(GP.getListaPuntos(), 0, GP.getListaPuntos().size());
-        distancia = Y.dMin;
-        System.out.println("Puntos: ");
-        System.out.println(GP.puntos.get(Y.indiceP1) + "" + GP.puntos.get(Y.indiceP2));
-        System.out.println("Distancia: " + distancia);
-        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
-        System.out.println("Tiempo: "+ algoritmos.getTiempoBusquedaExhaustiva());
-        */
         //System.out.println("\nDIVIDE Y VENCERAS MEJORADO");
         //distancia = algoritmos.divideYVencerasMejorado(GP.getListaPuntos());
         //System.out.println("Puntos: ");

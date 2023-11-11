@@ -71,8 +71,7 @@ public class Algoritmos1B {
                 ruta.add(ciudadMasCercanaDesdeInicio);
                 ciudadActual = ciudadMasCercanaDesdeInicio;
             } else {
-                ruta.add(ciudadMasCercanaDesdeFinal);
-                ciudadActual = ciudadMasCercanaDesdeFinal;
+                ruta.add(0, ciudadMasCercanaDesdeFinal);
             }
         }
 
