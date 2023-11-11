@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package acm_practica1;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 import java.text.DecimalFormat;
 
 /**
@@ -15,7 +13,7 @@ public class Punto {
     private double x;
     private double y;
     private int indice;
-    
+
     private DecimalFormat df = new DecimalFormat("#.##########");
 
     public Punto() {
@@ -40,7 +38,6 @@ public class Punto {
     public int getIndice() {
         return indice;
     }
-    
 
     public void setX(double x) {
         this.x = x;
@@ -49,10 +46,16 @@ public class Punto {
     public void setY(double y) {
         this.y = y;
     }
+    //Para la parte 1B
+    public static double distancia(Punto p, Punto q) {
+        double distancia;
+        distancia = sqrt((pow(p.getX()- q.getX(), 2)) + (pow(p.getY() - q.getY(), 2)));
+        return distancia;
+    }
 
     @Override
     public String toString() {
-       //return df.format(x) + " " + df.format(y) + String.format("%n");
-       return indice +" ("+ x + " " + y  + String.format(")%n");
+        //return df.format(x) + " " + df.format(y) + String.format("%n");
+        return indice + " (" + x + " " + y + String.format(")%n");
     }
 }
