@@ -76,6 +76,8 @@ public class ACM_Practica1a {
         System.out.println("Comparaciones: " + algoritmos.getNComparacionesDyV());
 
         System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanos());
+        
+        //*****************************************************************
 
         System.out.println("\nDIVIDE Y VENCERAS MEJORADO");
         distancia = algoritmos.busquedaDivideYVencerasMejorado(GP.getListaPuntos());
@@ -85,6 +87,6 @@ public class ACM_Practica1a {
         System.out.println("Comparaciones: " + algoritmos.getNComparacionesDivideYVencerasMejorado());
 
         System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanosTest());
-       
+    
     }  
 }
