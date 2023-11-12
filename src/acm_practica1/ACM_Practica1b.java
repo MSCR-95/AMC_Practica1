@@ -31,6 +31,12 @@ public class ACM_Practica1b {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         */
+        /*
+        VisualParte1bOpcional frameOpcional = new VisualParte1bOpcional();
+        frameOpcional.setVisible(true);
+        frameOpcional.setLocationRelativeTo(null);
+        
+        */
         
         GeneraPuntos GP = new GeneraPuntos();
         //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");   // UNI < BI
@@ -41,7 +47,7 @@ public class ACM_Practica1b {
         
         //GP.CreaTSP("Hola1B");
         //GP.EscribeTSP("Hola");
-        GP.rellenarPuntos(11, false);
+        GP.rellenarPuntos(111, false);
         
         //Agrega ciudades a la lista
         listaCiudades = GP.getListaPuntos();
@@ -51,17 +57,17 @@ public class ACM_Practica1b {
         // Resuelve el TSP utilizando la estrategia unidireccional
         
         //MOSTRAR POR TEXTO
-        TSP.calcularRutas(listaCiudades);
+        //TSP.calcularRutas(listaCiudades);
         
         //CALCULO EMPIRICO, descomentar para probar
-        //TSP.comprobacionEmpirica();
+        TSP.comprobacionEmpirica();
         
         //++++++++++++++OPCIONAL+++++++++++++++//
-        TSP.calcularSolucionOptima(listaCiudades);
+        //TSP.calcularSolucionOptima(listaCiudades);
         //++++++++++++++OPCIONAL+++++++++++++++//
         //--------------------
         //--------------------
-        
+        /*
         JFrame frame = new JFrame("Lista de Puntos");
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +84,7 @@ public class ACM_Practica1b {
 
         frame.add(panel);
         frame.setVisible(true);
-        
+        */
         
     }
     
