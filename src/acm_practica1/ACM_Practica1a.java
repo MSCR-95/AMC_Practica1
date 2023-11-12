@@ -77,14 +77,14 @@ public class ACM_Practica1a {
 
         System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanos());
 
-        //System.out.println("\nDIVIDE Y VENCERAS MEJORADO");
-        //distancia = algoritmos.divideYVencerasMejorado(GP.getListaPuntos());
-        //System.out.println("Puntos: ");
-        //System.out.println(algoritmos.getPuntoPorIndice(algoritmos.getIndiceP1()) +""+ algoritmos.getPuntoPorIndice(algoritmos.getIndiceP2()));
-        //System.out.println("Distancia: " + distancia);
-        //System.out.println("Comparaciones: " + algoritmos.getNComparacionesDyV());
+        System.out.println("\nDIVIDE Y VENCERAS MEJORADO");
+        distancia = algoritmos.busquedaDivideYVencerasMejorado(GP.getListaPuntos());
+        System.out.println("Puntos: ");
+        System.out.println(algoritmos.getPuntoPorIndice(algoritmos.getIndiceP1()) +""+ algoritmos.getPuntoPorIndice(algoritmos.getIndiceP2()));
+        System.out.println("Distancia: " + distancia);
+        System.out.println("Comparaciones: " + algoritmos.getNComparacionesDivideYVencerasMejorado());
 
-        //System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanos());
+        System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanosTest());
        
     }  
 }
