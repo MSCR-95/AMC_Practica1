@@ -18,11 +18,11 @@ public class Algoritmos1B {
     private double tiempoUnidirec = 0.0;
     private double tiempoBidirec = 0.0;
 
-    public double decimales4(double numero){
-        numero = Math.round( numero * 10000) / 10000d;
+    public double decimales4(double numero) {
+        numero = Math.round(numero * 10000) / 10000d;
         return numero;
     }
-    
+
     public int getRand() {
         return this.rand;
     }
@@ -39,7 +39,7 @@ public class Algoritmos1B {
         List<Punto> rutaUnidireccional = TSPUnidireccional(ciudades, rand);
         System.out.println("SOLUTION: " + calcularCostoTotal(rutaUnidireccional));
         imprimirRuta(rutaUnidireccional);
-        
+
         GP.CreaTSP("Unidireccional");
         EscribeTSP_1B("Unidireccional", rutaUnidireccional);
 
@@ -47,11 +47,11 @@ public class Algoritmos1B {
         List<Punto> rutaBidireccional = TSPBidireccional(ciudades, rand);
         System.out.println("SOLUTION: " + calcularCostoTotal(rutaBidireccional));
         imprimirRuta(rutaBidireccional);
-        
+
         GP.CreaTSP("Bidireccional");
         EscribeTSP_1B("Bidireccional", rutaUnidireccional);
         System.out.println("---------------------------------");
-        
+
     }
 
     public void comprobacionEmpirica() {
@@ -81,7 +81,7 @@ public class Algoritmos1B {
                 }
             }
             System.out.println("Talla: " + talla + ", Mejor [Uni:(" + mejorUni + "), Bi:(" + mejorBi + "), Iguales:(" + iguales + ")]");
-            System.out.println("Tiempo medio ejecucion [Uni: " + decimales4(tiempoUnidirec/100)  + ", Bi: " + decimales4(tiempoBidirec/100) + "]\n");
+            System.out.println("Tiempo medio ejecucion [Uni: " + decimales4(tiempoUnidirec / 100) + ", Bi: " + decimales4(tiempoBidirec / 100) + "]\n");
             mejorBi = mejorUni = iguales = 0;
             tiempoBidirec = tiempoUnidirec = 0.0;
         }
@@ -240,5 +240,61 @@ public class Algoritmos1B {
     private static int generarNumeroAleatorio(int maximo) {
         Random rand = new Random();
         return rand.nextInt(maximo) + 1; // La expresión rand.nextInt(maximo) genera un número entre 0 y maximo - 1
+    }
+
+    //-----------OPCIONAL------------//
+    public void calcularSolucionOptima(List<Punto> ciudades) {
+
+        if (ciudades.size() > 12) {
+            System.out.println("Para calcular la ruta optima, la lista no puede tener mas de 12 puntos.");
+            return;
+        }
+
+        double startTime = System.nanoTime();
+        List<Punto> mejorRuta = null;
+        int mejorCosto = Integer.MAX_VALUE;
+
+        List<List<Punto>> permutaciones = generarPermutaciones(ciudades);
+
+        for (List<Punto> ruta : permutaciones) {
+            int costoActual = calcularCostoTotal(ruta);
+            if (costoActual < mejorCosto) {
+                mejorCosto = costoActual;
+                mejorRuta = new ArrayList<>(ruta);
+            }
+        }
+
+        double endTime = System.nanoTime();
+        double tiempoFuerzaBruta = (endTime - startTime) / 1e6;
+
+        System.out.println("Ruta Optima (Fuerza Bruta)");
+        imprimirRuta(mejorRuta);
+        System.out.println("SOLUTION: " + mejorCosto);
+        System.out.println("Tiempo de ejecucion (Fuerza Bruta): " + decimales4(tiempoFuerzaBruta) + " ms");
+    }
+
+    private List<List<Punto>> generarPermutaciones(List<Punto> ciudades) {
+        List<List<Punto>> permutaciones = new ArrayList<>();
+        generarPermutacionesRec(ciudades, 0, permutaciones);
+        return permutaciones;
+    }
+
+    private void generarPermutacionesRec(List<Punto> ciudades, int indice, List<List<Punto>> permutaciones) {
+        if (indice == ciudades.size()) {
+            permutaciones.add(new ArrayList<>(ciudades));
+            return;
+        }
+
+        for (int i = indice; i < ciudades.size(); i++) {
+            intercambiar(ciudades, indice, i);
+            generarPermutacionesRec(ciudades, indice + 1, permutaciones);
+            intercambiar(ciudades, indice, i); // Deshacer el intercambio para volver al estado original
+        }
+    }
+
+    private void intercambiar(List<Punto> ciudades, int i, int j) {
+        Punto temp = ciudades.get(i);
+        ciudades.set(i, ciudades.get(j));
+        ciudades.set(j, temp);
     }
 }

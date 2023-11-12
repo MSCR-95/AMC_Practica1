@@ -26,14 +26,14 @@ public class ACM_Practica1b {
     public static void main(String[] args) {
         
         //PRUEBAS CON FRAME
-        
+        /*
         VisualParte1B frame = new VisualParte1B();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        */
         
-        /*
         GeneraPuntos GP = new GeneraPuntos();
-        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");   // UNI < BI
+        //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");   // UNI < BI
         //GP.LeePuntos("src/data/ch130.tsp/ch130.tsp");         // UNI > BI
         //GP.LeePuntos("src/data/ch150.tsp/ch150.tsp");         // UNI < BI
         //GP.LeePuntos("src/data/d493.tsp/d493.tsp");           // UNI == BI
@@ -41,7 +41,7 @@ public class ACM_Practica1b {
         
         //GP.CreaTSP("Hola1B");
         //GP.EscribeTSP("Hola");
-        //GP.rellenarPuntos(100, false);
+        GP.rellenarPuntos(11, false);
         
         //Agrega ciudades a la lista
         listaCiudades = GP.getListaPuntos();
@@ -55,7 +55,10 @@ public class ACM_Practica1b {
         
         //CALCULO EMPIRICO, descomentar para probar
         //TSP.comprobacionEmpirica();
-
+        
+        //++++++++++++++OPCIONAL+++++++++++++++//
+        TSP.calcularSolucionOptima(listaCiudades);
+        //++++++++++++++OPCIONAL+++++++++++++++//
         //--------------------
         //--------------------
         
@@ -130,7 +133,7 @@ public class ACM_Practica1b {
         
         
         
-        */
+        
     }
     
 }
