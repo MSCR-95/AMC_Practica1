@@ -1,11 +1,12 @@
 package acm_practica1;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -14,7 +15,14 @@ import java.util.Random;
 public class Algoritmos1B {
 
     private int rand;
+    private double tiempoUnidirec = 0.0;
+    private double tiempoBidirec = 0.0;
 
+    public double decimales4(double numero){
+        numero = Math.round( numero * 10000) / 10000d;
+        return numero;
+    }
+    
     public int getRand() {
         return this.rand;
     }
@@ -24,13 +32,14 @@ public class Algoritmos1B {
         GeneraPuntos GP = new GeneraPuntos();
         // Llamada a la función para generar un número aleatorio entre 1 y 100
         this.rand = generarNumeroAleatorio(ciudades.size() - 1);
+        //this.rand = 0;
 
         //Calculo de los costos de los caminos
-        System.out.println("\nRuta Unidireccional");
+        System.out.println("Ruta Unidireccional");
         List<Punto> rutaUnidireccional = TSPUnidireccional(ciudades, rand);
         System.out.println("SOLUTION: " + calcularCostoTotal(rutaUnidireccional));
         imprimirRuta(rutaUnidireccional);
-
+        
         GP.CreaTSP("Unidireccional");
         EscribeTSP_1B("Unidireccional", rutaUnidireccional);
 
@@ -38,38 +47,49 @@ public class Algoritmos1B {
         List<Punto> rutaBidireccional = TSPBidireccional(ciudades, rand);
         System.out.println("SOLUTION: " + calcularCostoTotal(rutaBidireccional));
         imprimirRuta(rutaBidireccional);
-
+        
         GP.CreaTSP("Bidireccional");
         EscribeTSP_1B("Bidireccional", rutaUnidireccional);
-
+        System.out.println("---------------------------------");
+        
     }
 
     public void comprobacionEmpirica() {
-        
+
         GeneraPuntos GP = new GeneraPuntos();
         List<Punto> ciudades = new ArrayList<>();
         int mejorUni = 0;
         int mejorBi = 0;
         int iguales = 0;
-
-        //talla 500
-        GP.rellenarPuntos(500, false);
-        for (int i = 0; i < 30; i++) {
-            this.rand = generarNumeroAleatorio(GP.puntos.size()-1);
-            ciudades = GP.getListaPuntos();
-            //Si el costo de unidireccional es mayo, el bidireccional es mejor
-            if (calcularCostoTotal(TSPUnidireccional(ciudades,rand)) > calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
-                mejorBi++;
-            } else if(calcularCostoTotal(TSPUnidireccional(ciudades,rand)) < calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
-                mejorUni++;
-            } else
-                iguales++;
+        int talla = 0;
+        //Para talla 5000 -> i=10 
+        for (int i = 0; i < 2; i++) {
+            talla += 500;
+            GP.rellenarPuntos(talla, false);
+            // j es el numero de ejecuciones diferentes
+            for (int j = 0; j < 100; j++) {
+                //numero aleatorio para la ciudad inicial
+                this.rand = generarNumeroAleatorio(GP.puntos.size() - 1);
+                ciudades = GP.getListaPuntos();
+                //Si el costo de unidireccional es mayo, el bidireccional es mejor
+                if (calcularCostoTotal(TSPUnidireccional(ciudades, rand)) > calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
+                    mejorBi++;
+                } else if (calcularCostoTotal(TSPUnidireccional(ciudades, rand)) < calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
+                    mejorUni++;
+                } else {
+                    iguales++;
+                }
+            }
+            System.out.println("Talla: " + talla + ", Mejor [Uni:(" + mejorUni + "), Bi:(" + mejorBi + "), Iguales:(" + iguales + ")]");
+            System.out.println("Tiempo medio ejecucion [Uni: " + decimales4(tiempoUnidirec/100)  + ", Bi: " + decimales4(tiempoBidirec/100) + "]\n");
+            mejorBi = mejorUni = iguales = 0;
+            tiempoBidirec = tiempoUnidirec = 0.0;
         }
-        System.out.println("Talla 500, mejores, unidireccional: " + mejorUni + " Bidirecional: " + mejorBi + " Iguales: " + iguales);
-         
     }
 
     public List<Punto> TSPUnidireccional(List<Punto> ciudades, int primeraCiudad) {
+
+        double startTime = System.nanoTime();
 
         List<Punto> ruta = new ArrayList<>();
 
@@ -79,7 +99,6 @@ public class Algoritmos1B {
         while (ruta.size() < ciudades.size()) {
             Punto ciudadMasCercana = null;
             int distanciaMinima = (int) Double.MAX_VALUE;
-
             //Comprobar el bucle
             for (Punto ciudad : ciudades) {
                 //Si esa ciudad no ha sido visitada antes
@@ -95,10 +114,13 @@ public class Algoritmos1B {
             ruta.add(ciudadMasCercana);
             ciudadActual = ciudadMasCercana;
         }
+        double endTime = System.nanoTime();
+        tiempoUnidirec = (endTime - startTime) / 1e6;
         return ruta;
     }
 
     public List<Punto> TSPBidireccional(List<Punto> ciudades, int primeraCiudad) {
+        double startTime = System.nanoTime();
 
         List<Punto> ruta = new ArrayList<>();
         //Punto ciudadActual = ciudades.get(0);
@@ -133,10 +155,11 @@ public class Algoritmos1B {
                 ruta.add(ciudadMasCercanaDesdeInicio);
                 ciudadActual = ciudadMasCercanaDesdeInicio;
             } else {
-                ruta.add(ciudadMasCercanaDesdeFinal);
-                ciudadActual = ciudadMasCercanaDesdeFinal;
+                ruta.add(0,ciudadMasCercanaDesdeFinal);
             }
         }
+        double endTime = System.nanoTime();
+        tiempoBidirec = (endTime - startTime) / 1e6;
         return ruta;
     }
 
@@ -147,6 +170,7 @@ public class Algoritmos1B {
 
         System.out.println(ruta.get(0).getIndice()); // Regresa al inicio
         /*
+        //Muestra todos los vertices, con los pesos de las aristas
         int pesoArista;
         for (int i = 0; i < ruta.size() - 1; i++) {
             Punto ciudadActual = ruta.get(i);
@@ -160,7 +184,6 @@ public class Algoritmos1B {
          */
     }
 
-    //AÑADIR A ALGORITMO 1B
     public static int calcularCostoTotal(List<Punto> ruta) {
         int costoTotal = 0;
         int numCiudades = ruta.size();

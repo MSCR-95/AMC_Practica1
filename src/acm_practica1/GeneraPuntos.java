@@ -74,7 +74,8 @@ public class GeneraPuntos {
                 puntos.add(new Punto(ENT,D1, D2));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("El archivo no existe");
         }
     }
 
