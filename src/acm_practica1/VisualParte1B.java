@@ -25,12 +25,7 @@ public class VisualParte1B extends javax.swing.JFrame {
     private int talla;
     private final GeneraPuntos GP = new GeneraPuntos();
     private final Algoritmos1B TSP = new Algoritmos1B();
-    //private final Style defautStyle;
-    //private final StyledDocument styledDocument;
 
-    /**
-     * Creates new form JFramePruebitas
-     */
     public VisualParte1B() {
         initComponents();
 
@@ -39,8 +34,6 @@ public class VisualParte1B extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        //styledDocument = texto.getStyledDocument();
-        //defautStyle = texto.getStyle("default");
         PrintStream printStream = new PrintStream(new CustomOutputStream(texto));
         System.setOut(printStream);
         System.setErr(printStream);
@@ -78,12 +71,12 @@ public class VisualParte1B extends javax.swing.JFrame {
         text_generar_aleatorio = new javax.swing.JLabel();
         introducir_talla = new javax.swing.JTextField();
         botonGenerar = new javax.swing.JButton();
-        text_Estudio_empirico = new javax.swing.JLabel();
+        text_CaminoOptimo = new javax.swing.JLabel();
         botonComprobar = new javax.swing.JButton();
         textoScroll = new javax.swing.JScrollPane(texto);
         texto = new javax.swing.JTextPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 600));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -99,7 +92,7 @@ public class VisualParte1B extends javax.swing.JFrame {
             .addGap(0, 281, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setPreferredSize(new java.awt.Dimension(260, 215));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -155,8 +148,8 @@ public class VisualParte1B extends javax.swing.JFrame {
             }
         });
 
-        text_Estudio_empirico.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        text_Estudio_empirico.setText("Estudio empirico");
+        text_CaminoOptimo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        text_CaminoOptimo.setText("Camino optimo");
 
         botonComprobar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         botonComprobar.setText("Comprobar");
@@ -194,7 +187,7 @@ public class VisualParte1B extends javax.swing.JFrame {
                                         .addComponent(botonCargarTSP, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(botonComprobar, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(botonGenerar, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(text_Estudio_empirico, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addComponent(text_CaminoOptimo, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addComponent(text_Bidireccional, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(textoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -221,7 +214,7 @@ public class VisualParte1B extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonGenerar)
                         .addGap(18, 18, 18)
-                        .addComponent(text_Estudio_empirico)
+                        .addComponent(text_CaminoOptimo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonComprobar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -245,7 +238,11 @@ public class VisualParte1B extends javax.swing.JFrame {
     }//GEN-LAST:event_introducir_tallaActionPerformed
 
     private void botonComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprobarActionPerformed
-        // TODO add your handling code here:
+        VisualParte1bOpcional frameOpcional = new VisualParte1bOpcional();
+        frameOpcional.setVisible(true);
+        frameOpcional.setLocationRelativeTo(null);
+        frameOpcional.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
     }//GEN-LAST:event_botonComprobarActionPerformed
     //Boton de cargar .tsp
     private void botonCargarTSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarTSPActionPerformed
@@ -269,8 +266,6 @@ public class VisualParte1B extends javax.swing.JFrame {
         TSP.calcularRutas(listaCiudades);
         jPanel1.repaint();
         jPanel2.repaint();
-        //ELIMINAR EL TEXTO ANTES DE VOLVER A PONERLO
-
     }//GEN-LAST:event_botonGenerarActionPerformed
 
     // Clase para redirigir la salida estándar al JTextPane
@@ -350,8 +345,8 @@ public class VisualParte1B extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel text_Bidireccional;
+    private javax.swing.JLabel text_CaminoOptimo;
     private javax.swing.JLabel text_CargarTSP;
-    private javax.swing.JLabel text_Estudio_empirico;
     private javax.swing.JLabel text_Unidireccional;
     private javax.swing.JLabel text_generar_aleatorio;
     private javax.swing.JTextPane texto;

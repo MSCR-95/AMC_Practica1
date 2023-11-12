@@ -17,6 +17,10 @@ public class Algoritmos1B {
     private int rand;
     private double tiempoUnidirec = 0.0;
     private double tiempoBidirec = 0.0;
+    private double tiempoFuerzaBruta = 0.0;
+
+    private int costoUni = 0;
+    private int costoBi = 0;
 
     public double decimales4(double numero) {
         numero = Math.round(numero * 10000) / 10000d;
@@ -37,7 +41,8 @@ public class Algoritmos1B {
         //Calculo de los costos de los caminos
         System.out.println("Ruta Unidireccional");
         List<Punto> rutaUnidireccional = TSPUnidireccional(ciudades, rand);
-        System.out.println("SOLUTION: " + calcularCostoTotal(rutaUnidireccional));
+        //System.out.println("SOLUTION: " + calcularCostoTotal(rutaUnidireccional));
+        System.out.println("SOLUTION:" + costoUni);
         imprimirRuta(rutaUnidireccional);
 
         GP.CreaTSP("Unidireccional");
@@ -45,7 +50,8 @@ public class Algoritmos1B {
 
         System.out.println("\nRuta Bidireccional");
         List<Punto> rutaBidireccional = TSPBidireccional(ciudades, rand);
-        System.out.println("SOLUTION: " + calcularCostoTotal(rutaBidireccional));
+        //System.out.println("SOLUTION: " + calcularCostoTotal(rutaBidireccional));
+        System.out.println("SOLUTION: "+ costoBi);
         imprimirRuta(rutaBidireccional);
 
         GP.CreaTSP("Bidireccional");
@@ -62,19 +68,22 @@ public class Algoritmos1B {
         int mejorBi = 0;
         int iguales = 0;
         int talla = 0;
+
         //Para talla 5000 -> i=10 
         for (int i = 0; i < 2; i++) {
             talla += 500;
             GP.rellenarPuntos(talla, false);
+            ciudades = GP.getListaPuntos();
             // j es el numero de ejecuciones diferentes
             for (int j = 0; j < 100; j++) {
                 //numero aleatorio para la ciudad inicial
-                this.rand = generarNumeroAleatorio(GP.puntos.size() - 1);
-                ciudades = GP.getListaPuntos();
-                //Si el costo de unidireccional es mayo, el bidireccional es mejor
-                if (calcularCostoTotal(TSPUnidireccional(ciudades, rand)) > calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
+                this.rand = generarNumeroAleatorio(GP.puntos.size() - 1);                
+                TSPUnidireccional(ciudades, rand);
+                TSPBidireccional(ciudades, rand);
+
+                if (costoUni > costoBi) {
                     mejorBi++;
-                } else if (calcularCostoTotal(TSPUnidireccional(ciudades, rand)) < calcularCostoTotal(TSPBidireccional(ciudades, rand))) {
+                } else if (costoUni < costoBi) {
                     mejorUni++;
                 } else {
                     iguales++;
@@ -89,37 +98,41 @@ public class Algoritmos1B {
 
     public List<Punto> TSPUnidireccional(List<Punto> ciudades, int primeraCiudad) {
 
+        costoUni = 0;
+
         double startTime = System.nanoTime();
-
         List<Punto> ruta = new ArrayList<>();
-
         Punto ciudadActual = ciudades.get(primeraCiudad);
         ruta.add(ciudadActual);
 
         while (ruta.size() < ciudades.size()) {
             Punto ciudadMasCercana = null;
-            int distanciaMinima = (int) Double.MAX_VALUE;
+            double distanciaMinima =  Double.MAX_VALUE;
             //Comprobar el bucle
             for (Punto ciudad : ciudades) {
                 //Si esa ciudad no ha sido visitada antes
                 if (!ruta.contains(ciudad)) {
                     //Calculamos la distancia entre la ciudad actual y las demas(por el bucle)
-                    int distancia = (int) Punto.distancia(ciudadActual, ciudad);
+                    double distancia = /*(int)*/ Punto.distancia(ciudadActual, ciudad);
                     if (distancia < distanciaMinima) {
                         distanciaMinima = distancia;
                         ciudadMasCercana = ciudad;
                     }
                 }
             }
+            costoUni += distanciaMinima;
             ruta.add(ciudadMasCercana);
             ciudadActual = ciudadMasCercana;
         }
+        costoUni += Punto.distancia(ruta.get(ruta.size()-1), ruta.get(0)); //Añade el costo de regreso a la ciudad de inicio
+        
         double endTime = System.nanoTime();
         tiempoUnidirec = (endTime - startTime) / 1e6;
         return ruta;
     }
 
     public List<Punto> TSPBidireccional(List<Punto> ciudades, int primeraCiudad) {
+        costoBi = 0;
         double startTime = System.nanoTime();
 
         List<Punto> ruta = new ArrayList<>();
@@ -130,14 +143,14 @@ public class Algoritmos1B {
         while (ruta.size() < ciudades.size()) {
             Punto ciudadMasCercanaDesdeInicio = null; //Extremo inicial del camino
             Punto ciudadMasCercanaDesdeFinal = null;  //Extremo final del camino
-            int distanciaMinimaInicio = (int) Double.MAX_VALUE;
-            int distanciaMinimaFinal = (int) Double.MAX_VALUE;
+            double distanciaMinimaInicio = (int) Double.MAX_VALUE;
+            double distanciaMinimaFinal = (int) Double.MAX_VALUE;
 
             for (Punto ciudad : ciudades) {
                 if (!ruta.contains(ciudad)) {
 
-                    int distanciaInicio = (int) Punto.distancia(ciudadActual, ciudad);
-                    int distanciaFinal = (int) Punto.distancia(ciudad, ruta.get(0));
+                    double distanciaInicio = Punto.distancia(ciudadActual, ciudad);
+                    double distanciaFinal =  Punto.distancia(ciudad, ruta.get(0));
                     //Calculamos la menor distancia entre el extremo del Inicio
                     if (distanciaInicio < distanciaMinimaInicio) {
                         distanciaMinimaInicio = distanciaInicio;
@@ -150,14 +163,18 @@ public class Algoritmos1B {
                     }
                 }
             }
-            // Elegir la ciudad más cercana entre las dos opciones
+            //Elegir la ciudad más cercana entre las dos opciones
             if (distanciaMinimaInicio < distanciaMinimaFinal) {
+                costoBi += distanciaMinimaInicio;
                 ruta.add(ciudadMasCercanaDesdeInicio);
                 ciudadActual = ciudadMasCercanaDesdeInicio;
             } else {
+                costoBi += distanciaMinimaFinal;
                 ruta.add(0, ciudadMasCercanaDesdeFinal);
             }
         }
+        costoBi += Punto.distancia(ruta.get(ruta.size()-1), ruta.get(0));
+        
         double endTime = System.nanoTime();
         tiempoBidirec = (endTime - startTime) / 1e6;
         return ruta;
@@ -243,12 +260,29 @@ public class Algoritmos1B {
     }
 
     //-----------OPCIONAL------------//
-    public void calcularSolucionOptima(List<Punto> ciudades) {
+    public void mostrarSolucionOptima(List<Punto> ciudades) {
+        //Calculo de los costos de los caminos
+        GeneraPuntos GP = new GeneraPuntos();
+        System.out.println("Ruta Optima");
+        List<Punto> rutaOptima = calcularSolucionOptima(ciudades);
+        System.out.println("SOLUTION: " + calcularCostoTotal(rutaOptima));
+        imprimirRuta(rutaOptima);
+        System.out.println("Tiempo de ejecucion: " + decimales4(tiempoFuerzaBruta) + " ms");
+        GP.CreaTSP("Optima");
+        EscribeTSP_1B("Optima", rutaOptima);
 
+        System.out.println("\n **Comparacion con Unidireccional y Bidireccional**\n");
+        calcularRutas(ciudades);
+
+    }
+
+    public List<Punto> calcularSolucionOptima(List<Punto> ciudades) {
+        /*
         if (ciudades.size() > 12) {
             System.out.println("Para calcular la ruta optima, la lista no puede tener mas de 12 puntos.");
             return;
         }
+         */
 
         double startTime = System.nanoTime();
         List<Punto> mejorRuta = null;
@@ -265,12 +299,14 @@ public class Algoritmos1B {
         }
 
         double endTime = System.nanoTime();
-        double tiempoFuerzaBruta = (endTime - startTime) / 1e6;
-
-        System.out.println("Ruta Optima (Fuerza Bruta)");
+        tiempoFuerzaBruta = (endTime - startTime) / 1e6;
+        /*
+        System.out.println("Ruta Optima");
         imprimirRuta(mejorRuta);
         System.out.println("SOLUTION: " + mejorCosto);
-        System.out.println("Tiempo de ejecucion (Fuerza Bruta): " + decimales4(tiempoFuerzaBruta) + " ms");
+        System.out.println("Tiempo de ejecucion: " + decimales4(tiempoFuerzaBruta) + " ms");
+         */
+        return mejorRuta;
     }
 
     private List<List<Punto>> generarPermutaciones(List<Punto> ciudades) {
