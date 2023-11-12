@@ -155,7 +155,7 @@ public class Algoritmos1B {
                 ruta.add(ciudadMasCercanaDesdeInicio);
                 ciudadActual = ciudadMasCercanaDesdeInicio;
             } else {
-                ruta.add(0,ciudadMasCercanaDesdeFinal);
+                ruta.add(0, ciudadMasCercanaDesdeFinal);
             }
         }
         double endTime = System.nanoTime();
