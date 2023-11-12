@@ -332,7 +332,7 @@ public class Algoritmos {
         double startTime = System.nanoTime();
 
         //Primero, ordena la lista de puntos por la coordenada x.
-        ordenarPuntosPorYQuickSort(punto);
+        
 
         nComparacionesDyVMejorado = 0;
         indiceP1 = -1;
@@ -349,7 +349,11 @@ public class Algoritmos {
 
 
     private Solucion buscarPuntosMasCercanosTest(List<Punto> punto, int izquierda, int derecha) {
+        ordenarPuntosPorXQuickSort(punto);
+
         double startTime = System.nanoTime();
+        //int arriba = 0;
+        //int abajo = 0;
 
         if (derecha - izquierda <= 2) {            
             //Cuando hay pocos puntos, realiza una búsqueda exhaustiva.
@@ -358,7 +362,9 @@ public class Algoritmos {
         }
         //Calculamos la mitad
         int mitad = (izquierda + derecha) / 2;
+        //int media = (arriba + abajo) / 2;
         Punto puntoMitad = punto.get(mitad);
+        //Punto puntoMedia = punto.get(media);
 
         //Calcula la distancia minima por la izquierda
         Solucion distanciaIzquierda = buscarPuntosMasCercanosTest(punto, izquierda, mitad);
@@ -369,7 +375,7 @@ public class Algoritmos {
 
         Punto puntoMitadIzq = puntoMitad;
         Punto puntoMitadDer = punto.get(mitad+1);
-        double MediaPuntos = (puntoMitadIzq.getY() + puntoMitadDer.getY())/2;
+        double MediaPuntos = (puntoMitadIzq.getX() + puntoMitadDer.getX())/2;
         double franjaIzq = MediaPuntos - distanciaMinima;
         double franjaDer = MediaPuntos + distanciaMinima;
         List<Punto> franja = new ArrayList<>();
@@ -377,7 +383,7 @@ public class Algoritmos {
         int aux1 = -1;
         int aux2 = -1;
         for (int i = izquierda; i < derecha+1; i++) {
-            if (punto.get(i).getY() >= franjaIzq && punto.get(i).getY() <= franjaDer){
+            if (punto.get(i).getX() >= franjaIzq && punto.get(i).getX() <= franjaDer){
                 franja.add(punto.get(i));
                 if(aux1 == -1){
                     aux1 = i;
@@ -397,8 +403,16 @@ public class Algoritmos {
             }
             j++;
         }*/
-
+        ordenarPuntosPorYQuickSort(franja);
+        //Tenemos franja con todos los puntos dentro de la franja.
+        //Ordeno los puntos por su Y
+        //No tengo ni idea de cómo comprobarlos con los que estén a menos de 12 posiciones
+        //A que coño se refiere con posiciones
+        //Por qué usa una palabra distinta para "indice" en cada parte del enunciado
+        //Fumadón
         Solucion franjaSol = busquedaExhaustivaSuciaTest (punto, aux1, aux2);
+        
+        //Solucion franjaTest = busquedaExhaustivaSuciaTest(franja, 0, 12);
         Solucion Legit;
         if(distanciaIzquierda.dMin < distanciaDerecha.dMin && distanciaIzquierda.dMin < franjaSol.dMin){
             Legit = distanciaIzquierda;
@@ -417,7 +431,9 @@ public class Algoritmos {
              ParDePuntos Pp = new ParDePuntos(punto.get(Legit.indiceP1), punto.get(Legit.indiceP2));
                 if (Legit.dMin < dMinAnteriorTest){
                     dMinAnteriorTest = Legit.dMin;
-                    System.out.println("Distancia dMinAnteriorTest: " + dMinAnteriorTest);
+                    //System.out.println("Distancia dMinAnteriorTest: " + dMinAnteriorTest);
+                    //System.out.println("Pp1: "+ Pp.getP1().getIndice() + " " + Pp.getP1().getX() + " " + Pp.getP1().getY()+ " Pp2:"+ Pp.getP2().getIndice() + " "  + Pp.getP2().getX() + " " + Pp.getP2().getY());
+                    //System.out.println("PpDistancia: " + Pp.distancia());
                     Legit.indiceP1 = Pp.getP1().getIndice();
                     Legit.indiceP2 = Pp.getP2().getIndice();
             }
