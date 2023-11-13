@@ -46,7 +46,7 @@ public class ACM_Practica1a {
       
         System.out.println("EXHAUSTIVO");
 
-        S = algoritmos.busquedaExaustiva(GP.getListaPuntos(), 0, GP.getListaPuntos().size());
+        S = algoritmos.busquedaExhaustiva(GP.getListaPuntos(), 0, GP.getListaPuntos().size());
         System.out.println("Puntos: ");
         System.out.println(GP.puntos.get(S.indiceP1) + "" + GP.puntos.get(S.indiceP2));
         System.out.println("Distancia: " + S.dMin);
