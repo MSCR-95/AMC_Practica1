@@ -46,12 +46,12 @@ public class ACM_Practica1a {
       
         System.out.println("EXHAUSTIVO");
 
-        S = algoritmos.busquedaExhaustiva(GP.getListaPuntos(), 0, GP.getListaPuntos().size());
+        S = algoritmos.busquedaExhaustiva(GP.getListaPuntos(), 0, GP.getListaPuntos().size(), 0, 0);
         System.out.println("Puntos: ");
         System.out.println(GP.puntos.get(S.indiceP1) + "" + GP.puntos.get(S.indiceP2));
         System.out.println("Distancia: " + S.dMin);
-        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
-        System.out.println("Tiempo: "+ algoritmos.getTiempoBusquedaExhaustiva());
+        System.out.println("Comparaciones: " + S.nComparaciones);
+        System.out.println("Tiempo: "+ S.time);
 
         
         //*****************************************************************
@@ -61,8 +61,8 @@ public class ACM_Practica1a {
         System.out.println("Puntos: ");
         System.out.println(algoritmos.getPuntoPorIndice(S.indiceP1) +""+ algoritmos.getPuntoPorIndice(S.indiceP2));
         System.out.println("Distancia: " + S.dMin);
-        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
-        System.out.println("Tiempo: "+algoritmos.getTiempoBusquedaConPoda());
+        System.out.println("Comparaciones: " + S.nComparaciones);
+        System.out.println("Tiempo: "+S.time);
         
         //*****************************************************************
 
@@ -73,9 +73,9 @@ public class ACM_Practica1a {
         System.out.println("Puntos: ");
         System.out.println(algoritmos.getPuntoPorIndice(S.indiceP1) +""+ algoritmos.getPuntoPorIndice(S.indiceP2));
         System.out.println("Distancia: " + S.dMin);
-        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
+        System.out.println("Comparaciones: " + S.nComparaciones);
 
-        System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanos());
+        System.out.println("Tiempo: "+ S.time);
         
         //*****************************************************************
 
@@ -84,9 +84,9 @@ public class ACM_Practica1a {
         System.out.println("Puntos: ");
         System.out.println(algoritmos.getPuntoPorIndice(S.indiceP1) +""+ algoritmos.getPuntoPorIndice(S.indiceP2));
         System.out.println("Distancia: " + S.dMin);
-        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
+        System.out.println("Comparaciones: " + S.nComparaciones);
 
-        System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanosTest());
+        System.out.println("Tiempo: "+ S.time);
     
     }  
 }
