@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import acm_practica1.Algoritmos.Solucion;
-
 /**
  *
  * @author Maria S

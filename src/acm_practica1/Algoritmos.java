@@ -33,23 +33,6 @@ public class Algoritmos {
         this.puntos = Listapuntos;
     }
 
-    public class Solucion {
-        public double dMin;
-        public int indiceP1; 
-        public int indiceP2;
-        public double time;
-        public int nComparaciones;
-
-        public Solucion (double dMin, int indiceP1, int indiceP2, double time, int nComparaciones){
-            this.dMin = dMin;
-            this.indiceP1 = indiceP1;
-            this.indiceP2 = indiceP2;
-            this.time = time;
-            this.nComparaciones = nComparaciones;
-
-        }
-    }
-
     //AÑADIDO IZQUIERDA Y DERECHA PARA USAR ESTE ALGORITMO EN EL DIVIDE Y VENCERAS
     public Solucion busquedaExhaustiva(List<Punto> punto, int izquierda, int derecha, double time, int nComparaciones) {
         double startTime = System.nanoTime();
