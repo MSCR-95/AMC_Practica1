@@ -15,8 +15,8 @@ public class Algoritmos {
     public List<Punto> puntos = new ArrayList<>();
     private DecimalFormat df = new DecimalFormat("#.########");
 
-    private int nComparacionesDyV, nComparaciones, nComparacionesPoda, nComparacionesDyVMejorado, nComparacionesTest = 0;
-    private int indiceP1, indiceP2 = -1;
+    private int nComparacionesExhaustiva, nComparacionesDyV, nComparaciones, nComparacionesPoda, nComparacionesDyVMejorado, nComparacionesTest = 0;
+    //private int indiceP1, indiceP2 = -1;
 
     private double tiempoBusquedaExhaustiva = 0.0;
     private double tiempoBusquedaConPoda = 0.0;
@@ -33,16 +33,12 @@ public class Algoritmos {
         this.puntos = Listapuntos;
     }
 
-    public int getIndiceP1() {
-        return indiceP1;
-    }
-
-    public int getIndiceP2() {
-        return indiceP2;
-    }
-
     public int getNComparaciones() {
         return nComparaciones;
+    }
+
+    public int getNComparacionesExhaustiva() {
+        return nComparacionesExhaustiva;
     }
     
     public int getNComparacionesPoda() {
@@ -81,11 +77,14 @@ public class Algoritmos {
     }
 
     //AÑADIDO IZQUIERDA Y DERECHA PARA USAR ESTE ALGORITMO EN EL DIVIDE Y VENCERAS
-    public double busquedaExaustiva(List<Punto> punto, int izquierda, int derecha) {
+    public Solucion busquedaExaustiva(List<Punto> punto, int izquierda, int derecha) {
         double startTime = System.nanoTime();
+
+        Solucion S = new Solucion(0, 0, 0);
 
         double distancia = -1;
         double distanciaMin = Double.POSITIVE_INFINITY;
+        nComparacionesExhaustiva = 0;
         nComparaciones = 0;
 
         for (int i = izquierda; i < derecha; i++) {
@@ -94,11 +93,14 @@ public class Algoritmos {
                 ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                 distancia = dosPuntos.distancia();
                 nComparaciones++;
+                nComparacionesExhaustiva++;
                 //FILTRAMOS
                 if (distancia < distanciaMin) {
                     distanciaMin = distancia;
-                    indiceP1 = dosPuntos.getP1().getIndice() - 1;
-                    indiceP2 = dosPuntos.getP2().getIndice() - 1;
+                    S.dMin = distanciaMin;
+                    S.indiceP1 = dosPuntos.getP1().getIndice() - 1;
+                    S.indiceP2 = dosPuntos.getP2().getIndice() - 1;
+                    //S = new Solucion(distanciaMin, indiceP1, indiceP2);
                 }
                 //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
             }
@@ -106,7 +108,7 @@ public class Algoritmos {
         //Mostramos los puntos, la distancia minima entre ellos y el numero de comparaciones realizadas
         double endTime = System.nanoTime();
         tiempoBusquedaExhaustiva = (endTime - startTime) / 1e6; //Pasamos a mseg
-        return distanciaMin;
+        return S;
     }
 
 
@@ -133,14 +135,17 @@ public class Algoritmos {
         });
     }
 
-    public double busquedaConPoda(List<Punto> punto) {
+    public Solucion busquedaConPoda(List<Punto> punto) {
         double startTime = System.nanoTime();
 
         double distancia = -1;
         double distanciaMin = Double.POSITIVE_INFINITY;
         double distanciaX = 0;
-        Punto x = null;
-        Punto y = null;
+
+        nComparacionesPoda = 0;
+        nComparaciones = 0;
+
+        Solucion S = new Solucion(0, 0, 0);
         //int nComparaciones = 0;
         //Ordenamos la lista por la x
         ordenarPuntosPorXQuickSort(punto);
@@ -155,15 +160,15 @@ public class Algoritmos {
                     alarma = true;
                 }
                 if (!alarma) {
+                    nComparaciones++;
                     nComparacionesPoda++;
                     ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                     distancia = dosPuntos.distancia();
                     if (distancia < distanciaMin) {
                         distanciaMin = distancia;
-                        //x = i;
-                        //y = j;
-                        indiceP1 = dosPuntos.getP1().getIndice();
-                        indiceP2 = dosPuntos.getP2().getIndice();
+                        S.dMin = distanciaMin;
+                        S.indiceP1 = dosPuntos.getP1().getIndice();
+                        S.indiceP2 = dosPuntos.getP2().getIndice();
                     }
                 }
                 j++;
@@ -172,7 +177,7 @@ public class Algoritmos {
 
         double endTime = System.nanoTime();
         tiempoBusquedaConPoda = (endTime - startTime) / 1e6;
-        return distanciaMin;
+        return S;
     }
 
     public class Solucion {
@@ -213,7 +218,7 @@ public class Algoritmos {
         return S;
     }
 
-    public double busquedaDivideYVenceras(List<Punto> punto) {
+    public Solucion busquedaDivideYVenceras(List<Punto> punto) {
 
         double startTime = System.nanoTime();
 
@@ -221,16 +226,13 @@ public class Algoritmos {
         ordenarPuntosPorXQuickSort(punto);
 
         nComparacionesDyV = 0;
-        indiceP1 = -1;
-        indiceP2 = -1;
+        nComparaciones = 0;
 
         double endTime = System.nanoTime();
         tiempoDivideYVenceras = tiempoEncontrarPuntosMasCercanos;
 
         Solucion tal = buscarPuntosMasCercanos(punto, 0, punto.size() - 1);
-        indiceP1 = tal.indiceP1;
-        indiceP2 = tal.indiceP2;
-        return tal.dMin;
+        return tal;
     }
 
     private Solucion buscarPuntosMasCercanos(List<Punto> punto, int izquierda, int derecha) {
@@ -312,7 +314,7 @@ public class Algoritmos {
             for (int j = i + 1; j < derecha; j++) {
                 ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                 distancia = dosPuntos.distancia();
-                nComparacionesTest++;
+                nComparaciones++;
                 nComparacionesDyVMejorado++;
                 if (distancia < S.dMin) {
                     S.dMin = distancia;
@@ -327,7 +329,7 @@ public class Algoritmos {
     }
 
 
-    public double busquedaDivideYVencerasMejorado(List<Punto> punto) {
+    public Solucion busquedaDivideYVencerasMejorado(List<Punto> punto) {
 
         double startTime = System.nanoTime();
 
@@ -335,16 +337,13 @@ public class Algoritmos {
         
 
         nComparacionesDyVMejorado = 0;
-        indiceP1 = -1;
-        indiceP2 = -1;
+        nComparaciones = 0;
 
         double endTime = System.nanoTime();
         tiempoDivideYVencerasMejorado = tiempoEncontrarPuntosMasCercanosTest;
 
         Solucion tal = buscarPuntosMasCercanosTest(punto, 0, punto.size() - 1);
-        indiceP1 = tal.indiceP1;
-        indiceP2 = tal.indiceP2;
-        return tal.dMin;
+        return tal;
     }
 
 

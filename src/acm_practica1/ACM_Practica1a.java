@@ -36,7 +36,7 @@ public class ACM_Practica1a {
         GP.LeePuntos("src/data/d657.tsp/d657.tsp");
 
         //GP.verPuntos();
-        double distancia = 0;
+        Solucion S;
         Algoritmos algoritmos = new Algoritmos(GP.getListaPuntos());
         //algoritmos.getPuntoPorIndice(0, GP.getListaPuntos());
         //System.out.println(algoritmos.getPuntoPorIndice(0, GP.getListaPuntos()));
@@ -46,10 +46,10 @@ public class ACM_Practica1a {
       
         System.out.println("EXHAUSTIVO");
 
-        distancia = algoritmos.busquedaExaustiva(GP.getListaPuntos(), 0, GP.getListaPuntos().size());
+        S = algoritmos.busquedaExaustiva(GP.getListaPuntos(), 0, GP.getListaPuntos().size());
         System.out.println("Puntos: ");
-        System.out.println(GP.puntos.get(algoritmos.getIndiceP1()) + "" + GP.puntos.get(algoritmos.getIndiceP2()));
-        System.out.println("Distancia: " + distancia);
+        System.out.println(GP.puntos.get(S.indiceP1) + "" + GP.puntos.get(S.indiceP2));
+        System.out.println("Distancia: " + S.dMin);
         System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
         System.out.println("Tiempo: "+ algoritmos.getTiempoBusquedaExhaustiva());
 
@@ -57,11 +57,11 @@ public class ACM_Practica1a {
         //*****************************************************************
         
         System.out.println("\nEXHAUSTIVO CON PODA");
-        distancia = algoritmos.busquedaConPoda(GP.getListaPuntos());
+        S = algoritmos.busquedaConPoda(GP.getListaPuntos());
         System.out.println("Puntos: ");
-        System.out.println(algoritmos.getPuntoPorIndice(algoritmos.getIndiceP1()) +""+ algoritmos.getPuntoPorIndice(algoritmos.getIndiceP2()));
-        System.out.println("Distancia: " + distancia);
-        System.out.println("Comparaciones: " + algoritmos.getNComparacionesPoda());
+        System.out.println(algoritmos.getPuntoPorIndice(S.indiceP1) +""+ algoritmos.getPuntoPorIndice(S.indiceP2));
+        System.out.println("Distancia: " + S.dMin);
+        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
         System.out.println("Tiempo: "+algoritmos.getTiempoBusquedaConPoda());
         
         //*****************************************************************
@@ -69,22 +69,22 @@ public class ACM_Practica1a {
         System.out.println("\nDIVIDE Y VENCERAS");
         //algoritmos.busquedaConDyV(GP.getListaPuntos());
 
-        distancia = algoritmos.busquedaDivideYVenceras(GP.getListaPuntos());
+        S = algoritmos.busquedaDivideYVenceras(GP.getListaPuntos());
         System.out.println("Puntos: ");
-        System.out.println(algoritmos.getPuntoPorIndice(algoritmos.getIndiceP1()) +""+ algoritmos.getPuntoPorIndice(algoritmos.getIndiceP2()));
-        System.out.println("Distancia: " + distancia);
-        System.out.println("Comparaciones: " + algoritmos.getNComparacionesDyV());
+        System.out.println(algoritmos.getPuntoPorIndice(S.indiceP1) +""+ algoritmos.getPuntoPorIndice(S.indiceP2));
+        System.out.println("Distancia: " + S.dMin);
+        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
 
         System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanos());
         
         //*****************************************************************
 
         System.out.println("\nDIVIDE Y VENCERAS MEJORADO");
-        distancia = algoritmos.busquedaDivideYVencerasMejorado(GP.getListaPuntos());
+        S = algoritmos.busquedaDivideYVencerasMejorado(GP.getListaPuntos());
         System.out.println("Puntos: ");
-        System.out.println(algoritmos.getPuntoPorIndice(algoritmos.getIndiceP1()) +""+ algoritmos.getPuntoPorIndice(algoritmos.getIndiceP2()));
-        System.out.println("Distancia: " + distancia);
-        System.out.println("Comparaciones: " + algoritmos.getNComparacionesDivideYVencerasMejorado());
+        System.out.println(algoritmos.getPuntoPorIndice(S.indiceP1) +""+ algoritmos.getPuntoPorIndice(S.indiceP2));
+        System.out.println("Distancia: " + S.dMin);
+        System.out.println("Comparaciones: " + algoritmos.getNComparaciones());
 
         System.out.println("Tiempo: "+ algoritmos.getTiempoEncontrarPuntosMasCercanosTest());
     
