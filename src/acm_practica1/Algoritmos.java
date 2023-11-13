@@ -77,13 +77,13 @@ public class Algoritmos {
     }
 
     //AÑADIDO IZQUIERDA Y DERECHA PARA USAR ESTE ALGORITMO EN EL DIVIDE Y VENCERAS
-    public Solucion busquedaExaustiva(List<Punto> punto, int izquierda, int derecha) {
+    public Solucion busquedaExhaustiva(List<Punto> punto, int izquierda, int derecha) {
         double startTime = System.nanoTime();
 
         Solucion S = new Solucion(0, 0, 0);
 
         double distancia = -1;
-        double distanciaMin = Double.POSITIVE_INFINITY;
+        S.dMin = Double.POSITIVE_INFINITY;
         nComparacionesExhaustiva = 0;
         nComparaciones = 0;
 
@@ -95,12 +95,12 @@ public class Algoritmos {
                 nComparaciones++;
                 nComparacionesExhaustiva++;
                 //FILTRAMOS
-                if (distancia < distanciaMin) {
-                    distanciaMin = distancia;
-                    S.dMin = distanciaMin;
-                    S.indiceP1 = dosPuntos.getP1().getIndice() - 1;
-                    S.indiceP2 = dosPuntos.getP2().getIndice() - 1;
-                    //S = new Solucion(distanciaMin, indiceP1, indiceP2);
+                if (distancia < S.dMin) {
+                    S.dMin = distancia;
+                    //S.indiceP1 = dosPuntos.getP1().getIndice() - 1;
+                    //S.indiceP2 = dosPuntos.getP2().getIndice() - 1;
+                    S.indiceP1 = i;
+                    S.indiceP2 = j;
                 }
                 //AQUI NOS MUESTRA TODOS LOS PUNTOS Y TODAS SUS DISTANCIAS
             }
@@ -110,6 +110,31 @@ public class Algoritmos {
         tiempoBusquedaExhaustiva = (endTime - startTime) / 1e6; //Pasamos a mseg
         return S;
     }
+
+    /*
+     *public Solucion busquedaExhaustivaSucia(List<Punto> punto, int izquierda, int derecha) {
+        double startTime = System.nanoTime();
+
+
+        double distancia = -1;
+
+        Solucion S = new Solucion(distanciaMin, -1, -1);
+        
+        
+        for (int i = izquierda; i < derecha; i++) {
+            for (int j = i + 1; j < derecha; j++) {
+                ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
+                distancia = dosPuntos.distancia();
+                nComparaciones++;
+                nComparacionesDyV++;
+                if (distancia < S.dMin) {
+                    S.dMin = distancia;
+                    S.indiceP1 = i;
+                    S.indiceP2 = j;
+                }
+            }
+        }
+     */
 
 
 
@@ -139,13 +164,13 @@ public class Algoritmos {
         double startTime = System.nanoTime();
 
         double distancia = -1;
-        double distanciaMin = Double.POSITIVE_INFINITY;
         double distanciaX = 0;
 
         nComparacionesPoda = 0;
         nComparaciones = 0;
 
         Solucion S = new Solucion(0, 0, 0);
+        S.dMin = Double.POSITIVE_INFINITY;
         //int nComparaciones = 0;
         //Ordenamos la lista por la x
         ordenarPuntosPorXQuickSort(punto);
@@ -156,7 +181,7 @@ public class Algoritmos {
             while (j < punto.size() && !alarma) {
                 distanciaX = Math.abs(punto.get(j).getX() - punto.get(i).getX());
                 // Poda: no es necesario seguir con puntos más lejos en la coordenada x.
-                if (distanciaX >= distanciaMin) {
+                if (distanciaX >= S.dMin) {
                     alarma = true;
                 }
                 if (!alarma) {
@@ -164,9 +189,8 @@ public class Algoritmos {
                     nComparacionesPoda++;
                     ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
                     distancia = dosPuntos.distancia();
-                    if (distancia < distanciaMin) {
-                        distanciaMin = distancia;
-                        S.dMin = distanciaMin;
+                    if (distancia < S.dMin) {
+                        S.dMin = distancia;
                         S.indiceP1 = dosPuntos.getP1().getIndice();
                         S.indiceP2 = dosPuntos.getP2().getIndice();
                     }
@@ -192,32 +216,6 @@ public class Algoritmos {
         }
     }
 
-    public Solucion busquedaExhaustivaSucia(List<Punto> punto, int izquierda, int derecha) {
-        double startTime = System.nanoTime();
-
-        double distancia = -1;
-        double distanciaMin = Double.POSITIVE_INFINITY;
-
-        Solucion S = new Solucion(distanciaMin, -1, -1);
-        
-        for (int i = izquierda; i < derecha; i++) {
-            for (int j = i + 1; j < derecha; j++) {
-                ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
-                distancia = dosPuntos.distancia();
-                nComparaciones++;
-                nComparacionesDyV++;
-                if (distancia < S.dMin) {
-                    S.dMin = distancia;
-                    S.indiceP1 = i;
-                    S.indiceP2 = j;
-                }
-            }
-        }
-        double endTime = System.nanoTime();
-        tiempoBusquedaExhaustiva = (endTime - startTime) / 1e6; //Pasamos a mseg
-        return S;
-    }
-
     public Solucion busquedaDivideYVenceras(List<Punto> punto) {
 
         double startTime = System.nanoTime();
@@ -240,7 +238,7 @@ public class Algoritmos {
 
         if (derecha - izquierda <= 2) {            
             //Cuando hay pocos puntos, realiza una búsqueda exhaustiva.
-            Solucion loq = busquedaExhaustivaSucia(punto, izquierda, derecha);
+            Solucion loq = busquedaExhaustiva(punto, izquierda, derecha);
             return loq;
         }
         //Calculamos la mitad
@@ -273,7 +271,7 @@ public class Algoritmos {
             }
         }
 
-        Solucion franjaSol = busquedaExhaustivaSucia (punto, aux1, aux2);
+        Solucion franjaSol = busquedaExhaustiva(punto, aux1, aux2);
         Solucion Legit;
         if(distanciaIzquierda.dMin < distanciaDerecha.dMin && distanciaIzquierda.dMin < franjaSol.dMin){
             Legit = distanciaIzquierda;
@@ -488,7 +486,36 @@ public class Algoritmos {
         return distanciaMin;
     }
 */ 
-    //Creada para buscar el punto por su indice en la tabla original sin ordenar
+    
+/*
+ *     public Solucion busquedaExhaustivaSucia(List<Punto> punto, int izquierda, int derecha) {
+        double startTime = System.nanoTime();
+
+        double distancia = -1;
+        double distanciaMin = Double.POSITIVE_INFINITY;
+
+        Solucion S = new Solucion(distanciaMin, -1, -1);
+        
+        for (int i = izquierda; i < derecha; i++) {
+            for (int j = i + 1; j < derecha; j++) {
+                ParDePuntos dosPuntos = new ParDePuntos(punto.get(i), punto.get(j));
+                distancia = dosPuntos.distancia();
+                nComparaciones++;
+                nComparacionesDyV++;
+                if (distancia < S.dMin) {
+                    S.dMin = distancia;
+                    S.indiceP1 = i;
+                    S.indiceP2 = j;
+                }
+            }
+        }
+        double endTime = System.nanoTime();
+        tiempoBusquedaExhaustiva = (endTime - startTime) / 1e6; //Pasamos a mseg
+        return S;
+    }
+ */
+
+//Creada para buscar el punto por su indice en la tabla original sin ordenar
     public Punto getPuntoPorIndice(int ind) {
         Punto puntoIndice = null;
         for (int i = 0; i < puntos.size(); i++) {
