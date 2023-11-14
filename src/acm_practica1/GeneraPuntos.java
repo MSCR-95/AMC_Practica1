@@ -18,31 +18,46 @@ public class GeneraPuntos {
     private DecimalFormat df = new DecimalFormat("#.##########");
     public List<Punto> puntos = new ArrayList<>();
 
+    //Para crearlos con 10 decimales
+    public double decimales10(double numero) {
+        //long decimales = 10000000000;
+        numero = Math.round(numero * 10000000000d) / 10000000000d;
+        return numero;
+    }
+
     public void rellenarPuntos(int n, boolean mismaX) {
         int num, den;
         double x, y, aux1;
         Random rand = new Random();
+        puntos.clear(); //IMPORTANTE vaciar la lista antes de usarla
 
         if (mismaX) { // PEOR CASO - TRUE
             for (int i = 0; i < n; i++) {
                 aux1 = rand.nextInt(1000) + 7; // 7 y 1007
                 y = aux1 / ((double) (i + 1) + i * 0.100); // aux2; //+(i/3.0);
                 num = rand.nextInt(3);
-                y += ((i % 500) - num * (rand.nextInt(100)));
-                x = 1;
-                Punto p = new Punto(i+1,x, y);
+                y += decimales10(((i % 500) - num * (rand.nextInt(100))));
+                x = decimales10(1);
+                Punto p = new Punto(i + 1, x, y);
                 puntos.add(p);
             }
         } else { // CASO MEDIO - FALSE
             for (int i = 0; i < n; i++) {
                 num = rand.nextInt(4000) + 1;   // genera un número aleatorio entre 1 y 4000
                 den = rand.nextInt(11) + 7;     // genera un aleatorio entre 7 y 17
-                x = num / ((double) den + 0.37);    // división con decimales
-                y = (rand.nextInt(4000) + 1) / ((double) (rand.nextInt(11) + 7) + 0.37);
-                Punto p = new Punto(i+1,x, y);
+                x = decimales10(num / ((double) den + 0.37));    // división con decimales
+                y = decimales10((rand.nextInt(4000) + 1) / ((double) (rand.nextInt(11) + 7) + 0.37));
+                Punto p = new Punto(i + 1, x, y);
                 puntos.add(p);
             }
         }
+        // Imprimir la lista de puntos generada
+        /*
+        System.out.println("Lista de puntos generada:");
+        for (Punto p : puntos) {
+            System.out.println(p);
+        }
+        */
     }
 
     public void verPuntos() {
@@ -71,7 +86,7 @@ public class GeneraPuntos {
                 ENT = Integer.parseInt(Token.nextToken());
                 D1 = Double.parseDouble(Token.nextToken());
                 D2 = Double.parseDouble(Token.nextToken());
-                puntos.add(new Punto(ENT,D1, D2));
+                puntos.add(new Punto(ENT, D1, D2));
             }
         } catch (IOException e) {
             //e.printStackTrace();

@@ -14,7 +14,7 @@ public class Punto {
     private double y;
     private int indice;
 
-    private DecimalFormat df = new DecimalFormat("#.##########");
+    private DecimalFormat df = new DecimalFormat("#.###");
 
     public Punto() {
         super();
@@ -56,6 +56,6 @@ public class Punto {
     @Override
     public String toString() {
         //return df.format(x) + " " + df.format(y) + String.format("%n");
-        return indice + " (" + x + " " + y + String.format(")%n");
+        return indice + " (" + df.format(x) + " " + df.format(y) + ")";
     }
 }

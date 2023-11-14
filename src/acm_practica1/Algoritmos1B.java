@@ -94,6 +94,27 @@ public class Algoritmos1B {
             mejorBi = mejorUni = iguales = 0;
             tiempoBidirec = tiempoUnidirec = 0.0;
         }
+        /*
+                
+        int numIteraciones = 5; // Cambiar a la cantidad deseada de iteraciones
+        int tallaInicial = 1000;  // Cambiar según tus necesidades iniciales
+        GeneraPuntos GP;
+
+        for (int i = 0; i < numIteraciones; i++) {
+            int talla = tallaInicial + i * 1000; // Ajustar la talla según la iteración
+            GP = new GeneraPuntos(); // Crear una nueva instancia en cada iteración
+            GP.rellenarPuntos(talla, false);
+            List<Punto> ciudades = GP.getListaPuntos();
+
+            Solucion s1 = busquedaConPoda(ciudades);
+            Solucion s2 = busquedaExhaustiva(ciudades, 0, ciudades.size() - 1, 0, 0);
+            
+            System.out.println("");
+            System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
+            System.out.println(talla + "       " + s1.time + "                    " + s2.time + "             " + s1.nComparaciones + "                " + s2.nComparaciones);
+        }
+         */
+        
     }
 
     public List<Punto> TSPUnidireccional(List<Punto> ciudades, int primeraCiudad) {
@@ -113,7 +134,7 @@ public class Algoritmos1B {
                 //Si esa ciudad no ha sido visitada antes
                 if (!ruta.contains(ciudad)) {
                     //Calculamos la distancia entre la ciudad actual y las demas(por el bucle)
-                    double distancia = /*(int)*/ Punto.distancia(ciudadActual, ciudad);
+                    double distancia = Punto.distancia(ciudadActual, ciudad);
                     if (distancia < distanciaMinima) {
                         distanciaMinima = distancia;
                         ciudadMasCercana = ciudad;
