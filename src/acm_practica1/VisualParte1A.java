@@ -26,18 +26,24 @@ class MyTableModel extends DefaultTableModel {
 
 public class VisualParte1A extends javax.swing.JFrame {
 
+    private List<Punto> listaCiudades;
+    private String nombreTSP;
+    private int talla;
+    private final GeneraPuntos GP = new GeneraPuntos();
+    private boolean casoPeor = false;
     private MyTableModel tableModel;
 
     /**
      * Creates new form VisualParte1A
      */
     public VisualParte1A() {
-
+        GP.rellenarPuntos(1, false);
+        this.listaCiudades = GP.getListaPuntos();
         initComponents();
-        initTableModel();
-        comparar2Estrategias();
+
     }
 
+    // Inicializar la tabla
     private void initTableModel() {
         Object[] columnNames = {"Talla", "Tiempo S1", "Tiempo S2", "Distancia S1", "Distancia S2"};
         tableModel = new MyTableModel(columnNames, 0); // 0 indica que inicialmente no hay filas
@@ -57,20 +63,20 @@ public class VisualParte1A extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane(table);
         table = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        introducir_nombre_TSP = new javax.swing.JTextField();
+        cargarTSPbutton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        introducir_talla = new javax.swing.JTextField();
+        botonGenerar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        comparar2Button = new javax.swing.JButton();
         casoPeorButton = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
+        Algoritmo1ComboBox = new javax.swing.JComboBox<>();
+        dibujarPuntosButton = new javax.swing.JButton();
+        Algoritmo2ComboBox = new javax.swing.JComboBox<>();
+        generarGraficaButton = new javax.swing.JButton();
+        CompararTodasButton = new javax.swing.JButton();
+        ComprobarTodasButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +95,8 @@ public class VisualParte1A extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre .tsp");
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -102,36 +110,37 @@ public class VisualParte1A extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table);
 
-        jTextField1.setText("Nombre...");
+        introducir_nombre_TSP.setText("Nombre...");
 
-        jButton1.setText("Cargar");
+        cargarTSPbutton.setText("Cargar");
+        cargarTSPbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarTSPbuttonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Aleatorio");
 
-        jTextField2.setText("Talla");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        introducir_talla.setText("Talla");
+        introducir_talla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                introducir_tallaActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Generar");
+        botonGenerar.setText("Generar");
+        botonGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGenerarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Estrategias:");
 
-        jButton3.setText("Comparar 2");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        comparar2Button.setText("Comparar 2");
+        comparar2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton1.setText("Comprobar todas");
-
-        jToggleButton2.setText("Comparar todas");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                comparar2ButtonActionPerformed(evt);
             }
         });
 
@@ -142,18 +151,37 @@ public class VisualParte1A extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton4.setText("Dibujar puntos");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        Algoritmo1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Exhaustivo", "Exhaustivo con poda", "Divide y venceras", "Divide y venceras mejorado" }));
+        Algoritmo1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                Algoritmo1ComboBoxActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dibujarPuntosButton.setText("Dibujar puntos");
+        dibujarPuntosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dibujarPuntosButtonActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Generar grafica");
+        Algoritmo2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Exhaustivo", "Exhaustivo con poda", "Divide y venceras", "Divide y venceras mejorado" }));
+
+        generarGraficaButton.setText("Generar grafica");
+
+        CompararTodasButton.setText("Comparar todas");
+        CompararTodasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompararTodasButtonActionPerformed(evt);
+            }
+        });
+
+        ComprobarTodasButton.setText("Comprobar todas");
+        ComprobarTodasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComprobarTodasButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,41 +195,43 @@ public class VisualParte1A extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addGap(37, 37, 37)
-                                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(comparar2Button)
+                                .addGap(28, 28, 28)
+                                .addComponent(CompararTodasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(generarGraficaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(68, 68, 68))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addGap(18, 18, 18)
-                                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                    .addComponent(jToggleButton1))
-                                                .addGap(42, 42, 42)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(introducir_nombre_TSP, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(introducir_talla, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(42, 42, 42))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(ComprobarTodasButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(66, 66, 66)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cargarTSPbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(botonGenerar, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                            .addComponent(dibujarPuntosButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(34, 34, 34)
-                                        .addComponent(casoPeorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(casoPeorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(Algoritmo1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Algoritmo2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(97, 97, 97)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32))
@@ -217,30 +247,30 @@ public class VisualParte1A extends javax.swing.JFrame {
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(introducir_nombre_TSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cargarTSPbutton))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton2)
+                                .addComponent(introducir_talla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonGenerar)
                                 .addComponent(casoPeorButton))
                             .addComponent(jLabel2))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton1)
-                            .addComponent(jButton4))
+                            .addComponent(dibujarPuntosButton)
+                            .addComponent(ComprobarTodasButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Algoritmo1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Algoritmo2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jToggleButton2)
-                            .addComponent(jButton5))))
+                            .addComponent(comparar2Button)
+                            .addComponent(generarGraficaButton)
+                            .addComponent(CompararTodasButton))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
@@ -249,66 +279,239 @@ public class VisualParte1A extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void introducir_tallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_introducir_tallaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_introducir_tallaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    private void comparar2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comparar2ButtonActionPerformed
+        comparar2Estrategias();
+    }//GEN-LAST:event_comparar2ButtonActionPerformed
 
     private void casoPeorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casoPeorButtonActionPerformed
-        // TODO add your handling code here:
+        casoPeor = true;
     }//GEN-LAST:event_casoPeorButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void dibujarPuntosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dibujarPuntosButtonActionPerformed
+        //MOSTRAMOS LOS PUNTOS EN EL JPANEL
+    }//GEN-LAST:event_dibujarPuntosButtonActionPerformed
+
+    private void Algoritmo1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Algoritmo1ComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_Algoritmo1ComboBoxActionPerformed
+    //Cargamos el TSP en la lista
+    private void cargarTSPbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarTSPbuttonActionPerformed
+        listaCiudades.clear();  //vaciamos la lista antes de usarla
+        nombreTSP = introducir_nombre_TSP.getText();
+        GP.LeePuntos("src/data/" + nombreTSP + "/" + nombreTSP);
+        this.listaCiudades = GP.getListaPuntos();
+        //imprimirLista(listaCiudades);
+    }//GEN-LAST:event_cargarTSPbuttonActionPerformed
+
+    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+        listaCiudades.clear();  //vaciamos la lista antes de usarla
+        talla = Integer.parseInt(introducir_talla.getText());
+        GP.rellenarPuntos(talla, false);
+        this.listaCiudades = GP.getListaPuntos();
+        //imprimirLista(listaCiudades);
+    }//GEN-LAST:event_botonGenerarActionPerformed
+
+    private void CompararTodasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompararTodasButtonActionPerformed
+        compararTodasEstrategias();
+    }//GEN-LAST:event_CompararTodasButtonActionPerformed
+
+    private void ComprobarTodasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprobarTodasButtonActionPerformed
+        // TODO add your handling code here:
+        comprobarEstrategias(listaCiudades);
+    }//GEN-LAST:event_ComprobarTodasButtonActionPerformed
+    
+    //Para pruebas
+    private static void imprimirLista(List<Punto> puntos) {
+        for (Punto punto : puntos) {
+            System.out.println(punto);
+        }
+    }
+
+
+
+    //--COMPROBAR TODOS LOS ALGORITMOS CON UN DATASET--//
+    public void comprobarEstrategias(List<Punto> puntos) {
+
+        Algoritmos algoritmo = new Algoritmos();
+        Solucion sExha = new Solucion();
+        Solucion sExhaPoda = new Solucion();
+        Solucion sDyV = new Solucion();
+        Solucion sDyVMejorado = new Solucion();
+
+        //Inicializamos la tabla
+        Object[] columnNames = {"Estrategia", "Punto 1", "Punto 2", "Distancia", "Calculadas", "Tiempo(mseg)"};
+        tableModel = new MyTableModel(columnNames, 0); // 0 indica que inicialmente no hay filas
+        table.setModel(tableModel);
+
+        //resultado = busquedaExhaustiva(puntos, 0, puntos.size() - 1);
+        sExha = algoritmo.busquedaExhaustiva(puntos, 0, puntos.size() - 1, 0, 0);
+        sExhaPoda = algoritmo.busquedaConPoda(puntos);
+        sDyV = algoritmo.busquedaDivideYVenceras(puntos);
+        sDyVMejorado = algoritmo.busquedaDivideYVencerasMejorado(puntos);
+        
+        int indice = sExha.indiceP1;
+        System.out.println(sExha.indiceP1);
+        algoritmo.getPuntoPorIndice(indice);
+        
+        ParDePuntos ppExha = new ParDePuntos(algoritmo.getPuntoPorIndice(sExha.indiceP1 + 1), algoritmo.getPuntoPorIndice(sExha.indiceP2 + 1));
+        ParDePuntos ppExhaPoda = new ParDePuntos(algoritmo.getPuntoPorIndice(sExhaPoda.indiceP1), algoritmo.getPuntoPorIndice(sExhaPoda.indiceP2));
+        ParDePuntos ppDyV = new ParDePuntos(algoritmo.getPuntoPorIndice(sDyV.indiceP1), algoritmo.getPuntoPorIndice(sDyV.indiceP2));
+        ParDePuntos ppDyVMejor = new ParDePuntos(algoritmo.getPuntoPorIndice(sDyVMejorado.indiceP1), algoritmo.getPuntoPorIndice(sDyVMejorado.indiceP2));
+        
+        tableModel.addRow(new Object[]{"Exhaustiva", ppExha.getP1(), ppExha.getP2(), sExha.dMin, sExha.nComparaciones, sExha.time});
+        tableModel.addRow(new Object[]{"Exhaustiva con poda", ppExhaPoda.getP1(), ppExhaPoda.getP2(), sExhaPoda.dMin, sExhaPoda.nComparaciones, sExhaPoda.time});
+        tableModel.addRow(new Object[]{"Divide y venceras", ppDyV.getP1(), ppDyV.getP2(), sDyV.dMin, sDyV.nComparaciones, sDyV.time});
+        tableModel.addRow(new Object[]{"Divi y venceras mejorado", ppDyVMejor.getP1(), ppDyVMejor.getP2(), sDyVMejorado.dMin, sDyVMejorado.nComparaciones, sDyVMejorado.time});
+        //System.out.println(pdExha.distancia());
+        System.out.println("Estrategia       Punto 1                    Punto 2                      distancias           Calculadas        tiempo ");
+        System.out.println("Exhaustiva" + "       " + ppExha.getP1() + "        " + ppExha.getP2() + "        " + sExha.dMin + "       " + sExha.nComparaciones + "       " + sExha.time);
+        System.out.println("Exhaustiva" + "       " + ppExhaPoda.getP1() + "        " + ppExhaPoda.getP2() + "        " + sExhaPoda.dMin + "       " + sExhaPoda.nComparaciones + "       " + sExhaPoda.time);
+        System.out.println("Exhaustiva" + "       " + ppDyV.getP1() + "        " + ppDyV.getP2() + "        " + sDyV.dMin + "       " + sDyV.nComparaciones + "       " + sDyV.time);
+        System.out.println("Exhaustiva" + "       " + ppDyVMejor.getP1() + "        " + ppDyVMejor.getP2() + "        " + sDyVMejorado.dMin + "       " + sDyVMejorado.nComparaciones + "       " + sDyVMejorado.time);
+
+    }
+
+    //--COMPARAR DOS ALGORITMOS--//
     public void comparar2Estrategias() {
+        //initTableModel();
+        String nombreAlg1 = Algoritmo1ComboBox.getSelectedItem().toString();
+        String nombreAlg2 = Algoritmo2ComboBox.getSelectedItem().toString();
+        Solucion s1 = new Solucion();
+        Solucion s2 = new Solucion();
+
+        String nAlg1 = "";  //Para pruebas
+        String nAlg2 = "";  //Para pruebas
+
+        //Inicializamos la tabla
+        Object[] columnNames = {"", nombreAlg1, nombreAlg2, nombreAlg1, nombreAlg2};
+        tableModel = new MyTableModel(columnNames, 0); // 0 indica que inicialmente no hay filas
+        table.setModel(tableModel);
+
         int numIteraciones = 5;
         int tallaInicial = 1000;
         Algoritmos algoritmo = new Algoritmos();
         GeneraPuntos GP;
+        Object[] columnNames2 = {"Talla", "Tiempo", "Tiempo", "Distancia", "Distancia"};
+        tableModel.addRow(columnNames2);
 
         for (int i = 0; i < numIteraciones; i++) {
             int talla = tallaInicial + i * 1000;
             GP = new GeneraPuntos();
-            GP.rellenarPuntos(talla, false);
+            GP.rellenarPuntos(talla, casoPeor);
             List<Punto> ciudades = GP.getListaPuntos();
-            String nombreAlg1 = "Exhaustivo Poda";
-            String nombreAlg2 = "Exhaustivo";
-            Solucion s1 = algoritmo.busquedaConPoda(ciudades);
-            Solucion s2 = algoritmo.busquedaExhaustiva(ciudades, 0, ciudades.size() - 1, 0, 0);
-
+            //Elegimos los algoritmos segun la seleccion de los ComboBoxs
+            switch (nombreAlg1) {
+                case "Exhaustivo":
+                    s1 = algoritmo.busquedaExhaustiva(ciudades, 0, ciudades.size() - 1, 0, 0);
+                    nAlg1 = "Exhaus";
+                    break;
+                case "Exhaustivo con poda":
+                    s1 = algoritmo.busquedaConPoda(ciudades);
+                    nAlg1 = "Exhaust Poda";
+                    break;
+                case "Divide y venceras":
+                    s1 = algoritmo.busquedaDivideYVenceras(ciudades);
+                    nAlg1 = "DyV";
+                    break;
+                case "Divide y venceras mejorado":
+                    s1 = algoritmo.busquedaDivideYVencerasMejorado(ciudades);
+                    nAlg1 = "DyVMejora";
+                    break;
+            }
+            switch (nombreAlg2) {
+                case "Exhaustivo":
+                    s2 = algoritmo.busquedaExhaustiva(ciudades, 0, ciudades.size() - 1, 0, 0);
+                    nAlg2 = "Exhaus";
+                    break;
+                case "Exhaustivo con poda":
+                    s2 = algoritmo.busquedaConPoda(ciudades);
+                    nAlg2 = "Exhaus Poda";
+                    break;
+                case "Divide y venceras":
+                    s2 = algoritmo.busquedaDivideYVenceras(ciudades);
+                    nAlg2 = "DyV";
+                    break;
+                case "Divide y venceras mejorado":
+                    s2 = algoritmo.busquedaDivideYVencerasMejorado(ciudades);
+                    nAlg2 = "DyVMejora";
+                    break;
+            }
             // Agrega los datos a la tabla
             tableModel.addRow(new Object[]{talla, s1.time, s2.time, s1.nComparaciones, s2.nComparaciones});
 
-            //table.addRow(new Object[]{talla, s1.time, s2.time, s1.nComparaciones, s2.nComparaciones});
+            //  PRUEBAS
+            System.out.println("Nombre Algoritmo 1: " + nAlg1 + " Nombre algoritmo 2: " + nAlg2);
+            System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
+            System.out.println(talla + "       " + s1.time + "                    " + s2.time + "             " + s1.nComparaciones + "                " + s2.nComparaciones);
+            System.out.println("**********************************************");
+        }
+    }
+
+    //--COMPARAR TODOS LOS ALGORITMOS--//
+    public void compararTodasEstrategias() {
+        //initTableModel();
+
+        Solucion sExha = new Solucion();
+        Solucion sExhaPoda = new Solucion();
+        Solucion sDyV = new Solucion();
+        Solucion sDyVMejorado = new Solucion();
+
+        //Inicializamos la tabla
+        Object[] columnNames = {"", "Exhaustivo", "Exhaustivo con poda", "Divide y venceras", "Divide y venceras mejorado"};
+        tableModel = new MyTableModel(columnNames, 0); // 0 indica que inicialmente no hay filas
+        table.setModel(tableModel);
+
+        int numIteraciones = 5;
+        int tallaInicial = 1000;
+        Algoritmos algoritmo = new Algoritmos();
+        GeneraPuntos GP;
+        Object[] columnNames2 = {"Talla", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)"};
+        tableModel.addRow(columnNames2);
+
+        for (int i = 0; i < numIteraciones; i++) {
+            int talla = tallaInicial + i * 1000;
+            GP = new GeneraPuntos();
+            GP.rellenarPuntos(talla, casoPeor);
+            List<Punto> ciudades = GP.getListaPuntos();
+
+            sExha = algoritmo.busquedaExhaustiva(ciudades, 0, ciudades.size() - 1, 0, 0);
+            sExhaPoda = algoritmo.busquedaConPoda(ciudades);
+            sDyV = algoritmo.busquedaDivideYVenceras(ciudades);
+            sDyVMejorado = algoritmo.busquedaDivideYVencerasMejorado(ciudades);
+
+            // Agrega los datos a la tabla
+            tableModel.addRow(new Object[]{talla, sExha.time, sExhaPoda.time, sDyV.time, sDyVMejorado.time});
+
+            // PRUEBAS
+            System.out.println("Exhaustivo, Exahustivo con poda, Divide y Venceras, Divide y venceras mejorado");
+            System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
+            System.out.println(talla + "       " + sExha.time + "          " + sExhaPoda.time + "             " + sDyV.time + "              " + sDyVMejorado.time);
+            System.out.println("**********************************************");
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Algoritmo1ComboBox;
+    private javax.swing.JComboBox<String> Algoritmo2ComboBox;
+    private javax.swing.JButton CompararTodasButton;
+    private javax.swing.JButton ComprobarTodasButton;
+    private javax.swing.JButton botonGenerar;
+    private javax.swing.JButton cargarTSPbutton;
     private javax.swing.JRadioButton casoPeorButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton comparar2Button;
+    private javax.swing.JButton dibujarPuntosButton;
+    private javax.swing.JButton generarGraficaButton;
+    private javax.swing.JTextField introducir_nombre_TSP;
+    private javax.swing.JTextField introducir_talla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

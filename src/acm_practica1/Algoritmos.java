@@ -519,7 +519,7 @@ public class Algoritmos {
     }
  */
 
-//Creada para buscar el punto por su indice en la tabla original sin ordenar
+    //Creada para buscar el punto por su indice en la tabla original sin ordenar
     public Punto getPuntoPorIndice(int ind) {
         Punto puntoIndice = null;
         for (int i = 0; i < puntos.size(); i++) {
@@ -530,52 +530,7 @@ public class Algoritmos {
         return puntoIndice;
     }
     //-----------------------Controles para el Frame ---------------------//
-    public void comprobarEstrategias(List<Punto> puntos) {
-
-        //Resultados
-        Solucion rExha = null;
-        Solucion rExhaPoda = null;
-        Solucion rDyV = null;
-
-        //resultado = busquedaExhaustiva(puntos, 0, puntos.size() - 1);
-        rExha = busquedaExhaustiva(puntos, 0, puntos.size() - 1, 0, 0);
-        rExhaPoda = busquedaConPoda(puntos);
-        rDyV = busquedaDivideYVenceras(puntos);
-
-        System.out.println("Nombre");
-        ParDePuntos pdExha = new ParDePuntos(getPuntoPorIndice(rExha.indiceP1 + 1), getPuntoPorIndice(rExha.indiceP2 + 1));
-        ParDePuntos pdExhaPoda = new ParDePuntos(getPuntoPorIndice(rExhaPoda.indiceP1 + 1), getPuntoPorIndice(rExhaPoda.indiceP2 + 1));
-        ParDePuntos pdDyV = new ParDePuntos(getPuntoPorIndice(rExhaPoda.indiceP1 + 1), getPuntoPorIndice(rExhaPoda.indiceP2 + 1));
-
-        //System.out.println(pdExha.distancia());
-        System.out.println("Estrategia       Punto 1                    Punto 2                      distancias           Calculadas        tiempo ");
-        System.out.println("Exhaustiva" + "       " + getPuntoPorIndice(rExha.indiceP1 + 1) + "        " + getPuntoPorIndice(rExha.indiceP2 + 1) + "        " + decimales8(pdExha.distancia()) + "       " + rExha.nComparaciones + "       " + decimales4(rExha.time));
-        System.out.println("ExhaustivaPoda" + "   " + getPuntoPorIndice(rExhaPoda.indiceP1) + "        " + getPuntoPorIndice(rExhaPoda.indiceP2) + "        " + decimales8(pdExhaPoda.distancia()) + "       " + rExhaPoda.nComparaciones + "       " + decimales4(rExhaPoda.time));
-        System.out.println("DivideyVenceras" + "  " + getPuntoPorIndice(rDyV.indiceP1) + "        " + getPuntoPorIndice(rDyV.indiceP2) + "        " + decimales8(pdDyV.distancia()) + "       " + rDyV.nComparaciones + "       " + decimales4(rDyV.time));
-
-    }
-
-    public void comparar2Estrategias() {
-        /*
-        int numIteraciones = 5; // Cambiar a la cantidad deseada de iteraciones
-        int tallaInicial = 1000;  // Cambiar según tus necesidades iniciales
-        GeneraPuntos GP;
-
-        for (int i = 0; i < numIteraciones; i++) {
-            int talla = tallaInicial + i * 1000; // Ajustar la talla según la iteración
-            GP = new GeneraPuntos(); // Crear una nueva instancia en cada iteración
-            GP.rellenarPuntos(talla, false);
-            List<Punto> ciudades = GP.getListaPuntos();
-
-            Solucion s1 = busquedaConPoda(ciudades);
-            Solucion s2 = busquedaExhaustiva(ciudades, 0, ciudades.size() - 1, 0, 0);
-            
-            System.out.println("");
-            System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
-            System.out.println(talla + "       " + s1.time + "                    " + s2.time + "             " + s1.nComparaciones + "                " + s2.nComparaciones);
-        }
-         */
-    }
+    
 
     //Formatear a 8 decimales
     public double decimales8(double numero) {

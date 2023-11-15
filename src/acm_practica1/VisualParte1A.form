@@ -32,50 +32,52 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jToggleButton2" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="comparar2Button" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="CompararTodasButton" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton5" min="-2" pref="125" max="-2" attributes="0"/>
+                              <Component id="generarGraficaButton" min="-2" pref="125" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel3" min="-2" pref="67" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="jComboBox1" min="-2" pref="103" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="jComboBox2" min="-2" pref="88" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jLabel1" min="-2" pref="73" max="-2" attributes="0"/>
-                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="jTextField1" min="-2" pref="74" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jLabel2" min="-2" pref="67" max="-2" attributes="0"/>
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="jTextField2" min="-2" pref="74" max="-2" attributes="0"/>
-                                                      </Group>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel1" min="-2" pref="73" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="introducir_nombre_TSP" min="-2" pref="74" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="jToggleButton1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="jLabel2" min="-2" pref="67" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="introducir_talla" min="-2" pref="74" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jButton1" max="32767" attributes="0"/>
-                                                  <Component id="jButton2" pref="92" max="32767" attributes="0"/>
-                                                  <Component id="jButton4" max="32767" attributes="0"/>
-                                              </Group>
                                           </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="ComprobarTodasButton" max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="cargarTSPbutton" max="32767" attributes="0"/>
+                                          <Component id="botonGenerar" pref="92" max="32767" attributes="0"/>
+                                          <Component id="dibujarPuntosButton" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                       <Component id="casoPeorButton" min="-2" pref="110" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="Algoritmo1ComboBox" min="-2" pref="135" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="Algoritmo2ComboBox" min="-2" pref="135" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -100,35 +102,35 @@
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="introducir_nombre_TSP" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cargarTSPbutton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="introducir_talla" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonGenerar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="casoPeorButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jToggleButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dibujarPuntosButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ComprobarTodasButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Algoritmo1ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Algoritmo2ComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jToggleButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comparar2Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="generarGraficaButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="CompararTodasButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -166,6 +168,11 @@
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JScrollPane(table)"/>
       </AuxValues>
@@ -186,58 +193,51 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="introducir_nombre_TSP">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre..."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="cargarTSPbutton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cargar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cargarTSPbuttonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aleatorio"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="introducir_talla">
       <Properties>
         <Property name="text" type="java.lang.String" value="Talla"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="introducir_tallaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="botonGenerar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Generar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGenerarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Estrategias:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="comparar2Button">
       <Properties>
         <Property name="text" type="java.lang.String" value="Comparar 2"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Comprobar todas"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Comparar todas"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comparar2ButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="casoPeorButton">
@@ -248,37 +248,40 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="casoPeorButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="Algoritmo1ComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+            <StringItem index="0" value="Exhaustivo"/>
+            <StringItem index="1" value="Exhaustivo con poda"/>
+            <StringItem index="2" value="Divide y venceras"/>
+            <StringItem index="3" value="Divide y venceras mejorado"/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Algoritmo1ComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="dibujarPuntosButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Dibujar puntos"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dibujarPuntosButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox2">
+    <Component class="javax.swing.JComboBox" name="Algoritmo2ComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+            <StringItem index="0" value="Exhaustivo"/>
+            <StringItem index="1" value="Exhaustivo con poda"/>
+            <StringItem index="2" value="Divide y venceras"/>
+            <StringItem index="3" value="Divide y venceras mejorado"/>
           </StringArray>
         </Property>
       </Properties>
@@ -286,10 +289,26 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="generarGraficaButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Generar grafica"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="CompararTodasButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Comparar todas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CompararTodasButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="ComprobarTodasButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Comprobar todas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComprobarTodasButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

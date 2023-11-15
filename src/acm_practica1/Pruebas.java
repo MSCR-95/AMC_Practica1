@@ -25,6 +25,7 @@ public class Pruebas {
         VisualParte1A frame = new VisualParte1A();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        
         /*
         GeneraPuntos GP = new GeneraPuntos();
         //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");
@@ -39,7 +40,10 @@ public class Pruebas {
         //List<Punto> listaCiudades = new ArrayList<>();
         Algoritmos algoritmos = new Algoritmos(listaCiudades);
         //algoritmos.comprobarEstrategias(listaCiudades);
-        //algoritmos.comparar2Estrategias();
+       
+        
+        
+        algoritmos.comparar2Estrategias();
 
         
         JFrame frame = new JFrame("Lista de Puntos");
