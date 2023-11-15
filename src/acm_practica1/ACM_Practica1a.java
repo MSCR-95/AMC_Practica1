@@ -78,10 +78,10 @@ public class ACM_Practica1a {
         //*****************************************************************
 
         System.out.println("\nDIVIDE Y VENCERAS MEJORADO");
-        S = algoritmos.busquedaDivideYVencerasMejorado(GP.getListaPuntos());
+        ParDePuntos Pp =  algoritmos.DyVMejorado(GP.getListaPuntos());//algoritmos.busquedaDivideYVencerasRec(GP.getListaPuntos());
         System.out.println("Puntos: ");
-        System.out.println(algoritmos.getPuntoPorIndice(S.indiceP1) +""+ algoritmos.getPuntoPorIndice(S.indiceP2));
-        System.out.println("Distancia: " + S.dMin);
+        System.out.println(algoritmos.getPuntoPorIndice(Pp.getP1().getIndice()) +""+ algoritmos.getPuntoPorIndice(Pp.getP2().getIndice()));
+        System.out.println("Distancia: " + Pp.distancia());
         System.out.println("Comparaciones: " + S.nComparaciones);
 
         System.out.println("Tiempo: "+ S.time);

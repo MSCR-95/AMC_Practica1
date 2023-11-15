@@ -260,7 +260,7 @@ public class Algoritmos {
         tiempoDivideYVencerasMejorado = 0;
         ordenarPuntosPorXQuickSort(punto);
 
-        Solucion tal = buscarPuntosMasCercanosTest(punto, 0, punto.size() - 1, tiempoDivideYVencerasMejorado, nComparacionesDyVMejorado);
+        Solucion tal = buscarPuntosMasCercanos(punto, 0, punto.size() - 1, tiempoDivideYVencerasMejorado, nComparacionesDyVMejorado);
         return tal;
     }
 
@@ -608,8 +608,297 @@ public class Algoritmos {
     
         return S;
     }
+ /*   
+    public Solucion busquedaDivideYVencerasRec(List<Punto> p) {
+        // Ordena la lista de puntos por la coordenada x.
+        ordenarPuntosPorXQuickSort(p);
     
+        nComparacionesDyV = 0;
+        nComparaciones = 0;
+        tiempoDivideYVenceras = 0.0;
+    
+        // Llama a la versión adaptada del algoritmo DyVRec
+        Solucion resultado = DyVRec(p, 0, p.size() - 1);
+    
+        // Crea y devuelve la solución
+        return resultado;
+    }
+    
+    private Solucion DyVRec(List<Punto> p, int izq, int der) {
+        Solucion pDistMin;
+        if (der - izq <= 3) {
+            // Caso Base: Realiza una búsqueda exhaustiva.
+            Solucion Sol = busquedaExhaustiva(p, izq, der, tiempoDivideYVencerasMejorado, nComparacionesDyVMejorado);
+            return Sol;
+        } else {
+            int medio = (izq + der) / 2;
+    
+            // Llamadas recursivas
+            //System.out.println("p: " + p + "izq: " + izq + "medio: " + medio);
+            Solucion pIzq = DyVRec(p, izq, medio);
+            //System.out.println("P1: " + pIzq.indiceP1 + "P2: " + pIzq.indiceP2);
+            Solucion pDer = DyVRec(p, medio + 1, der);
+            //System.out.println("P1: " + pDer.indiceP1 + "P2: " + pDer.indiceP2);
+            double distI = pIzq.dMin;
+            double distD = pDer.dMin;
+    
+            // Resolución recursiva
+            if (distI <= distD) {
+                pDistMin = pIzq;
+            } else {
+                pDistMin = pDer;
+            }
+    
+            // Comprobación de los puntos en el medio
+            
+            for (int a = medio + 1; a <= der; a++) {
+                if (p.get(a).getX() - p.get(medio).getX() > pDistMin.dMin) {
+                    break;
+                }
+    
+                for (int b = medio; b >= izq; b--) {
+                    if (p.get(medio + 1).getX() - p.get(b).getX() > pDistMin.dMin) {
+                        break;
+                    }
+    
+                    for (int c = b + 1; c <= medio; c++) {
+                        for (int d = medio + 1; d <= a - 1; d++) {
+                            ParDePuntos pauxPP = new ParDePuntos(p.get(c), p.get(d));
+                            Solucion paux1 = new Solucion(pauxPP.distancia(), pauxPP.getP1().getIndice(), pauxPP.getP2().getIndice(), 0, 0);
+                            double distPaux = paux1.dMin;
+                            double distMin = pDistMin.dMin;
+    
+                            if (distPaux < distMin) {
+                                pDistMin = paux1;
+                            }
+                        }
+                    }
+    
+                    for (int c = medio + 1; c <= a - 1; c++) {
+                        for (int d = b + 1; d <= medio; d++) {
+                            ParDePuntos pauxPP = new ParDePuntos(p.get(c), p.get(d));
+                            Solucion paux2 = new Solucion(pauxPP.distancia(), pauxPP.getP1().getIndice(), pauxPP.getP2().getIndice(), 0, 0);
+                            double distPaux = paux2.dMin;
+                            double distMin = pDistMin.dMin;
+    
+                            if (distPaux < distMin) {
+                                pDistMin = paux2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(pDistMin.indiceP1 != -1 && pDistMin.indiceP2 != -1){
+            ParDePuntos Pp = new ParDePuntos(p.get(pDistMin.indiceP1), p.get(pDistMin.indiceP2));
+            if (pDistMin.dMin < dMinAnteriorTest){
+                dMinAnterior = pDistMin.dMin;
+                pDistMin.indiceP1 = Pp.getP1().getIndice();
+                pDistMin.indiceP2 = Pp.getP2().getIndice();
+                dMinfSolu = pDistMin;
+            }
+            else{
+                pDistMin = dMinfSolu;
+            }
+        }
+        if(pDistMin.dMin == 17.96051224213805){
+            System.out.println("Ind1: " + pDistMin.indiceP1 + " Ind2: " + pDistMin.indiceP2);
+        }
+        return pDistMin;
+    }
+*/ 
 
+public ParDePuntos Exhaustivo(List<Punto> p) {
+    long ini = System.nanoTime();
+    double distanciaMinima = Double.MAX_VALUE;
+    double aux = 0;
+    ParDePuntos PuntosMasCercanos;
+    Punto p1 = new Punto();
+    Punto p2 = new Punto();
+    for (int i = 0; i < p.size(); i++) {
+        for (int j = i + 1; j < p.size(); j++) {
+            ParDePuntos paux = new ParDePuntos(p.get(i), p.get(j));
+            aux = paux.distancia();
+            if (aux < distanciaMinima) {
+                distanciaMinima = aux;
+                p1 = p.get(i);
+                p2 = p.get(j);
+            }
+        }
+    }
+    //sleep(4000);
+    PuntosMasCercanos = new ParDePuntos(p1, p2);
+    long fin = System.nanoTime();
+    //System.out.println("Los puntos mas cercanos son: (" + p1.x + ", " + p1.y + ") y (" + p2.x + ", " + p2.y + ")");
+    return PuntosMasCercanos;
+}
+
+public ParDePuntos DyV(List<Punto> p) {
+    long ini = System.nanoTime();
+    ordenarPuntosPorXQuickSort(p);
+    long fin = System.nanoTime();
+    return DyVRec(p, 0, p.size() - 1);
+}
+
+public ParDePuntos DyVRec(List<Punto> p, int izq, int der) {
+    ParDePuntos pDistMin;
+    if (der - izq <= 3) {
+        //Caso Base
+        return Exhaustivo(p);
+        
+    } else {
+        int medio = (izq + der) / 2;
+        //Divide en dos mitades
+
+        ParDePuntos pIzq, pDer;
+
+        //llamadas recursivas
+        pIzq = DyVRec(p, izq, medio); 
+        pDer = DyVRec(p, medio + 1, der); 
+
+        double distI, distD;
+        ParDePuntos PdistI = new ParDePuntos(pIzq.getP1(), pIzq.getP2());
+        ParDePuntos PdistD = new ParDePuntos(pDer.getP1(), pDer.getP2());
+        distI = PdistI.distancia();  
+        distD = PdistD.distancia();
+
+        //resolucion recursiva
+        if (distI <= distD) {
+            pDistMin = pIzq;
+
+        } else {
+            pDistMin = pDer; 
+        }
+
+        /**
+         * ***COMPROBACION DE LOS PUNTOS EN EL MEDIO*****
+         */
+        int a, b;
+        ParDePuntos paux = null;//1OE
+        for (a = medio + 1; a <= der; a++) {
+            ParDePuntos paux2 = new ParDePuntos(pDistMin.getP1(), pDistMin.getP2());
+            if (p.get(a).getX() - p.get(medio).getX() > paux2.distancia()) { //2OE
+                break;
+            }
+        }
+
+        for (b = medio; b >= izq; b--) { 
+            ParDePuntos paux2 = new ParDePuntos(pDistMin.getP1(), pDistMin.getP2());
+            if (p.get(medio + 1).getX() - p.get(b).getX() > paux2.distancia()) { //2OE
+                break;
+            }
+        }
+
+        for (int c = b + 1; c <= medio; c++) { 
+            for (int d = medio + 1; d <= a - 1; d++) {
+                paux = new ParDePuntos(p.get(c), p.get(d));
+                ParDePuntos paux2 = new ParDePuntos(pDistMin.getP1(), pDistMin.getP2());
+                if (paux.distancia() <= paux2.distancia()) {
+                    pDistMin = paux;
+
+                }
+            }
+        }
+
+        for (int c = medio + 1; c <= a - 1; c++) {
+            for (int d = b + 1; d <= medio; d++) {
+                paux = new ParDePuntos(p.get(c), p.get(d));
+                ParDePuntos paux2 = new ParDePuntos(pDistMin.getP1(), pDistMin.getP2());
+                if (paux.distancia() <= paux2.distancia()) {
+                    pDistMin = paux;
+
+                }
+            }
+        }
+
+    }
+    return pDistMin;
+
+}
+
+public ParDePuntos DyVMejorado(List<Punto> p) {
+    long ini = System.nanoTime();
+    ordenarPuntosPorXQuickSort(p);
+    long fin = System.nanoTime();
+    return DyVMejoradoRec(p, 0, p.size() - 1);
+
+}
+
+public ParDePuntos DyVMejoradoRec(List<Punto> p, int izq, int der) {
+
+    ParDePuntos pDistMin;
+    if (der - izq <= 3) {
+        //Caso Base
+        return Exhaustivo(p);
+    } else {
+        int medio = (izq + der) / 2;
+        //Divide en dos mitades
+
+        ParDePuntos pIzq, pDer;
+
+        //llamadas recursivas
+        pIzq = DyVRec(p, izq, medio); 
+        pDer = DyVRec(p, medio + 1, der); 
+
+        double distI, distD;
+        ParDePuntos PdistI = new ParDePuntos(pIzq.getP1(), pIzq.getP2());
+        ParDePuntos PdistD = new ParDePuntos(pDer.getP1(), pDer.getP2());
+        distI = PdistI.distancia();  
+        distD = PdistD.distancia();
+
+        //resolucion recursiva
+        if (distI <= distD) {
+            pDistMin = pIzq;
+
+        } else {
+            pDistMin = pDer;
+        }
+
+        /**
+         * ***COMPROBACION DE LOS PUNTOS EN EL MEDIO*****
+         */
+        // Ordenamos punto franja media
+        List<Punto> franjaMedia = new ArrayList<>();
+        int a, b;
+        ParDePuntos paux = null;
+        for (a = medio + 1; a <= der; a++) {
+            ParDePuntos paux2 = new ParDePuntos(pDistMin.getP1(), pDistMin.getP2());
+            if (p.get(a).getX() - p.get(medio).getX() > paux2.distancia()) {
+                break;
+            } else {
+                franjaMedia.add(p.get(a));
+            }
+        }
+
+        for (b = medio; b >= izq; b--) {
+            ParDePuntos paux2 = new ParDePuntos(pDistMin.getP1(), pDistMin.getP2());
+            if (p.get(medio + 1).getX() - p.get(b).getX() > paux2.distancia()) {
+                break;
+            } else {
+                franjaMedia.add(p.get(b));
+            }
+        }
+
+        //ordenamos por eje Y
+        ordenarPuntosPorYQuickSort(franjaMedia);
+
+        for (int i = 0; i < franjaMedia.size(); i++) {
+            for (int j = i + 1; j < franjaMedia.size() && j < i + 12; j++) {
+                ParDePuntos paux2 = new ParDePuntos(pDistMin.getP1(), pDistMin.getP2());
+                ParDePuntos paux3 = new ParDePuntos(franjaMedia.get(i), franjaMedia.get(j));
+                double dist = paux3.distancia();
+                if (dist < paux2.distancia()) {
+                    pDistMin = new ParDePuntos(franjaMedia.get(i), franjaMedia.get(j));
+                }
+            }
+        }
+
+    }
+
+    //System.out.println("***********************"+pDistMin.getA().getX()+", "+pDistMin.getA().getY());
+    return pDistMin;
+
+}
 
 /*
     public double divideYVencerasMejorado(List<Punto> puntos) {
