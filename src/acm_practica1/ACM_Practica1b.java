@@ -39,7 +39,7 @@ public class ACM_Practica1b {
         */
         
         GeneraPuntos GP = new GeneraPuntos();
-        //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");   // UNI < BI
+        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");   // UNI < BI
         //GP.LeePuntos("src/data/ch130.tsp/ch130.tsp");         // UNI > BI
         //GP.LeePuntos("src/data/ch150.tsp/ch150.tsp");         // UNI < BI
         //GP.LeePuntos("src/data/d493.tsp/d493.tsp");           // UNI == BI
@@ -47,7 +47,7 @@ public class ACM_Practica1b {
         
         //GP.CreaTSP("Hola1B");
         //GP.EscribeTSP("Hola");
-        GP.rellenarPuntos(111, false);
+        //GP.rellenarPuntos(111, false);
         
         //Agrega ciudades a la lista
         listaCiudades = GP.getListaPuntos();
@@ -84,7 +84,7 @@ public class ACM_Practica1b {
 
         frame.add(panel);
         frame.setVisible(true);
-        */
+        
         
     }
     
@@ -138,7 +138,7 @@ public class ACM_Practica1b {
         }
         
         
-        
+        */
         
     }
     

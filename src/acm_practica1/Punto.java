@@ -14,7 +14,7 @@ public class Punto {
     private double y;
     private int indice;
 
-    private DecimalFormat df = new DecimalFormat("#.##########");
+    private DecimalFormat df = new DecimalFormat("#.###");
 
     public Punto() {
         super();
@@ -46,16 +46,16 @@ public class Punto {
     public void setY(double y) {
         this.y = y;
     }
+
     //Para la parte 1B
     public static double distancia(Punto p, Punto q) {
         double distancia;
-        distancia = sqrt((pow(p.getX()- q.getX(), 2)) + (pow(p.getY() - q.getY(), 2)));
+        distancia = sqrt((pow(p.getX() - q.getX(), 2)) + (pow(p.getY() - q.getY(), 2)));
         return distancia;
     }
 
     @Override
     public String toString() {
-        //return df.format(x) + " " + df.format(y) + String.format("%n");
-        return indice + " (" + x + " " + y + String.format(")%n");
+        return indice + " (" + df.format(x) + "; " + df.format(y) + ")";
     }
 }

@@ -61,7 +61,7 @@ public class Algoritmos1B {
     }
 
     public void comprobacionEmpirica() {
-
+        
         GeneraPuntos GP = new GeneraPuntos();
         List<Punto> ciudades = new ArrayList<>();
         int mejorUni = 0;
@@ -69,9 +69,11 @@ public class Algoritmos1B {
         int iguales = 0;
         int talla = 0;
 
-        //Para talla 5000 -> i=10 
-        for (int i = 0; i < 2; i++) {
-            talla += 500;
+        int numIteraciones = 10; // Cambiar a la cantidad deseada de iteraciones
+        int tallaInicial = 100;  // Cambiar según tus necesidades iniciales
+        System.out.println("Puede tardar unos minutos... espere por favor");
+        for (int i = 0; i < numIteraciones; i++) {
+            talla = tallaInicial + i * 100;     //incrementamos la talla por la diferencia que queramos
             GP.rellenarPuntos(talla, false);
             ciudades = GP.getListaPuntos();
             // j es el numero de ejecuciones diferentes
@@ -94,6 +96,7 @@ public class Algoritmos1B {
             mejorBi = mejorUni = iguales = 0;
             tiempoBidirec = tiempoUnidirec = 0.0;
         }
+     
     }
 
     public List<Punto> TSPUnidireccional(List<Punto> ciudades, int primeraCiudad) {
@@ -113,7 +116,7 @@ public class Algoritmos1B {
                 //Si esa ciudad no ha sido visitada antes
                 if (!ruta.contains(ciudad)) {
                     //Calculamos la distancia entre la ciudad actual y las demas(por el bucle)
-                    double distancia = /*(int)*/ Punto.distancia(ciudadActual, ciudad);
+                    double distancia = Punto.distancia(ciudadActual, ciudad);
                     if (distancia < distanciaMinima) {
                         distanciaMinima = distancia;
                         ciudadMasCercana = ciudad;
@@ -260,6 +263,7 @@ public class Algoritmos1B {
     }
 
     //-----------OPCIONAL------------//
+    
     public void mostrarSolucionOptima(List<Punto> ciudades) {
         //Calculo de los costos de los caminos
         GeneraPuntos GP = new GeneraPuntos();
