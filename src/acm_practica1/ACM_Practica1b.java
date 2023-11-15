@@ -26,11 +26,11 @@ public class ACM_Practica1b {
     public static void main(String[] args) {
         
         //PRUEBAS CON FRAME
-        
+        /*
         VisualParte1B frame = new VisualParte1B();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-        
+        */
         /*
         VisualParte1bOpcional frameOpcional = new VisualParte1bOpcional();
         frameOpcional.setVisible(true);
@@ -38,8 +38,8 @@ public class ACM_Practica1b {
         
         */
         
-        //GeneraPuntos GP = new GeneraPuntos();
-        //GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");   // UNI < BI
+        GeneraPuntos GP = new GeneraPuntos();
+        GP.LeePuntos("src/data/berlin52.tsp/berlin52.tsp");   // UNI < BI
         //GP.LeePuntos("src/data/ch130.tsp/ch130.tsp");         // UNI > BI
         //GP.LeePuntos("src/data/ch150.tsp/ch150.tsp");         // UNI < BI
         //GP.LeePuntos("src/data/d493.tsp/d493.tsp");           // UNI == BI
@@ -50,7 +50,7 @@ public class ACM_Practica1b {
         //GP.rellenarPuntos(111, false);
         
         //Agrega ciudades a la lista
-        //listaCiudades = GP.getListaPuntos();
+        listaCiudades = GP.getListaPuntos();
         
         Algoritmos1B TSP = new Algoritmos1B();
         //TSP.EscribeTSP_1B("Hola1B", listaCiudades);
@@ -60,7 +60,7 @@ public class ACM_Practica1b {
         //TSP.calcularRutas(listaCiudades);
         
         //CALCULO EMPIRICO, descomentar para probar
-        //TSP.comprobacionEmpirica();
+        TSP.comprobacionEmpirica();
         
         //++++++++++++++OPCIONAL+++++++++++++++//
         //TSP.calcularSolucionOptima(listaCiudades);

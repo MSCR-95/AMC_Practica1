@@ -61,7 +61,7 @@ public class Algoritmos1B {
     }
 
     public void comprobacionEmpirica() {
-
+        
         GeneraPuntos GP = new GeneraPuntos();
         List<Punto> ciudades = new ArrayList<>();
         int mejorUni = 0;
@@ -69,9 +69,11 @@ public class Algoritmos1B {
         int iguales = 0;
         int talla = 0;
 
-        //Para talla 5000 -> i=10 
-        for (int i = 0; i < 2; i++) {
-            talla += 500;
+        int numIteraciones = 10; // Cambiar a la cantidad deseada de iteraciones
+        int tallaInicial = 100;  // Cambiar según tus necesidades iniciales
+        System.out.println("Puede tardar unos minutos... espere por favor");
+        for (int i = 0; i < numIteraciones; i++) {
+            talla = tallaInicial + i * 100;     //incrementamos la talla por la diferencia que queramos
             GP.rellenarPuntos(talla, false);
             ciudades = GP.getListaPuntos();
             // j es el numero de ejecuciones diferentes
@@ -94,27 +96,7 @@ public class Algoritmos1B {
             mejorBi = mejorUni = iguales = 0;
             tiempoBidirec = tiempoUnidirec = 0.0;
         }
-        /*
-                
-        int numIteraciones = 5; // Cambiar a la cantidad deseada de iteraciones
-        int tallaInicial = 1000;  // Cambiar según tus necesidades iniciales
-        GeneraPuntos GP;
-
-        for (int i = 0; i < numIteraciones; i++) {
-            int talla = tallaInicial + i * 1000; // Ajustar la talla según la iteración
-            GP = new GeneraPuntos(); // Crear una nueva instancia en cada iteración
-            GP.rellenarPuntos(talla, false);
-            List<Punto> ciudades = GP.getListaPuntos();
-
-            Solucion s1 = busquedaConPoda(ciudades);
-            Solucion s2 = busquedaExhaustiva(ciudades, 0, ciudades.size() - 1, 0, 0);
-            
-            System.out.println("");
-            System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
-            System.out.println(talla + "       " + s1.time + "                    " + s2.time + "             " + s1.nComparaciones + "                " + s2.nComparaciones);
-        }
-         */
-        
+     
     }
 
     public List<Punto> TSPUnidireccional(List<Punto> ciudades, int primeraCiudad) {
@@ -281,6 +263,7 @@ public class Algoritmos1B {
     }
 
     //-----------OPCIONAL------------//
+    
     public void mostrarSolucionOptima(List<Punto> ciudades) {
         //Calculo de los costos de los caminos
         GeneraPuntos GP = new GeneraPuntos();

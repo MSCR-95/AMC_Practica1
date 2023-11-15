@@ -21,7 +21,6 @@ public class Pruebas {
     public static void main(String[] args) {
 
         //PRUEBAS CON FRAME
-        
         VisualParte1A frame = new VisualParte1A();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);

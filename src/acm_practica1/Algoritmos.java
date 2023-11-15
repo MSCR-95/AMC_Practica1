@@ -539,7 +539,7 @@ public class Algoritmos {
         return numero;
     }
 
-    //Formatear a 8 decimales
+    //Formatear a 4 decimales
     public double decimales4(double numero) {
         //long decimales = 10000000000;
         numero = Math.round(numero * 10000) / 10000d;

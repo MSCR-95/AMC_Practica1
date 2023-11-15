@@ -75,9 +75,9 @@ public class VisualParte1B extends javax.swing.JFrame {
         botonComprobar = new javax.swing.JButton();
         textoScroll = new javax.swing.JScrollPane(texto);
         texto = new javax.swing.JTextPane();
+        estudioEmpiricoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 600));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -112,10 +112,8 @@ public class VisualParte1B extends javax.swing.JFrame {
         text_Bidireccional.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         text_Bidireccional.setText("Bidireccional");
 
-        text_CargarTSP.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         text_CargarTSP.setText("Cargar .tsp");
 
-        botonCargarTSP.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         botonCargarTSP.setText("Cargar");
         botonCargarTSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,7 +128,6 @@ public class VisualParte1B extends javax.swing.JFrame {
             }
         });
 
-        text_generar_aleatorio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         text_generar_aleatorio.setText("Generar aleatorio");
 
         introducir_talla.setText("Talla");
@@ -140,7 +137,6 @@ public class VisualParte1B extends javax.swing.JFrame {
             }
         });
 
-        botonGenerar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         botonGenerar.setText("Generar");
         botonGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,10 +144,8 @@ public class VisualParte1B extends javax.swing.JFrame {
             }
         });
 
-        text_CaminoOptimo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         text_CaminoOptimo.setText("Camino optimo");
 
-        botonComprobar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         botonComprobar.setText("Comprobar");
         botonComprobar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +155,13 @@ public class VisualParte1B extends javax.swing.JFrame {
 
         texto.setEditable(false);
         textoScroll.setViewportView(texto);
+
+        estudioEmpiricoButton.setText("Estudio Empirico");
+        estudioEmpiricoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estudioEmpiricoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,16 +179,16 @@ public class VisualParte1B extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(introducir_nombre_TSP)
-                                        .addComponent(text_CargarTSP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(text_generar_aleatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(introducir_talla, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botonCargarTSP, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(botonComprobar, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(botonGenerar, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(text_CaminoOptimo, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(introducir_nombre_TSP)
+                                    .addComponent(text_CargarTSP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(text_generar_aleatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(introducir_talla, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                                    .addComponent(botonCargarTSP, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botonComprobar)
+                                    .addComponent(botonGenerar)
+                                    .addComponent(text_CaminoOptimo)
+                                    .addComponent(estudioEmpiricoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(text_Bidireccional, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(textoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -200,27 +201,29 @@ public class VisualParte1B extends javax.swing.JFrame {
                     .addComponent(text_Unidireccional)
                     .addComponent(text_Bidireccional))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(text_CargarTSP)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(introducir_nombre_TSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonCargarTSP)
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addComponent(text_generar_aleatorio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(introducir_talla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonGenerar)
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
+                        .addComponent(estudioEmpiricoButton)
+                        .addGap(26, 26, 26)
                         .addComponent(text_CaminoOptimo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonComprobar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                        .addComponent(botonComprobar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(textoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -246,27 +249,40 @@ public class VisualParte1B extends javax.swing.JFrame {
     }//GEN-LAST:event_botonComprobarActionPerformed
     //Boton de cargar .tsp
     private void botonCargarTSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarTSPActionPerformed
+        try {
+            listaCiudades.clear();  //vaciamos la lista antes de usarla
+            nombreTSP = introducir_nombre_TSP.getText();
+            GP.LeePuntos("src/data/" + nombreTSP + "/" + nombreTSP);
+            this.listaCiudades = GP.getListaPuntos();
+            TSP.calcularRutas(listaCiudades);
+            jPanel1.repaint();
+            jPanel2.repaint();
+        } catch (Exception e) {
+            System.out.println("Error: el archivo tsp no existe");
+        }
 
-        listaCiudades.clear();  //vaciamos la lista antes de usarla
-        nombreTSP = introducir_nombre_TSP.getText();
-        GP.LeePuntos("src/data/" + nombreTSP + "/" + nombreTSP);
-        this.listaCiudades = GP.getListaPuntos();
-        TSP.calcularRutas(listaCiudades);
-        jPanel1.repaint();
-        jPanel2.repaint();
     }//GEN-LAST:event_botonCargarTSPActionPerformed
 
     private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+        try {
+            listaCiudades.clear();  //vaciamos la lista antes de usarla
+            talla = Integer.parseInt(introducir_talla.getText());
+            GP.rellenarPuntos(talla, false);
+            this.listaCiudades = GP.getListaPuntos();
 
-        listaCiudades.clear();  //vaciamos la lista antes de usarla
-        talla = Integer.parseInt(introducir_talla.getText());
-        GP.rellenarPuntos(talla, false);
-        this.listaCiudades = GP.getListaPuntos();
+            TSP.calcularRutas(listaCiudades);
+            jPanel1.repaint();
+            jPanel2.repaint();
+        } catch (Exception e) {
+            System.out.println("Error: talla incorrecta");
+        }
 
-        TSP.calcularRutas(listaCiudades);
-        jPanel1.repaint();
-        jPanel2.repaint();
+
     }//GEN-LAST:event_botonGenerarActionPerformed
+
+    private void estudioEmpiricoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudioEmpiricoButtonActionPerformed
+        TSP.comprobacionEmpirica();
+    }//GEN-LAST:event_estudioEmpiricoButtonActionPerformed
 
     // Clase para redirigir la salida estándar al JTextPane
     private static class CustomOutputStream extends OutputStream {
@@ -340,6 +356,7 @@ public class VisualParte1B extends javax.swing.JFrame {
     private javax.swing.JButton botonCargarTSP;
     private javax.swing.JButton botonComprobar;
     private javax.swing.JButton botonGenerar;
+    private javax.swing.JButton estudioEmpiricoButton;
     private javax.swing.JTextField introducir_nombre_TSP;
     private javax.swing.JTextField introducir_talla;
     private javax.swing.JPanel jPanel1;
