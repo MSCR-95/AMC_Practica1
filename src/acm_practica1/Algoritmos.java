@@ -26,6 +26,8 @@ public class Algoritmos {
     private double tiempoDivideYVencerasMejorado = 0.0;
     private double dMinAnterior = 10000.0;
     private double dMinAnteriorTest = 10000.0;
+    private double dMinfSol = 10000.0;
+    private Solucion dMinfSolu = new Solucion(10000, 0, 0, 0, 0);
 
     
     //Guardamos una copia de la lista original
@@ -425,33 +427,58 @@ public class Algoritmos {
             }
         }
 
-        Solucion franjaSol = busquedaExhaustiva(punto, aux1, aux2, tiempoDivideYVenceras, nComparacionesDyV);
-        Solucion Legit;
+        //Solucion franjaSol = busquedaExhaustiva(punto, aux1, aux2, tiempoDivideYVenceras, nComparacionesDyV);
+        ordenarPuntosPorYQuickSort(franja);
+        List<Punto> puntoConY = punto;
+        for (int i = 0; i < franja.size(); i++) {
+            puntoConY.remove(aux1 + i);
+            puntoConY.add(franja.get(i));
+        }
+        Solucion franjaSol = buscarPuntosMasCercanos(puntoConY, aux1, aux2, tiempoDivideYVencerasMejorado, nComparacionesDyVMejorado);
+
+        Solucion Legit; //= new Solucion(dMinfSolu.dMin, dMinfSolu.indiceP1, dMinfSolu.indiceP2, time, nComparaciones);
         if(distanciaIzquierda.dMin < distanciaDerecha.dMin && distanciaIzquierda.dMin < franjaSol.dMin){
             Legit = distanciaIzquierda;
+            if (Legit.dMin > dMinfSolu.dMin) {
+                Legit = dMinfSolu;
+            }
+
         }
         else if (distanciaDerecha.dMin < distanciaIzquierda.dMin && distanciaDerecha.dMin < franjaSol.dMin){
             Legit = distanciaDerecha;
+            if (Legit.dMin > dMinfSolu.dMin) {
+                Legit = dMinfSolu;
+            }
         }
         else if (franjaSol.dMin < distanciaIzquierda.dMin && franjaSol.dMin < distanciaDerecha.dMin){
             Legit = franjaSol;
+            if (Legit.dMin > dMinfSolu.dMin) {
+                Legit = dMinfSolu;
+            }
         }
         else{
             Legit = distanciaIzquierda;
+            if (Legit.dMin == dMinfSolu.dMin) {
+                Legit = dMinfSolu;
+            }
         }
-
-
+        
+        if (dMinfSolu.dMin < Legit.dMin) {
+            Legit = dMinfSolu;
+        }
 
         if(Legit.indiceP1 != -1 && Legit.indiceP2 != -1){
              ParDePuntos Pp = new ParDePuntos(punto.get(Legit.indiceP1), punto.get(Legit.indiceP2));
-                if (Legit.dMin < dMinAnteriorTest){
-                    dMinAnteriorTest = Legit.dMin;
+                if (Legit.dMin < dMinAnterior){
+                    dMinAnterior = Legit.dMin;
                     Legit.indiceP1 = Pp.getP1().getIndice();
                     Legit.indiceP2 = Pp.getP2().getIndice();
             }
         }
         
         double endTime = System.nanoTime();
+        //System.out.println("Tiempo DyV despues de bPMC: " + (endTime - startTime) / 1e6);
+        //Legit.time = (endTime - startTime) / 1e6;
         Legit.time = tiempoDivideYVencerasMejorado;
         Legit.nComparaciones = this.nComparaciones;
         return Legit;
