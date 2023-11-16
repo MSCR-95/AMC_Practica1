@@ -339,8 +339,7 @@ public class VisualParte1A extends javax.swing.JFrame {
             this.listaCiudades = GP.getListaPuntos();
             //imprimirLista(listaCiudades);
         } catch (Exception e) {
-            System.out.println("Error: el archivo tsp no existe");
-            
+            System.out.println("Error: el archivo tsp no existe"); 
         }
 
     }//GEN-LAST:event_cargarTSPbuttonActionPerformed

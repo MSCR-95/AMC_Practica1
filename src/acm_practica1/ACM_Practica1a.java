@@ -107,6 +107,7 @@ public class ACM_Practica1a {
 
         System.out.println("Tiempo: "+ S.time);
          */
+        
         System.out.println("\nDIVIDE Y MEJORADO");
         //algoritmos.busquedaConDyV(GP.getListaPuntos());
 
