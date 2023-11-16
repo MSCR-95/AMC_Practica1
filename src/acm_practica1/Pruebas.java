@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package acm_practica1;
 
 import java.awt.Color;
@@ -62,7 +58,7 @@ public class Pruebas {
         frame.add(panel);
         frame.setVisible(true);
         */
-
+        
     }
 
     //private static void dibujarPuntos(Graphics g, List<Punto> puntos, List<Punto> ruta, int panelAncho, int panelAlto) {
@@ -115,7 +111,7 @@ public class Pruebas {
         }
     }
 
-    //-----------------------QUICKSORT X, Y------------------//
+    //----------------------- QUICKSORT X, Y ------------------//
     private static void ordenarPuntosPorYQuickSort(List<Punto> puntos) {
         quicksort(puntos, 0, puntos.size() - 1, Comparator.comparingDouble(Punto::getY));
     }
@@ -148,7 +144,6 @@ public class Pruebas {
                 intercambiar(puntos, i, j);
             }
         }
-
         intercambiar(puntos, izq, j);
         return j;
     }
