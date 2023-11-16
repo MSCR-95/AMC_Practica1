@@ -423,7 +423,7 @@ public class VisualParte1A extends javax.swing.JFrame {
         table.setModel(tableModel);
 
         //resultado = busquedaExhaustiva(puntos, 0, puntos.size() - 1);
-        sExha = algoritmo.busquedaExhaustiva(puntosExha, 0, puntos.size() - 1, 0, 0);
+        sExha = algoritmo.busquedaExhaustiva(puntosExha, 0, puntos.size() - 1, 0);
         sExhaPoda = algoritmo.busquedaConPoda(puntosExhaPoda);
         sDyV = algoritmo.busquedaDivideYVenceras(puntosDyV);
         sDyVMejorado = algoritmo.busquedaDivideYVencerasMejorado(puntosDyVMej);
@@ -484,7 +484,7 @@ public class VisualParte1A extends javax.swing.JFrame {
             //Elegimos los algoritmos segun la seleccion de los ComboBoxs
             switch (nombreAlg1) {
                 case "Exhaustivo":
-                    s1 = algoritmo.busquedaExhaustiva(puntosAlg1, 0, puntosAlg1.size() - 1, 0, 0);
+                    s1 = algoritmo.busquedaExhaustiva(puntosAlg1, 0, puntosAlg1.size() - 1, 0);
                     nAlg1 = "Exhaus";
                     break;
                 case "Exhaustivo con poda":
@@ -502,7 +502,7 @@ public class VisualParte1A extends javax.swing.JFrame {
             }
             switch (nombreAlg2) {
                 case "Exhaustivo":
-                    s2 = algoritmo.busquedaExhaustiva(puntosAlg2, 0, puntosAlg2.size() - 1, 0, 0);
+                    s2 = algoritmo.busquedaExhaustiva(puntosAlg2, 0, puntosAlg2.size() - 1, 0);
                     nAlg2 = "Exhaus";
                     break;
                 case "Exhaustivo con poda":
@@ -562,7 +562,7 @@ public class VisualParte1A extends javax.swing.JFrame {
             List<Punto> puntosDyV = puntos;
             List<Punto> puntosDyVMej = puntos;
 
-            sExha = algoritmo.busquedaExhaustiva(puntosExha, 0, puntosExha.size() - 1, 0, 0);
+            sExha = algoritmo.busquedaExhaustiva(puntosExha, 0, puntosExha.size() - 1, 0);
             sExhaPoda = algoritmo.busquedaConPoda(puntosExhaPoda);
             sDyV = algoritmo.busquedaDivideYVenceras(puntosDyV);
             sDyVMejorado = algoritmo.busquedaDivideYVencerasMejorado(puntosDyVMej);

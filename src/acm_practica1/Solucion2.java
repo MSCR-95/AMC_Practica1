@@ -10,15 +10,18 @@ package acm_practica1;
  */
 public class Solucion2 {
 
-    public double dMin;
+    public double dMin = 0.0;
     //public int indiceP1;
     //public int indiceP2;
     public Punto p1;
     public Punto p2;
-    public double time;
+    public double time = 0.0;
     public int nComparaciones;
 
     public Solucion2() {
+        this.dMin = 0;
+        this.time = 0;
+        this.nComparaciones = 0;
     }
 
     public Solucion2(double dMin, Punto p1, Punto p2, double time, int nComparaciones) {
