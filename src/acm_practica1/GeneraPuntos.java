@@ -111,7 +111,7 @@ public class GeneraPuntos {
     public void EscribeTSP(String NombreFile) {
         try {
             FileWriter myWriter = new FileWriter("src/data/intentos/" + NombreFile + ".tsp");
-            myWriter.write("Puntos de " + NombreFile + String.format("%n"));
+            myWriter.write("NAME : " + NombreFile + "\nCOMMENT : Comentario " + "\nTYPE : TSP" + "\nDIMENSION : "+ puntos.size() + "\nEDGE_WEIGHT_TYPE : EUC_2D" + "\nNODE_COORD_SECTION");
 
             for (int i = 0; i < puntos.size(); i++) {
                 myWriter.write("\n" + (i + 1) + " " + puntos.get(i).getX() + " " + puntos.get(i).getY());
