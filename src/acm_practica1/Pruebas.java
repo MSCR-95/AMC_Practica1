@@ -63,11 +63,11 @@ public class Pruebas {
 
     //private static void dibujarPuntos(Graphics g, List<Punto> puntos, List<Punto> ruta, int panelAncho, int panelAlto) {
     private static void dibujarPuntos(Graphics g, List<Punto> ruta, int panelAncho, int panelAlto) {
-
+/*
         Algoritmos algoritmos = new Algoritmos(ruta);
         //Podemos usar cualquier algoritmo, ya que la lista de puntos es la misma, y los puntos con la distancia minima tambien
         //Usamos el con poda porque suele ser muy rapido
-        Solucion s = algoritmos.busquedaConPoda(ruta);
+        Solucion2 s = algoritmos.busquedaConPoda(ruta);
 
         //Sacamos los dos puntos mas cercanos de la solucion
         Punto p1 = algoritmos.getPuntoPorIndice(s.indiceP1);
@@ -101,7 +101,7 @@ public class Pruebas {
         //Pintamos de rojo los dos puntos mas cercanos
         g.fillOval(primerX, primerY, 5, 5);
         g.fillOval(ultimoX, ultimoY, 5, 5);
-
+*/
     }
 
     //----------------- IMPRIMIR LISTA ------------------------//

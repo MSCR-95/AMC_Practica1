@@ -374,7 +374,7 @@ public class VisualParte1A extends javax.swing.JFrame {
         talla = Integer.parseInt(introducir_talla.getText());
         String nombre = "dataSet"+talla;
         GP.CreaTSP(nombre);
-        GP.EscribeTSP(nombre);
+        GP.EscribeTSP(nombre, GP.getListaPuntos());
     }//GEN-LAST:event_guardarTSPButtonActionPerformed
     
     //Formatear a 8 decimales
@@ -421,36 +421,62 @@ public class VisualParte1A extends javax.swing.JFrame {
         tableModel = new MyTableModel(columnNames, 0); // 0 indica que inicialmente no hay filas
         table.setModel(tableModel);
 
-        //resultado = busquedaExhaustiva(puntos, 0, puntos.size() - 1);
-        sExha = algoritmo.busquedaExhaustiva(puntosExha, 0, puntos.size() - 1, 0);
-        sExhaPoda = algoritmo.busquedaConPoda(puntosExhaPoda);
-        sDyV = algoritmo.busquedaDivideYVenceras(puntosDyV);
-        sDyVMejorado = algoritmo.busquedaDivideYVencerasMejorado(puntosDyVMej);
+
+        //sExha = algoritmo.busquedaExhaustiva(puntosExha, 0, puntos.size() - 1, 0);
+        sExha = algoritmo.busquedaExhaustiva(puntos);
+        GP.CreaTSP("Exhaustivo");
+        GP.EscribeTSP("Exhaustivo", algoritmo.getListaPuntos());
         
-        System.out.println("Indice de Exhaustivo");
-        System.out.println(sExha.indiceP1);
+        //sExhaPoda = algoritmo.busquedaConPoda(puntosExhaPoda);
+        sExhaPoda = algoritmo.busquedaConPoda(puntosExhaPoda);
+        GP.CreaTSP("ExhaustivoPoda");
+        GP.EscribeTSP("ExhaustivoPoda", algoritmo.getListaPuntos());
+        //sDyV = algoritmo.busquedaDivideYVenceras(puntosDyV);
+        sDyV = algoritmo.DyV(puntosDyV);
+        GP.CreaTSP("DivideVenceras");
+        GP.EscribeTSP("DivideVenceras", algoritmo.getListaPuntos());
+        //sDyVMejorado = algoritmo.busquedaDivideYVencerasMejorado(puntosDyVMej);
+        sDyVMejorado = algoritmo.DyVMejorado(puntosDyVMej);
+         GP.CreaTSP("DyVMejorado");
+        GP.EscribeTSP("DyVMejorado", algoritmo.getListaPuntos());
+        
+        //System.out.println("Indice de Exhaustivo");
+        //System.out.println(sExha.indiceP1);
 
-        ParDePuntos ppExha = new ParDePuntos(getPuntoPorIndice(puntos, sExha.indiceP1 + 1), getPuntoPorIndice(puntos, sExha.indiceP2 + 1));
-        ParDePuntos ppExhaPoda = new ParDePuntos(getPuntoPorIndice(puntos, sExhaPoda.indiceP1), getPuntoPorIndice(puntos, sExhaPoda.indiceP2));
-        ParDePuntos ppDyV = new ParDePuntos(getPuntoPorIndice(puntos, sDyV.indiceP1), getPuntoPorIndice(puntos, sDyV.indiceP2));
-        ParDePuntos ppDyVMejor = new ParDePuntos(getPuntoPorIndice(puntos, sDyVMejorado.indiceP1), getPuntoPorIndice(puntos, sDyVMejorado.indiceP2));
+        //ParDePuntos ppExha = new ParDePuntos(getPuntoPorIndice(puntos, sExha.indiceP1 + 1), getPuntoPorIndice(puntos, sExha.indiceP2 + 1));
+        //ParDePuntos ppExhaPoda = new ParDePuntos(getPuntoPorIndice(puntos, sExhaPoda.indiceP1), getPuntoPorIndice(puntos, sExhaPoda.indiceP2));
+        //ParDePuntos ppDyV = new ParDePuntos(getPuntoPorIndice(puntos, sDyV.indiceP1), getPuntoPorIndice(puntos, sDyV.indiceP2));
+        //ParDePuntos ppDyVMejor = new ParDePuntos(getPuntoPorIndice(puntos, sDyVMejorado.indiceP1), getPuntoPorIndice(puntos, sDyVMejorado.indiceP2));
 
-        tableModel.addRow(new Object[]{"Exhaustiva", ppExha.getP1(), ppExha.getP2(), decimales8(sExha.dMin), sExha.nComparaciones, sExha.time});
-        tableModel.addRow(new Object[]{"Exhaustiva con poda", ppExhaPoda.getP1(), ppExhaPoda.getP2(), decimales8(sExhaPoda.dMin), sExhaPoda.nComparaciones, sExhaPoda.time});
-        tableModel.addRow(new Object[]{"Divide y venceras", ppDyV.getP1(), ppDyV.getP2(), decimales8(sDyV.dMin), sDyV.nComparaciones, sDyV.time});
-        tableModel.addRow(new Object[]{"Divi y venceras mejorado", ppDyVMejor.getP1(), ppDyVMejor.getP2(), decimales8(sDyVMejorado.dMin), sDyVMejorado.nComparaciones, sDyVMejorado.time});
+        //ParDePuntos ppExha = new ParDePuntos(sExha.p1, sExha.p2);
+        //ParDePuntos ppExhaPoda = new ParDePuntos(sExhaPoda.p1, sExhaPoda.p2);
+        //ParDePuntos ppDyV = new ParDePuntos(sDyV.p1,sExhaPoda.);
+        //ParDePuntos ppDyVMejor = new ParDePuntos(getPuntoPorIndice(puntos, sDyVMejorado.indiceP1), getPuntoPorIndice(puntos, sDyVMejorado.indiceP2));
+
+        //tableModel.addRow(new Object[]{"Exhaustiva", ppExha.getP1(), ppExha.getP2(), decimales8(sExha.dMin), sExha.nComparaciones, sExha.time});
+        //tableModel.addRow(new Object[]{"Exhaustiva con poda", ppExhaPoda.getP1(), ppExhaPoda.getP2(), decimales8(sExhaPoda.dMin), sExhaPoda.nComparaciones, sExhaPoda.time});
+        //tableModel.addRow(new Object[]{"Divide y venceras", ppDyV.getP1(), ppDyV.getP2(), decimales8(sDyV.dMin), sDyV.nComparaciones, sDyV.time});
+        //tableModel.addRow(new Object[]{"Divi y venceras mejorado", ppDyVMejor.getP1(), ppDyVMejor.getP2(), decimales8(sDyVMejorado.dMin), sDyVMejorado.nComparaciones, sDyVMejorado.time});
         //System.out.println(pdExha.distancia());
+        
+        tableModel.addRow(new Object[]{"Exhaustiva", sExha.p1, sExha.p2, decimales8(sExha.dMin), sExha.nComparaciones, sExha.time});
+        tableModel.addRow(new Object[]{"Exhaustiva con poda", sExhaPoda.p1, sExhaPoda.p2, decimales8(sExhaPoda.dMin), sExhaPoda.nComparaciones, sExhaPoda.time});
+        tableModel.addRow(new Object[]{"Divide y venceras", sDyV.p1, sDyV.p2, decimales8(sDyV.dMin), sDyV.nComparaciones, sDyV.time});
+        tableModel.addRow(new Object[]{"Divi y venceras mejorado", sDyVMejorado.p1, sDyVMejorado.p2, decimales8(sDyVMejorado.dMin), sDyVMejorado.nComparaciones, sDyVMejorado.time});
+        /*
+        System.out.println(pdExha.distancia());
         System.out.println("Estrategia       Punto 1                    Punto 2                      distancias           Calculadas        tiempo ");
         System.out.println("Exhaustiva" + "       " + ppExha.getP1() + "        " + ppExha.getP2() + "        " + sExha.dMin + "       " + sExha.nComparaciones + "       " + sExha.time);
         System.out.println("Exhaustiva" + "       " + ppExhaPoda.getP1() + "        " + ppExhaPoda.getP2() + "        " + sExhaPoda.dMin + "       " + sExhaPoda.nComparaciones + "       " + sExhaPoda.time);
         System.out.println("Exhaustiva" + "       " + ppDyV.getP1() + "        " + ppDyV.getP2() + "        " + sDyV.dMin + "       " + sDyV.nComparaciones + "       " + sDyV.time);
         System.out.println("Exhaustiva" + "       " + ppDyVMejor.getP1() + "        " + ppDyVMejor.getP2() + "        " + sDyVMejorado.dMin + "       " + sDyVMejorado.nComparaciones + "       " + sDyVMejorado.time);
-
+        */
     }
 
     //--COMPARAR DOS ALGORITMOS--//
     public void comparar2Estrategias() {
         //initTableModel();
+        //tableModel.
         String nombreAlg1 = Algoritmo1ComboBox.getSelectedItem().toString();
         String nombreAlg2 = Algoritmo2ComboBox.getSelectedItem().toString();
         Solucion s1 = new Solucion();
@@ -469,12 +495,11 @@ public class VisualParte1A extends javax.swing.JFrame {
         int numIteraciones = 5;
         int tallaInicial = 1000;
         Algoritmos algoritmo = new Algoritmos();
-        GeneraPuntos GP;
+        GeneraPuntos GP = new GeneraPuntos();
 
         for (int i = 0; i < numIteraciones; i++) {
-            int talla = tallaInicial + i * 1000;
-            GP = new GeneraPuntos();
-            GP.rellenarPuntos(talla, casoPeor);
+            int auxTalla = tallaInicial + i * 1000;
+            GP.rellenarPuntos(auxTalla, casoPeor);
             List<Punto> puntos = GP.getListaPuntos();
             //Nos aseguramos de que cada algoritmo trabaje con una copia de la lista
             List<Punto> puntosAlg1 = puntos;
@@ -483,7 +508,7 @@ public class VisualParte1A extends javax.swing.JFrame {
             //Elegimos los algoritmos segun la seleccion de los ComboBoxs
             switch (nombreAlg1) {
                 case "Exhaustivo":
-                    s1 = algoritmo.busquedaExhaustiva(puntosAlg1, 0, puntosAlg1.size() - 1, 0);
+                    s1 = algoritmo.busquedaExhaustiva(puntosAlg1);
                     nAlg1 = "Exhaus";
                     break;
                 case "Exhaustivo con poda":
@@ -491,17 +516,17 @@ public class VisualParte1A extends javax.swing.JFrame {
                     nAlg1 = "Exhaust Poda";
                     break;
                 case "Divide y venceras":
-                    s1 = algoritmo.busquedaDivideYVenceras(puntosAlg1);
+                    s1 = algoritmo.DyV(puntosAlg1);
                     nAlg1 = "DyV";
                     break;
                 case "Divide y venceras mejorado":
-                    s1 = algoritmo.busquedaDivideYVencerasMejorado(puntosAlg1);
+                    s1 = algoritmo.DyVMejorado(puntosAlg1);
                     nAlg1 = "DyVMejora";
                     break;
             }
             switch (nombreAlg2) {
                 case "Exhaustivo":
-                    s2 = algoritmo.busquedaExhaustiva(puntosAlg2, 0, puntosAlg2.size() - 1, 0);
+                    s2 = algoritmo.busquedaExhaustiva(puntosAlg2);
                     nAlg2 = "Exhaus";
                     break;
                 case "Exhaustivo con poda":
@@ -509,21 +534,21 @@ public class VisualParte1A extends javax.swing.JFrame {
                     nAlg2 = "Exhaus Poda";
                     break;
                 case "Divide y venceras":
-                    s2 = algoritmo.busquedaDivideYVenceras(puntosAlg2);
+                    s2 = algoritmo.DyV(puntosAlg2);
                     nAlg2 = "DyV";
                     break;
                 case "Divide y venceras mejorado":
-                    s2 = algoritmo.busquedaDivideYVencerasMejorado(puntosAlg2);
+                    s2 = algoritmo.DyVMejorado(puntosAlg2);
                     nAlg2 = "DyVMejora";
                     break;
             }
             // Agrega los datos a la tabla
-            tableModel.addRow(new Object[]{talla, s1.time, s2.time, s1.nComparaciones, s2.nComparaciones});
+            tableModel.addRow(new Object[]{auxTalla, s1.time, s2.time, s1.nComparaciones, s2.nComparaciones});
 
             //  PRUEBAS
             System.out.println("Nombre Algoritmo 1: " + nAlg1 + " Nombre algoritmo 2: " + nAlg2);
             System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
-            System.out.println(talla + "       " + s1.time + "                    " + s2.time + "             " + s1.nComparaciones + "                " + s2.nComparaciones);
+            System.out.println(auxTalla + "       " + s1.time + "                    " + s2.time + "             " + s1.nComparaciones + "                " + s2.nComparaciones);
             System.out.println("**********************************************");
         }
     }
@@ -542,38 +567,42 @@ public class VisualParte1A extends javax.swing.JFrame {
         tableModel = new MyTableModel(columnNames, 0); // 0 indica que inicialmente no hay filas
         table.setModel(tableModel);
 
-        int numIteraciones = 5;
-        int tallaInicial = 1000;
+        int numIteraciones = 1;
+        int tallaInicial = 5000;
         Algoritmos algoritmo = new Algoritmos();
-        GeneraPuntos GP;
+        GeneraPuntos GP = new GeneraPuntos();
         Object[] columnNames2 = {"Talla", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)"};
         tableModel.addRow(columnNames2);
 
         for (int i = 0; i < numIteraciones; i++) {
             int talla = tallaInicial + i * 1000;
-            GP = new GeneraPuntos();
-            GP.rellenarPuntos(talla, casoPeor);
+            //GP = new GeneraPuntos();
+            GP.rellenarPuntos(talla, true);
             List<Punto> puntos = GP.getListaPuntos();
 
             //Nos aseguramos de que cada algoritmo trabaje con una copia de la lista
-            List<Punto> puntosExha = puntos;
-            List<Punto> puntosExhaPoda = puntos;
-            List<Punto> puntosDyV = puntos;
-            List<Punto> puntosDyVMej = puntos;
+            //List<Punto> puntosExha = puntos;
+            //List<Punto> puntosExhaPoda = puntos;
+            //List<Punto> puntosDyV = puntos;
+            //List<Punto> puntosDyVMej = puntos;
 
-            sExha = algoritmo.busquedaExhaustiva(puntosExha, 0, puntosExha.size() - 1, 0);
-            sExhaPoda = algoritmo.busquedaConPoda(puntosExhaPoda);
-            sDyV = algoritmo.busquedaDivideYVenceras(puntosDyV);
-            sDyVMejorado = algoritmo.busquedaDivideYVencerasMejorado(puntosDyVMej);
+            sExha = algoritmo.busquedaExhaustiva(puntos);
+            sExhaPoda = algoritmo.busquedaConPoda(puntos);
+            sDyV = algoritmo.DyV(puntos);
+            sDyVMejorado = algoritmo.DyV(puntos);
+            // PRUEBAS
+            System.out.println("Exhaustivo, Exahustivo con poda, Divide y Venceras, Divide y venceras mejorado");
+            System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
+            System.out.println(talla + "       " + sExha.time + "          " + sExhaPoda.time + "             " + sDyV.time + "              " + sDyVMejorado.time);
 
             // Agrega los datos a la tabla
             tableModel.addRow(new Object[]{talla, sExha.time, sExhaPoda.time, sDyV.time, sDyVMejorado.time});
 
             // PRUEBAS
-            System.out.println("Exhaustivo, Exahustivo con poda, Divide y Venceras, Divide y venceras mejorado");
-            System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
-            System.out.println(talla + "       " + sExha.time + "          " + sExhaPoda.time + "             " + sDyV.time + "              " + sDyVMejorado.time);
-            System.out.println("**********************************************");
+            //System.out.println("Exhaustivo, Exahustivo con poda, Divide y Venceras, Divide y venceras mejorado");
+            //System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
+            //System.out.println(talla + "       " + sExha.time + "          " + sExhaPoda.time + "             " + sDyV.time + "              " + sDyVMejorado.time);
+            //System.out.println("**********************************************");
         }
     }
 
@@ -601,15 +630,19 @@ public class VisualParte1A extends javax.swing.JFrame {
 
     private static void dibujarPuntos(Graphics g, List<Punto> ruta, int panelAncho, int panelAlto) {
 
-        Algoritmos algoritmos = new Algoritmos(ruta);
+        //Algoritmos algoritmos = new Algoritmos(ruta);
+        Algoritmos algoritmos = new Algoritmos();
         //Podemos usar cualquier algoritmo, ya que la lista de puntos es la misma, y los puntos con la distancia minima tambien
         //Usamos el con poda porque suele ser muy rapido
         Solucion s = algoritmos.busquedaConPoda(ruta);
 
         try {
             //Sacamos los dos puntos mas cercanos de la solucion
-            Punto p1 = algoritmos.getPuntoPorIndice(s.indiceP1);
-            Punto p2 = algoritmos.getPuntoPorIndice(s.indiceP2);
+            //Punto p1 = algoritmos.getPuntoPorIndice(s.indiceP1);
+            //Punto p2 = algoritmos.getPuntoPorIndice(s.indiceP2);
+            
+            Punto p1 = s.p1;
+            Punto p2 = s.p2;
 
             double maxX = ruta.stream().mapToDouble(Punto::getX).max().orElse(0);
             double maxY = ruta.stream().mapToDouble(Punto::getY).max().orElse(0);

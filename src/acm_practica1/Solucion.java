@@ -1,19 +1,31 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package acm_practica1;
 
+/**
+ *
+ * @author Maria S
+ */
 public class Solucion {
-    public double dMin;
-    public int indiceP1;
-    public int indiceP2;
-    public double time;
+
+    public double dMin = 0.0;
+    public Punto p1;
+    public Punto p2;
+    public double time = 0.0;
     public int nComparaciones;
 
     public Solucion() {
+        this.dMin = 0;
+        this.time = 0;
+        this.nComparaciones = 0;
     }
 
-    public Solucion(double dMin, int indiceP1, int indiceP2, double time, int nComparaciones) {
+    public Solucion(double dMin, Punto p1, Punto p2, double time, int nComparaciones) {
         this.dMin = dMin;
-        this.indiceP1 = indiceP1;
-        this.indiceP2 = indiceP2;
+        this.p1 = p1;
+        this.p2 = p2;
         this.time = time;
         this.nComparaciones = nComparaciones;
     }
