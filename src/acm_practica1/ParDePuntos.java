@@ -37,11 +37,4 @@ public class ParDePuntos {
         return Math.sqrt(Math.pow(diferenciaX, 2) + Math.pow(diferenciaY, 2));
     }
     
-    /*
-    public double distancia(Punto p1, Punto p2) {
-        double diferenciaX = p2.getX() - p1.getX();
-        double diferenciaY = p2.getY() - p1.getY();
-        return Math.sqrt(Math.pow(diferenciaX, 2) + Math.pow(diferenciaY, 2));
-    }
-    */
 }

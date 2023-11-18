@@ -15,7 +15,6 @@ public class Punto {
     private int indice;
 
     private DecimalFormat df = new DecimalFormat("#.###");
-    //private DecimalFormat dfpunto = new DecimalFormat("#.###");
 
     public Punto() {
         super();

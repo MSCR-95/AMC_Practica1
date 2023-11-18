@@ -40,7 +40,7 @@ public class Algoritmos {
 
         double distancia = -1;
         S.dMin = Double.POSITIVE_INFINITY;
-        //nComparacionesExhaustiva = 0;
+
         for (int i = 0; i < punto.size(); i++) {
             for (int j = i + 1; j < punto.size(); j++) {
                 //Controlamos que un punto no calcule la distancia con el mismo
@@ -68,12 +68,9 @@ public class Algoritmos {
         double distancia = -1;
         double distanciaX = 0;
 
-        //nComparacionesPoda = 0;
-        //nComparaciones = 0;
         Solucion S = new Solucion();
         S.dMin = Double.POSITIVE_INFINITY;
-        //int nComparaciones = 0;
-        //Ordenamos la lista por la x
+
         List<Punto> puntoOrdenado = ordenarPuntosPorXQuickSort(punto);
 
         for (int i = 0; i < puntoOrdenado.size(); i++) {
@@ -87,15 +84,12 @@ public class Algoritmos {
                 }
                 if (!alarma) {
                     S.nComparaciones++;
-                    //nComparacionesPoda++;
                     ParDePuntos dosPuntos = new ParDePuntos(puntoOrdenado.get(i), puntoOrdenado.get(j));
                     distancia = dosPuntos.distancia();
                     if (distancia < S.dMin) {
                         S.dMin = distancia;
                         S.p1 = dosPuntos.getP1();
                         S.p2 = dosPuntos.getP2();
-                        //S.indiceP1 = dosPuntos.getP1().getIndice();
-                        //S.indiceP2 = dosPuntos.getP2().getIndice();
                     }
                 }
                 j++;
@@ -104,41 +98,10 @@ public class Algoritmos {
 
         double endTime = System.nanoTime();
         S.time = (endTime - startTime) / 1e6;
-        //tiempoBusquedaConPoda = S.time;
         setLista(puntoOrdenado);
         return S;
     }
 
-    /*
-    public Solucion Exhaustivo(List<Punto> p) {
-        double startTime = System.nanoTime();
-        //nComparacionesExhaustiva = 0;
-
-        double distanciaMinima = Double.MAX_VALUE;
-        double aux = 0;
-        //ParDePuntos PuntosMasCercanos;
-        Punto p1 = new Punto();
-        Punto p2 = new Punto();
-        for (int i = 0; i < p.size(); i++) {
-            for (int j = i + 1; j < p.size(); j++) {
-                nComparacionesExhaustiva++;
-                ParDePuntos paux = new ParDePuntos(p.get(i), p.get(j));
-                aux = paux.distancia();
-                if (aux < distanciaMinima) {
-                    distanciaMinima = aux;
-                    p1 = p.get(i);
-                    p2 = p.get(j);
-                }
-            }
-        }
-        double endTime = System.nanoTime();
-        double time;
-        time = (endTime - startTime) / 1e6; //Pasamos a mseg
-
-        Solucion s = new Solucion(distanciaMinima, p1, p2, time, nComparacionesExhaustiva);
-        return s;
-    }
-     */
     public Solucion ExhaustivoDyV(List<Punto> p, int izq, int der) {
 
         double startTime = System.nanoTime();
@@ -212,7 +175,7 @@ public class Algoritmos {
                 nCompDyV++;
             } else {
                 pDistMin = pDer;
-                // Si las distancias son iguales, tambien consideramos pIzq
+                //Si las distancias son iguales, tambien consideramos pIzq
                 if (distI == distD) {
                     Solucion pDistMinIzq = new Solucion(distI, pIzq.p1, pIzq.p2, 0, 0);
                     pDistMin = pDistMinIzq;
@@ -290,7 +253,7 @@ public class Algoritmos {
                 nCompDyV++;
             } else {
                 pDistMin = pDer;
-                // Si las distancias son iguales, tambien consideramos pIzq
+                //Si las distancias son iguales, tambien consideramos pIzq
                 if (distI == distD) {
                     Solucion pDistMinIzq = new Solucion(distI, pIzq.p1, pIzq.p2, 0, 0);
                     pDistMin = pDistMinIzq;
@@ -337,20 +300,6 @@ public class Algoritmos {
         return puntoIndice;
     }
 
-    //Formatear a 8 decimales
-    public double decimales8(double numero) {
-        //long decimales = 10000000000;
-        numero = Math.round(numero * 100000000) / 100000000d;
-        return numero;
-    }
-
-    //Formatear a 4 decimales
-    public double decimales4(double numero) {
-        //long decimales = 10000000000;
-        numero = Math.round(numero * 10000) / 10000d;
-        return numero;
-    }
-
     private static List<Punto> ordenarPuntosPorYQuickSort(List<Punto> puntos) {
         quicksort(puntos, 0, puntos.size() - 1, Comparator.comparingDouble(Punto::getY));
         return puntos;
@@ -359,7 +308,6 @@ public class Algoritmos {
     private static List<Punto> ordenarPuntosPorXQuickSort(List<Punto> puntos) {
         quicksort(puntos, 0, puntos.size() - 1, Comparator.comparingDouble(Punto::getX));
         return puntos;
-
     }
 
     private static List<Punto> quicksort(List<Punto> puntos, int izq, int der, Comparator<Punto> comparador) {

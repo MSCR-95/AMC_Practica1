@@ -20,7 +20,6 @@ public class GeneraPuntos {
 
     //Para crearlos con 10 decimales
     public double decimales10(double numero) {
-        //long decimales = 10000000000;
         numero = Math.round(numero * 10000000000d) / 10000000000d;
         return numero;
     }
@@ -89,7 +88,6 @@ public class GeneraPuntos {
                 puntos.add(new Punto(ENT, D1, D2));
             }
         } catch (IOException e) {
-            //e.printStackTrace();
             System.out.println("El archivo no existe");
         }
     }
@@ -115,8 +113,6 @@ public class GeneraPuntos {
 
             for (int i = 0; i < listaPuntos.size(); i++) {
                 myWriter.write("\n" + (i + 1) + " " + listaPuntos.get(i).getX() + " " + listaPuntos.get(i).getY());
-                //myWriter.write("\n" + (i + 1) + " " + df.format(puntos.get(i).getX()) + " " + df.format(puntos.get(i).getY()));
-                //myWriter.write("\n" + puntos.get(i).getX() + " " + puntos.get(i).getY());
             }
 
             myWriter.close();

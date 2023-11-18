@@ -41,7 +41,6 @@ public class Algoritmos1B {
         //Calculo de los costos de los caminos
         System.out.println("Ruta Unidireccional");
         List<Punto> rutaUnidireccional = TSPUnidireccional(ciudades, rand);
-        //System.out.println("SOLUTION: " + calcularCostoTotal(rutaUnidireccional));
         System.out.println("SOLUTION:" + costoUni);
         imprimirRuta(rutaUnidireccional);
 
@@ -50,7 +49,6 @@ public class Algoritmos1B {
 
         System.out.println("\nRuta Bidireccional");
         List<Punto> rutaBidireccional = TSPBidireccional(ciudades, rand);
-        //System.out.println("SOLUTION: " + calcularCostoTotal(rutaBidireccional));
         System.out.println("SOLUTION: "+ costoBi);
         imprimirRuta(rutaBidireccional);
 
@@ -69,14 +67,14 @@ public class Algoritmos1B {
         int iguales = 0;
         int talla = 0;
 
-        int numIteraciones = 10; // Cambiar a la cantidad deseada de iteraciones
-        int tallaInicial = 100;  // Cambiar según tus necesidades iniciales
+        int numIteraciones = 10;    //Cambiar a la cantidad deseada de iteraciones
+        int tallaInicial = 100;     //Cambiar según tus necesidades iniciales
         System.out.println("Puede tardar unos minutos... espere por favor");
         for (int i = 0; i < numIteraciones; i++) {
             talla = tallaInicial + i * 100;     //incrementamos la talla por la diferencia que queramos
             GP.rellenarPuntos(talla, false);
             ciudades = GP.getListaPuntos();
-            // j es el numero de ejecuciones diferentes
+            //j es el numero de ejecuciones diferentes
             for (int j = 0; j < 100; j++) {
                 //numero aleatorio para la ciudad inicial
                 this.rand = generarNumeroAleatorio(GP.puntos.size() - 1);                
@@ -213,7 +211,7 @@ public class Algoritmos1B {
             Punto ciudadSiguiente = ruta.get(i + 1);
             costoTotal += Punto.distancia(ciudadActual, ciudadSiguiente);
         }
-        // Agregar el costo de regreso a la ciudad de inicio
+        //Agregar el costo de regreso a la ciudad de inicio
         costoTotal += Punto.distancia(ruta.get(numCiudades - 1), ruta.get(0));
 
         return costoTotal;
@@ -256,10 +254,10 @@ public class Algoritmos1B {
         }
     }
 
-    // Función para generar un número aleatorio entre 1 y el número pasado por parámetro
+    //Función para generar un numero aleatorio entre 1 y el numero pasado por parámetro
     private static int generarNumeroAleatorio(int maximo) {
         Random rand = new Random();
-        return rand.nextInt(maximo) + 1; // La expresión rand.nextInt(maximo) genera un número entre 0 y maximo - 1
+        return rand.nextInt(maximo) + 1;
     }
 
     //-----------OPCIONAL------------//
@@ -307,20 +305,20 @@ public class Algoritmos1B {
         generarPermutacionesRec(ciudades, 0, permutaciones);
         return permutaciones;
     }
-
+    //permutaciones son los diferentes caminos en los que podemos visitar las ciudades
     private void generarPermutacionesRec(List<Punto> ciudades, int indice, List<List<Punto>> permutaciones) {
         if (indice == ciudades.size()) {
             permutaciones.add(new ArrayList<>(ciudades));
             return;
         }
-
         for (int i = indice; i < ciudades.size(); i++) {
             intercambiar(ciudades, indice, i);
             generarPermutacionesRec(ciudades, indice + 1, permutaciones);
             intercambiar(ciudades, indice, i); //Deshacemos el intercambio
         }
     }
-
+    
+    //intercambiamos dos elementos de la lista
     private void intercambiar(List<Punto> ciudades, int i, int j) {
         Punto temp = ciudades.get(i);
         ciudades.set(i, ciudades.get(j));
