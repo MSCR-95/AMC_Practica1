@@ -6,6 +6,7 @@ package acm_practica1;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,6 +37,7 @@ public class VisualParte1A extends javax.swing.JFrame {
     private final GeneraPuntos GP = new GeneraPuntos();
     private boolean casoPeor = false;
     private MyTableModel tableModel;
+    private static DecimalFormat df = new DecimalFormat("#.########");
 
     /**
      * Creates new form VisualParte1A
@@ -566,14 +568,69 @@ public class VisualParte1A extends javax.swing.JFrame {
         Object[] columnNames = {"", "Exhaustivo", "Exhaustivo con poda", "Divide y venceras", "Divide y venceras mejorado"};
         tableModel = new MyTableModel(columnNames, 0); // 0 indica que inicialmente no hay filas
         table.setModel(tableModel);
-
-        int numIteraciones = 1;
-        int tallaInicial = 5000;
-        Algoritmos algoritmo = new Algoritmos();
-        GeneraPuntos GP = new GeneraPuntos();
+        
+        //int numIteraciones = 1;
+        //int tallaInicial = 5000;
+        //Algoritmos algoritmo = new Algoritmos();
+        //GeneraPuntos GP = new GeneraPuntos();
         Object[] columnNames2 = {"Talla", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)"};
         tableModel.addRow(columnNames2);
-
+        Algoritmos algoritmos = new Algoritmos();
+        int numIteraciones = 5;
+        int tallaInicial = 1000;
+        Algoritmos algoritmo = new Algoritmos();
+        GeneraPuntos GP = new GeneraPuntos();
+        //Object[] columnNames2 = {"Talla", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)", "tiempo(mseg)"};
+        //tableModel.addRow(columnNames2);
+        Solucion s2;
+        System.out.println("CASO PEOR ES: " + casoPeor);
+        for (int i = 0; i < numIteraciones; i++) {
+            int talla = tallaInicial + i * 1000;
+            //GP = new GeneraPuntos();
+            GP.rellenarPuntos(talla, casoPeor);
+            List<Punto> puntos = GP.getListaPuntos();
+            
+            //PARA PRUEBAS
+            /////////////////////////////////////////
+            System.out.println("EXHAUSTIVO ANTIGUO");
+            System.out.println("talla: " + talla);
+            sExha = algoritmos.busquedaExhaustiva(puntos);
+            System.out.println("Puntos: ");
+            System.out.println(sExha.p1 + "  " + sExha.p2);
+            System.out.println("Distancia: " + df.format(sExha.dMin));
+            System.out.println("Comparaciones: " + sExha.nComparaciones);
+            System.out.println("Tiempo: " + sExha.time);
+            /////////////////////////////////////////
+            System.out.println("\nEXHAUSTIVO CON PODA");
+            System.out.println("talla: " + talla);
+            sExhaPoda = algoritmos.busquedaConPoda(puntos);
+            System.out.println("Puntos: ");
+            System.out.println(sExhaPoda.p1 + "  " + sExhaPoda.p2);
+            System.out.println("Distancia: " + df.format(sExhaPoda.dMin));
+            System.out.println("Comparaciones: " + sExhaPoda.nComparaciones);
+            System.out.println("Tiempo: " + sExhaPoda.time);
+            /////////////////////////////////////////
+            System.out.println("\nDIVIDE Y VENCERAS");
+            System.out.println("talla: " + talla);
+            sDyV = algoritmos.DyV(puntos);
+            System.out.println("Puntos: ");
+            System.out.println(sDyV.p1 + "  " + sDyV.p2);
+            System.out.println("Distancia: " + df.format(sDyV.dMin));
+            System.out.println("Comparaciones: " + sDyV.nComparaciones);
+            System.out.println("Tiempo: " + sDyV.time);
+            /////////////////////////////////////////
+            System.out.println("\nDIVIDE Y VENCERAS MEJORADO");
+            System.out.println("talla: " + talla);
+            sDyVMejorado = algoritmos.DyVMejorado(puntos);
+            System.out.println("Puntos: ");
+            System.out.println(sDyVMejorado.p1 + "  " + sDyVMejorado.p2);
+            System.out.println("Distancia: " + df.format(sDyVMejorado.dMin));
+            System.out.println("Comparaciones: " + sDyVMejorado.nComparaciones);
+            System.out.println("Tiempo: " + sDyVMejorado.time);
+            
+            tableModel.addRow(new Object[]{talla, sExha.time, sExhaPoda.time, sDyV.time, sDyVMejorado.time});
+        }
+        /*
         for (int i = 0; i < numIteraciones; i++) {
             int talla = tallaInicial + i * 1000;
             //GP = new GeneraPuntos();
@@ -603,7 +660,9 @@ public class VisualParte1A extends javax.swing.JFrame {
             //System.out.println("talla      tiempo(mseg) S1         tiempo(mseg)S2        Distancia_S1         Distancia_S2");
             //System.out.println(talla + "       " + sExha.time + "          " + sExhaPoda.time + "             " + sDyV.time + "              " + sDyVMejorado.time);
             //System.out.println("**********************************************");
+            
         }
+*/
     }
 
     private void puntosMasGrandes() {

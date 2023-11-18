@@ -103,12 +103,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        /*
-        VisualParte1bOpcional frameOpcional = new VisualParte1bOpcional();
-        frameOpcional.setVisible(true);
-        frameOpcional.setLocationRelativeTo(null);
-        frameOpcional.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        */
+
         VisualParte1A frame = new VisualParte1A();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);

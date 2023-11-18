@@ -281,12 +281,6 @@ public class Algoritmos1B {
     }
 
     public List<Punto> calcularSolucionOptima(List<Punto> ciudades) {
-        /*
-        if (ciudades.size() > 12) {
-            System.out.println("Para calcular la ruta optima, la lista no puede tener mas de 12 puntos.");
-            return;
-        }
-         */
 
         double startTime = System.nanoTime();
         List<Punto> mejorRuta = null;
@@ -304,12 +298,7 @@ public class Algoritmos1B {
 
         double endTime = System.nanoTime();
         tiempoFuerzaBruta = (endTime - startTime) / 1e6;
-        /*
-        System.out.println("Ruta Optima");
-        imprimirRuta(mejorRuta);
-        System.out.println("SOLUTION: " + mejorCosto);
-        System.out.println("Tiempo de ejecucion: " + decimales4(tiempoFuerzaBruta) + " ms");
-         */
+
         return mejorRuta;
     }
 
@@ -328,7 +317,7 @@ public class Algoritmos1B {
         for (int i = indice; i < ciudades.size(); i++) {
             intercambiar(ciudades, indice, i);
             generarPermutacionesRec(ciudades, indice + 1, permutaciones);
-            intercambiar(ciudades, indice, i); // Deshacer el intercambio para volver al estado original
+            intercambiar(ciudades, indice, i); //Deshacemos el intercambio
         }
     }
 
